@@ -12,27 +12,12 @@
 
 #include "minishell.h"
 
-int	env_init(char **envp)
+char	*prompt_set(t_env_v	**env)
 {
-	int		i;
-
-	i = 0;
-	while (envp[i] != NULL)
-		i++;
-	g_shell.envp = malloc((i + 1) * sizeof(char *));
-	if (g_shell.envp == NULL)
-		return (-1);
-	i = 0;
-	while (envp[i] != NULL)
-	{
-		g_shell.envp[i] = ft_strdup(envp[i]);
-		if (g_shell.envp[i] == NULL)
-			return (env_free());
-		i++;
-	}
-	g_minishell.env[i] = NULL;
-	//env_unset("P_PWD", 0, 0, NULL);
-	return (0);
+	if (env_get_value() != NULL)
+		prompt = 
+	else
+		prompt = BLUE"minishell$ "RESETCOLOR;
 }
 
 int	shell_init(t_env_v	**env, char **envp, char *prompt)
@@ -40,17 +25,18 @@ int	shell_init(t_env_v	**env, char **envp, char *prompt)
 	char	*env_value;
 
 	env_init(env, envp);
-	env_value = env_get("SHLVL", 0, NULL, NULL);
+	env_value = env_get_value(*env, "SHLVL");
 	if (env_value)
 	{
 		env_value = ft_itoa(ft_atoi(env_value) + 1);
-		env_set("SHLVL", env_value, 0, NULL);
+		env_replace(env, "SHLVL", env_value, 1);
 		free(env_value);
 	}
 	env_value = getcwd(NULL, 1000);
 	env_value = ft_strjoinfree(env_value, "/minishell", 1);
-	env_set("SHELL", env_value, 0, NULL);
+	env_replace(env, "SHELL", env_value, 1);
 	free(env_value);
+	prompt = prompt_set(env);
 	return (0);
 }
 

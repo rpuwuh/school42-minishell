@@ -14,7 +14,7 @@
 
 void	ft_exit(char **args, int ctrl_d, t_env_v *env_v)
 {
-	if (ctrl_d == true)
+	if (ctrl_d == TRUE)
 	{
 		rl_replace_line("", 0);
 		printf("\33[1A");
@@ -25,11 +25,11 @@ void	ft_exit(char **args, int ctrl_d, t_env_v *env_v)
 	rl_clear_history();
 	if (args != NULL && args[1] != NULL)
 	{
-		if (ft_isnum(args[1]) == false)
-			ft_write_error("exit", args[1], "numeric argument required");
+		if (ft_isnum(args[1]) == FALSE)
+			exit_with_error("exit", args[1], "numeric argument required");
 		else if (args[2] != NULL)
 		{
-			ft_write_error(NULL, "exit", "too many arguments");
+			exit_with_error(NULL, "exit", "too many arguments");
 			return ;
 		}
 		exit(free_arg(args, env_v));
