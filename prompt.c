@@ -18,5 +18,5 @@ char	*mini_getprompt(t_prompt prompt)
 		prompt_full = ft_strjoin(prompt_full, RED);
 	prompt_full = ft_strjoin(prompt_full, "$ ");
 	prompt_full = ft_strjoin(prompt_full, DEFAULT);
-	return (prompt_full);
+	return (prompt_fullrm .);
 }
