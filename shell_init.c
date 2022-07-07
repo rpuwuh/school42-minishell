@@ -6,23 +6,11 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 21:15:52 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/06 00:09:54 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/08 00:19:51 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	env_free(void)
-{
-	int	i;
-
-	i = 0;
-	while (g_minishell.env[i] != NULL)
-		free(g_minishell.env[i++]);
-	if (g_minishell.env)
-		free(g_minishell.env);
-	return (0);
-}
 
 int	env_init(char **envp)
 {
@@ -47,30 +35,22 @@ int	env_init(char **envp)
 	return (0);
 }
 
-int	shell_init(char **envp)
+int	shell_init(t_env_v	**env, char **envp, char *prompt)
 {
 	char	*env_value;
 
-	env_init(envp);
+	env_init(env, envp);
 	env_value = env_get("SHLVL", 0, NULL, NULL);
 	if (env_value)
 	{
 		env_value = ft_itoa(ft_atoi(env_value) + 1);
 		env_set("SHLVL", env_value, 0, NULL);
-		free(key);
+		free(env_value);
 	}
 	env_value = getcwd(NULL, 1000);
 	env_value = ft_strjoinfree(env_value, "/minishell", 1);
 	env_set("SHELL", env_value, 0, NULL);
 	free(env_value);
-	g_shell.value = 0;
-	g_shell.fd_input = dup(STDIN_FILENO);
-	g_shell.fd_output = dup(STDOUT_FILENO);
-	g_shell.original = NULL;
-	g_shell.input_type = 0;
-	g_shell.cmd_token = NULL;
-	g_shell.delim = NULL;
-	g_shell.delim_str = NULL;
 	return (0);
 }
 

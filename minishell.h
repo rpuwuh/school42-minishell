@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/07/06 00:09:38 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/08 00:41:51 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@
 # include <curses.h>
 # include <term.h>
 
-# define INCORRECT_INPUT "Incorrect input: no arguments required"
+# define INCORRECT_INPUT "no arguments required for ./minishell"
 # define CMD_NOTFOUND "command not found"
 # define OLDPWD_CODE 667
 # define OLDPWD_ERR "OLDPWD not set"
 # define ENOENT_ERR "No such file or directory"
 # define ENOTDIR_ERR "Not a directory"
 # define EACCES_ERR "Permission denied"
-# define KERNEL_REGISTER "failed to register interrupts with kernel"
+# define KERNEL_REG "Failed to catch interruptions with kernel"
 # define INV_ID "not a valid identifier"
 # define UNEX_TOKEN "syntax error near unexpected token"
 # define IS_DIR "is a directory"
@@ -51,49 +51,52 @@
 # define TRUNC 5
 # define SEP 6
 
-typedef struct s_command
+# define CTRL_D 1
+# define UNKNOWN_COMMAND 0
+# define TRUE 1
+# define FALSE 0
+
+typedef struct s_cmd
 {
-	char		**args;
-	int			nb_args;
-}				t_command;
+	char				*cmd;
+	char				*arguments;
+	bool				redirection;
+	pid_t				fd;
+	struct s_cmd	*next;
+}						t_cmd;
 
-typedef struct s_token	t_token;
+typedef struct s_cmd_list
+{
+	int				count;
+	struct s_cmd	*cmd_list;
+	int 			fd_out;
+}					t_cmd_list;
 
-// Struct for tokens we get after we parse
+typedef struct s_env_v
+{
+	char			*name;
+	char			*value;
+	int				export;
+	struct s_env_v	*next;
+}					t_env_v;
 
 typedef struct s_token
 {
+	int				idx;
+	t_token_type	type;
 	char			*value;
-	int				type;
-	t_token			*nxt;
-	t_token			*prv;
-}					t_token;
+	struct s_token	*next;
+}				t_token;
 
-// Global variable -- all data for our shell
+typedef enum e_token_type{
+	NONE,
+	ARG,
+	TRUNC,
+	INPUT,
+	APPEND,
+	PIPE,
+	HEREDOC
+}			t_token_type;
 
-typedef struct s_shell
-{
-	int				value;
-	char			**envp;
-	char			**path_list;
-	char			*on_start;
-	t_token			*tokens;
-	char			*prompt;
-	int				fd_input;
-	int				fd_output;
-	int				double_slash;
-	t_token			*cmd_token;
-	int				in_pipe;
-	int				out_pipe;
-	int				l_pipe[2];
-	int				r_pipe[2];
-	t_cmd			*cmd;
-	int				input_type;
-	char			*delim;
-	char			*delim_str;
-	int				delim_pipes[2];
-}					t_shell;
-
-t_shell					g_shell;
 
 #endif
