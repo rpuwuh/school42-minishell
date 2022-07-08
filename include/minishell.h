@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/07/08 17:56:12 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/09 00:35:54 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,13 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <errno.h>
-# include "libft.h"
 # include <termios.h>
+# include <string.h>
 # include <signal.h>
 # include <curses.h>
 # include <term.h>
+# include "libft.h"
+# include <sys/ioctl.h>
 
 # define INCORRECT_INPUT "no arguments required for ./minishell"
 # define CMD_NOTFOUND "command not found"
@@ -42,29 +44,17 @@
 # define UNEX_TOKEN "syntax error near unexpected token"
 # define IS_DIR "is a directory"
 
-# define DEFAULT "\001\033[0;39m\002"
-# define GRAY "\001\033[1;90m\002"
-# define RED "\001\033[1;91m\002"
-# define GREEN "\001\033[1;92m\002"
-# define YELLOW "\001\033[1;93m\002"
-# define BLUE "\001\033[1;94m\002"
-# define MAGENTA "\001\033[1;95m\002"
-# define CYAN "\001\033[1;96m\002"
-# define WHITE "\001\033[0;97m\002"
-
-# define UNKNOWN -1
-# define CMD 0
-# define PIPE 1
-# define DELIMITER 2
-# define APPEND 3
-# define INPUT 4
-# define TRUNC 5
-# define SEP 6
+# define BLUE "\033[38;5;36m"
+# define RED "\033[0;31m"
+# define YELLOW "\033[0;33m"
+# define RESETCOLOR "\033[0m"
 
 # define CTRL_D 1
 # define UNKNOWN_COMMAND 0
 # define TRUE 1
 # define FALSE 0
+
+extern int	g_status;
 
 typedef struct s_cmd
 {
@@ -72,14 +62,14 @@ typedef struct s_cmd
 	char				*arguments;
 	bool				redirection;
 	pid_t				fd;
-	struct s_cmd	*next;
+	struct s_cmd		*next;
 }						t_cmd;
 
 typedef struct s_cmd_list
 {
 	int				count;
 	struct s_cmd	*cmd_list;
-	int 			fd_out;
+	int				fd_out;
 }					t_cmd_list;
 
 typedef struct s_env_v
@@ -89,14 +79,6 @@ typedef struct s_env_v
 	int				export;
 	struct s_env_v	*next;
 }					t_env_v;
-
-typedef struct s_token
-{
-	int				idx;
-	t_token_type	type;
-	char			*value;
-	struct s_token	*next;
-}				t_token;
 
 typedef enum e_token_type{
 	NONE,
@@ -108,5 +90,24 @@ typedef enum e_token_type{
 	HEREDOC
 }			t_token_type;
 
+typedef struct s_token
+{
+	int				idx;
+	t_token_type	type;
+	char			*value;
+	struct s_token	*next;
+}				t_token;
+
+int		ft_shell_init(t_env_v	**env, char **envp, char *prompt);
+void	ft_exit_with_error(char *func, char *msg);
+void	ft_exit(char **args, int ctrl_d, t_env_v *env_v);
+char	*ft_env_get_value(t_env_v *env_v, char *name);
+char	*ft_get_prompt(t_env_v	**env);
+t_env_v	*ft_env_create(void);
+void	ft_env_add(t_env_v **env_v, char *name, char *value, int export);
+void	ft_env_free(t_env_v **env_v);
+void	ft_env_init(t_env_v **env, char **envp);
+void	ft_env_replace(t_env_v **env_v, char *name, char *value, int export);
+void	ft_parser(char *line, t_env_v **env, char	**envp);
 
 #endif

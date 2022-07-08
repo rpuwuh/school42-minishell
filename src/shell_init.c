@@ -6,37 +6,29 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 21:15:52 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/08 17:56:58 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/09 00:36:42 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
-char	*prompt_set(t_env_v	**env)
-{
-	if (env_get_value() != NULL)
-		prompt = 
-	else
-		prompt = BLUE"minishell$ "RESETCOLOR;
-}
-
-int	shell_init(t_env_v	**env, char **envp, char *prompt)
+int	ft_shell_init(t_env_v	**env, char **envp, char *prompt)
 {
 	char	*env_value;
 
-	env_init(env, envp);
-	env_value = env_get_value(*env, "SHLVL");
+	ft_env_init(env, envp);
+	env_value = ft_env_get_value(*env, "SHLVL");
 	if (env_value)
 	{
 		env_value = ft_itoa(ft_atoi(env_value) + 1);
-		env_replace(env, "SHLVL", env_value, 1);
+		ft_env_replace(env, "SHLVL", env_value, 1);
 		free(env_value);
 	}
 	env_value = getcwd(NULL, 1000);
-	env_value = ft_strjoinfree(env_value, "/minishell", 1);
-	env_replace(env, "SHELL", env_value, 1);
+	env_value = ft_strjoin(env_value, "/minishell");
+	ft_env_replace(env, "SHELL", env_value, 1);
 	free(env_value);
-	prompt = prompt_set(env);
+	prompt = ft_get_prompt(env);
+	ft_env_add(env, ft_strdup("?"), ft_strdup("0"), FALSE);
 	return (0);
 }
-

@@ -6,11 +6,26 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 00:03:20 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/08 00:32:16 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/09 00:36:49 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-t_env_v	*env_create(void)
+#include "../include/minishell.h"
+
+void	ft_lstadd_back_env(t_env_v **env, t_env_v *new)
+{
+	t_env_v	*tmp;
+
+	if (env && new)
+	{
+		tmp = *env;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+}
+
+t_env_v	*ft_env_create(void)
 {
 	t_env_v	*env_empty;
 
@@ -21,18 +36,18 @@ t_env_v	*env_create(void)
 	return (env_empty);
 }
 
-void	env_add(t_env_v **env_v, char *name, char *value, int export)
+void	ft_env_add(t_env_v **env_v, char *name, char *value, int export)
 {
 	t_env_v	*env_new;
 
-	env_new = env_init();
+	env_new = ft_env_create();
 	env_new->name = name;
 	env_new->value = value;
 	env_new->export = export;
-	ft_lstadd_back(env_v, env_new);
+	ft_lstadd_back_env(env_v, env_new);
 }
 
-void	env_free(t_env_v **env_v)
+void	ft_env_free(t_env_v **env_v)
 {
 	t_env_v	*env_next;
 
@@ -45,9 +60,9 @@ void	env_free(t_env_v **env_v)
 		*env_v = env_next;
 	}
 	*env_v = NULL;
-}                                                                                                                                                                
+}
 
-void	env_replace(t_env_v **env_v, char *name, char *value, int export)
+void	ft_env_replace(t_env_v **env_v, char *name, char *value, int export)
 {
 	t_env_v	*tmp;
 
