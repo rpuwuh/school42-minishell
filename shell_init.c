@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 21:15:52 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/08 00:19:51 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/08 17:56:58 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,3 @@ int	shell_init(t_env_v	**env, char **envp, char *prompt)
 	return (0);
 }
 
-int	shell_clear(void)
-{
-	g_shell.tokens = NULL;
-	g_shell.cmd_token = NULL;
-	g_shell.original = NULL;
-	if (g_shell.delim_str == NULL)
-	{
-		g_shell.delim_str = (char *)malloc(sizeof(char));
-		if (!g_shell.delim_str)
-			return (1);
-		g_minishell.delim_str[0] = '\0';
-	}
-	return (0);
-}
