@@ -4,7 +4,7 @@ OBJDIR=./obj/
 
 HEADER = minishell.h
 
-SRC =
+SRC = executer.c
 
 SRC_O = $(addprefix $(OBJDIR),$(SRC:.c=.o))
 
@@ -12,8 +12,11 @@ CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra
 
+LIBFLAGS = -I /goinfre/bpoetess/.brew/Cellar/readline/8.1.2/include/readline/ -L\
+	/goinfre/bpoetess/.brew/Cellar/readline/8.1.2/lib/ -lreadline
+
 $(NAME): $(OBJDIR) $(OBJDIR)$(NAME).o $(SRC_O) $(HEADER) Makefile
-	$(CC) $(CFLAGS) $(OBJDIR)$(NAME).o $(SRC_O) -lreadline -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJDIR)$(NAME).o $(SRC_O) -o $(NAME) $(LIBFLAGS)
 
 $(OBJDIR):
 	mkdir $(OBJDIR)
