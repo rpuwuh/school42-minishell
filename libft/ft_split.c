@@ -6,13 +6,13 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 22:29:41 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/08 21:41:46 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/09 22:49:04 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free_split(char **s)
+void	ft_free_line(char **s)
 {
 	int	i;
 

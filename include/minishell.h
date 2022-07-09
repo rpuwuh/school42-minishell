@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/07/09 00:35:54 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/10 00:03:20 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@
 # define TRUE 1
 # define FALSE 0
 
-extern int	g_status;
+int	g_status;
 
 typedef struct s_cmd
 {
@@ -98,16 +98,25 @@ typedef struct s_token
 	struct s_token	*next;
 }				t_token;
 
-int		ft_shell_init(t_env_v	**env, char **envp, char *prompt);
-void	ft_exit_with_error(char *func, char *msg);
-void	ft_exit(char **args, int ctrl_d, t_env_v *env_v);
-char	*ft_env_get_value(t_env_v *env_v, char *name);
-char	*ft_get_prompt(t_env_v	**env);
-t_env_v	*ft_env_create(void);
-void	ft_env_add(t_env_v **env_v, char *name, char *value, int export);
-void	ft_env_free(t_env_v **env_v);
-void	ft_env_init(t_env_v **env, char **envp);
-void	ft_env_replace(t_env_v **env_v, char *name, char *value, int export);
-void	ft_parser(char *line, t_env_v **env, char	**envp);
+int				ft_shell_init(t_env_v	**env, char **envp, char *prompt);
+void			ft_exit_with_error(char *func, char *msg);
+void			ft_exit(char **args, int ctrl_d, t_env_v *env_v);
+char			*ft_env_get_value(t_env_v *env_v, char *name);
+char			*ft_get_prompt(t_env_v	**env);
+t_env_v			*ft_env_create(void);
+void			ft_env_add(t_env_v **env_v, char *name,
+					char *value, int export);
+void			ft_env_free(t_env_v **env_v);
+void			ft_env_init(t_env_v **env, char **envp);
+void			ft_env_replace(t_env_v **env_v, char *name,
+					char *value, int export);
+void			ft_parser(char *line, t_env_v **env, char	**envp);
+char			*ft_remove_extra_spaces(char *s);
+int				ft_quotes_correct(char *s, int pos, char symb1, char symb2);
+static int		ft_get_fd(int	*fd_list);
+static int		ft_redirect_check(char *s);
+static int		ft_quotes_check(char *s);
+t_token			*ft_tokens_init(void);
+static void		ft_tokens_get(t_token *tokens, char **line);
 
 #endif

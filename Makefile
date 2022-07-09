@@ -4,7 +4,7 @@ OBJ_DIR	:= obj/
 OBJ_DIRS = $(OBJ_DIR)
 
 
-MINISHELL_PRE_SRCS = 	main env_init env_utils exit prompt shell_init
+MINISHELL_PRE_SRCS = 	main env_init env_utils exit prompt shell_init parser tokens
 MINISHELL_SRCS = $(addsuffix .c, $(addprefix $(SRC_DIR), $(MINISHELL_PRE_SRCS)))
 MINISHELL_OBJS = $(addsuffix .o, $(addprefix $(OBJ_DIR), $(MINISHELL_PRE_SRCS)))
 
@@ -18,7 +18,7 @@ RM = rm -f
 all:	$(MINISHELL_NAME)
 
 $(MINISHELL_NAME): lib $(OBJ_DIRS) $(MINISHELL_OBJS)
-	$(CC) $(CFLAGS) $(MINISHELL_OBJS) -lreadline -lncurses libft.a -L $(HOME)/goinfre/.brew/opt/readline/lib/ -o $(MINISHELL_NAME) 
+	$(CC) $(CFLAGS) $(MINISHELL_OBJS) -lncurses libft.a -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline -o $(MINISHELL_NAME) 
 	echo "----- \033[32m $@ compiled\033[0m  -----"
 
 $(OBJ_DIRS):

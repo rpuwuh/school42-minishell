@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/09 00:36:43 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/09 23:51:20 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_pipes_exist(t_token *tokens)
 	return (false);
 }
 
-void	ft_parse_redirections(t_env *env, t_token *tokens)
+void	ft_parse_redirections(t_env_v **env, t_token *tokens)
 {
 	int		pid;
 	int		fd_in;
@@ -50,11 +50,11 @@ void	ft_parse_redirections(t_env *env, t_token *tokens)
 	arr = create_array(tokens);
 	if (arr == NULL)
 		return ;
-	fd_in = get_fd(arr[0]);
-	fd_out = get_fd(arr[1]);
+	fd_in = ft_get_fd(arr[0]);
+	fd_out = ft_get_fd(arr[1]);
 	pid = fork();
 	if (pid == 0)
-		parse_red_child(tokens, fd_in, fd_out, env);
+		ft_parse_red_child(tokens, fd_in, fd_out, env);
 	else
 	{
 		close(fd_in);
@@ -64,7 +64,19 @@ void	ft_parse_redirections(t_env *env, t_token *tokens)
 	free(arr[0]);
 	free(arr[1]);
 	free(arr);
-	remove_heredoc(env);
+	ft_remove_heredoc(env);
+}
+
+t_token	*ft_lexer(char **line)
+{
+	t_token	*tokens;
+
+	if (line == NULL)
+		return (NULL);
+	tokens = ft_tokens_init();
+	ft_tokens_get(tokens, line);
+	ft_free_line(line);
+	return (tokens);
 }
 
 void	ft_parser(char *line, t_env_v **env, char	**envp)
@@ -72,23 +84,23 @@ void	ft_parser(char *line, t_env_v **env, char	**envp)
 	t_token	*tokens;
 	char	**input;
 
-	line = env_vars(line, env->env_v); //checks $$ at the end of the line (?)
-	line = remove_extra_spaces(line);
-	tokens = lexer(ft_split(line, ' '));
-	if (line[0] != '\0' && check_redirections(line) && check_quotes(line))
+	//line = env_vars(line, env->env_v); //checks $$ at the end of the line (?)
+	line = ft_remove_extra_spaces(line);
+	tokens = ft_lexer(ft_split(line, ' '));
+	if (line[0] != '\0' && ft_redirect_check(line) && ft_quotes_check(line))
 	{
-		remove_quotes(tokens);
+		ft_remove_quotes(tokens);
 		if (ft_pipes_exist(tokens) == true)
-			ft_pipe(tokens, env, 0);
+			ft_parse_pipe(tokens, env, 0);
 		else if (ft_redirections_exist(tokens) == true)
-			parse_redirections(env, tokens);
+			ft_parse_redirections(env, tokens);
 		else
 		{
-			input = convert_tokens(tokens);
+			input = ft_convert_tokens(tokens);
 			if (input != NULL && input[0] != NULL)
-				executer(input, env);
+				ft_executer(input, env, envp);
 			if (input != NULL)
-				ft_free_split(input);
+				ft_free_line(input);
 		}
 	}
 	ft_free_tokens(tokens);

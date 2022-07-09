@@ -6,37 +6,52 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:56:08 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/09 00:36:45 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/09 23:50:19 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_quotes_correct(char *s, int pos, char quote, char other)
+static int	ft_get_fd(int	*fd_list)
 {
-	int	count;
-	int	count_other;
 	int	i;
 
-	if (quote == '"' && ft_quotes_correct(s, pos, '\'', '"') == 1)
-		return (true);
-	count = 0;
-	count_other = 0;
+	i = 0;
+	while (fd_list[i] != -1)
+	{
+		if (fd_list[i + 1] == -1)
+			return (fd_list[i]);
+		close(fd_list[i]);
+		i++;
+	}
+	return (-1);
+}
+
+int	ft_quotes_correct(char *s, int pos, char symb1, char symb2)
+{
+	int	count_symb1;
+	int	count_symb2;
+	int	i;
+
+	if (symb1 == '"' && ft_quotes_correct(s, pos, '\'', '"') == 1)
+		return (TRUE);
+	count_symb1 = 0;
+	count_symb2 = 0;
 	i = 0;
 	while (i < pos)
 	{
-		if (s[i] == other && count % 2 == 0)
-			count_other++;
-		else if (s[i] == quote && count_other % 2 == 0)
-			count++;
+		if (s[i] == symb2 && count_symb1 % 2 == 0)
+			count_symb2++;
+		else if (s[i] == symb1 && count_symb2 % 2 == 0)
+			count_symb1++;
 		i++;
 	}
-	if (count % 2 == 0)
-		return (false);
-	return (true);
+	if (count_symb1 % 2 == 0)
+		return (FALSE);
+	return (TRUE);
 }
 
-int	check_quotes(char *s)
+static int	ft_quotes_check(char *s)
 {
 	if (ft_quotes_correct(s, ft_strlen(s), '"', '\'') == FALSE)
 		return (TRUE);
@@ -44,17 +59,17 @@ int	check_quotes(char *s)
 	return (FALSE);
 }
 
-static int	check_space(char *s, int i)
+static int	ft_check_space(char *s, int i)
 {
 	if (s[i] != ' ' || (i > 0 && s[i] == ' ' && s[i - 1] != ' '))
 		return (FALSE);
 	else if ((s[i] == ' '
-		&& ft_quotes_correct(s, i, '"', '\'') == TRUE))
+			&& ft_quotes_correct(s, i, '"', '\'') == TRUE))
 		return (FALSE);
 	return (TRUE);
 }
 
-char	*remove_extra_spaces(char *s)
+char	*ft_remove_extra_spaces(char *s)
 {
 	int		i;
 	int		size;
@@ -64,17 +79,17 @@ char	*remove_extra_spaces(char *s)
 	size = 0;
 	while (s[i] != '\0')
 	{
-		if (check_space(s, i) == FALSE)
+		if (ft_check_space(s, i) == FALSE)
 			size++;
 		i++;
 	}
-	ret = malloc(size + 1);
-	ret[size] = '\0';
+	word = malloc(size + 1);
+	word[size] = '\0';
 	while (i >= 0)
 	{
-		if (check_space(s, i) == FALSE)
+		if (ft_check_space(s, i) == FALSE)
 		{
-			ret[size] = s[i];
+			word[size] = s[i];
 			size--;
 		}
 		i--;

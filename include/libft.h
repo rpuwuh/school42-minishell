@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 23:15:23 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/08 21:42:01 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/09 22:48:16 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,6 @@ void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst,
 					void *(*f)(void *), void (*del)(void *));
 int				ft_strcmp(const char *s1, const char *s2);
-void			ft_free_split(char **s);
+void			ft_free_line(char **s);
 
 #endif

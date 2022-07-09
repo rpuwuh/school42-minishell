@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 21:56:02 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/09 00:36:51 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/09 23:48:44 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_env_init(t_env_v **env, char **envp)
 		(*env)->name = ft_strdup(split_str[0]);
 		(*env)->value = ft_strdup(split_str[1]);
 		(*env)->export = 1;
-		ft_free_split(split_str);
+		ft_free_line(split_str);
 		if (envp[i + 1] == NULL)
 			break ;
 		(*env)->next = ft_env_create();
