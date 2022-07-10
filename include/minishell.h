@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/07/10 00:03:20 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/11 00:17:52 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,18 @@ typedef enum e_token_type{
 	HEREDOC
 }			t_token_type;
 
+typedef enum e_quote_type{
+	NONE,
+	SINGLE,
+	DOUBLE
+}			t_quote_type;
+
 typedef struct s_token
 {
 	int				idx;
 	t_token_type	type;
 	char			*value;
+	t_quote_type	quote;
 	struct s_token	*next;
 }				t_token;
 
@@ -112,7 +119,7 @@ void			ft_env_replace(t_env_v **env_v, char *name,
 					char *value, int export);
 void			ft_parser(char *line, t_env_v **env, char	**envp);
 char			*ft_remove_extra_spaces(char *s);
-int				ft_quotes_correct(char *s, int pos, char symb1, char symb2);
+int				ft_quotes_open(char *s, int pos, char symb1, char symb2);
 static int		ft_get_fd(int	*fd_list);
 static int		ft_redirect_check(char *s);
 static int		ft_quotes_check(char *s);

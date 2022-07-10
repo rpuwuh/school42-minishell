@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:56:08 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/09 23:50:19 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/10 20:29:34 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ static int	ft_get_fd(int	*fd_list)
 	return (-1);
 }
 
-int	ft_quotes_correct(char *s, int pos, char symb1, char symb2)
+int	ft_quotes_open(char *s, int pos, char symb1, char symb2)
 {
 	int	count_symb1;
 	int	count_symb2;
 	int	i;
 
-	if (symb1 == '"' && ft_quotes_correct(s, pos, '\'', '"') == 1)
+	if (symb1 == '"' && ft_quotes_open(s, pos, '\'', '"') == 1)
 		return (TRUE);
 	count_symb1 = 0;
 	count_symb2 = 0;
@@ -53,7 +53,7 @@ int	ft_quotes_correct(char *s, int pos, char symb1, char symb2)
 
 static int	ft_quotes_check(char *s)
 {
-	if (ft_quotes_correct(s, ft_strlen(s), '"', '\'') == FALSE)
+	if (ft_quotes_open(s, ft_strlen(s), '"', '\'') == FALSE)
 		return (TRUE);
 	ft_exit_with_error("quotes", "not balanced out");
 	return (FALSE);
@@ -64,7 +64,7 @@ static int	ft_check_space(char *s, int i)
 	if (s[i] != ' ' || (i > 0 && s[i] == ' ' && s[i - 1] != ' '))
 		return (FALSE);
 	else if ((s[i] == ' '
-			&& ft_quotes_correct(s, i, '"', '\'') == TRUE))
+			&& ft_quotes_open(s, i, '"', '\'') == TRUE))
 		return (FALSE);
 	return (TRUE);
 }

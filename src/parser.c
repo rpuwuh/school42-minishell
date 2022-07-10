@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/09 23:51:20 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/11 00:21:01 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,19 +90,19 @@ void	ft_parser(char *line, t_env_v **env, char	**envp)
 	if (line[0] != '\0' && ft_redirect_check(line) && ft_quotes_check(line))
 	{
 		ft_remove_quotes(tokens);
-		if (ft_pipes_exist(tokens) == true)
-			ft_parse_pipe(tokens, env, 0);
-		else if (ft_redirections_exist(tokens) == true)
-			ft_parse_redirections(env, tokens);
+		if (ft_pipes_exist(tokens) == TRUE)
+			ft_pipe_parse(tokens, env, 0);
+		else if (ft_redirections_exist(tokens) == TRUE)
+			ft_redirections_parse(env, tokens);
 		else
 		{
-			input = ft_convert_tokens(tokens);
+			input = ft_tokens_convert(tokens);
 			if (input != NULL && input[0] != NULL)
 				ft_executer(input, env, envp);
 			if (input != NULL)
 				ft_free_line(input);
 		}
 	}
-	ft_free_tokens(tokens);
+	ft_tokens_free(tokens);
 	free(line);
 }
