@@ -12,8 +12,9 @@ CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra
 
-LIBFLAGS = -I /goinfre/bpoetess/.brew/Cellar/readline/8.1.2/include/readline/ -L\
-	/goinfre/bpoetess/.brew/Cellar/readline/8.1.2/lib/ -lreadline
+LIBFLAGS = -lreadline
+	#-I /goinfre/bpoetess/.brew/Cellar/readline/8.1.2/include/readline/ -L\
+	#/goinfre/bpoetess/.brew/Cellar/readline/8.1.2/lib/ -lreadline
 
 $(NAME): $(OBJDIR) $(OBJDIR)$(NAME).o $(SRC_O) $(HEADER) Makefile
 	$(CC) $(CFLAGS) $(OBJDIR)$(NAME).o $(SRC_O) -o $(NAME) $(LIBFLAGS)

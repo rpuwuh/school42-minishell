@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 22:44:27 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/07/08 02:06:53 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/07/11 19:21:19 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@
 # include <sys/types.h>
 # include <signal.h>
 # include <fcntl.h>
-# include </goinfre/bpoetess/.brew/Cellar/readline/8.1.2/include/readline/\
+
+# include <readline/readline.h>
+# include <readline/history.h>
+
+/*# include </goinfre/bpoetess/.brew/Cellar/readline/8.1.2/include/readline/\
 readline.h>
 # include </goinfre/bpoetess/.brew/Cellar/readline/8.1.2/include/readline/\
-history.h>
+// history.h>*/
 
 typedef struct	s_cmd t_cmd;
 
@@ -41,6 +45,8 @@ struct	s_cmd
 {
 	char		**cmd;
 	pid_t		pid;
+	int			fd_in;
+	int			fd_out;
 	t_cmd		*next;
 };
 
@@ -49,7 +55,6 @@ typedef struct s_cmd_list
 	int		count;
 	t_cmd	*cmds;
 	char	**env;
-	int		fd_out;
 }	t_cmd_list;
 
 void	executecmds(t_cmd_list *cmd_list);

@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/07/08 05:47:00 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/07/12 19:29:56 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	executecmd(t_cmd *cmd, char **env, int *fds)
 {
 	dup2(fds[1], 1);
 	close(fds[0]);
+	close(fds[1]);
 	execve(*(cmd->cmd), &(cmd->cmd)[1], env);
 }
 
@@ -26,7 +27,7 @@ static void	executelastcmd(t_cmd_list *cmd_list, t_cmd *cmd)
 		exit (10);
 	if (!cmd->pid)
 	{
-		dup2(cmd_list->fd_out, 1);
+		dup2(cmd->fd_out, 1);
 		execve(*(cmd->cmd), (cmd->cmd + 1), (cmd_list->env));
 	}
 	waitpid(cmd->pid, 0, 0);
@@ -34,6 +35,10 @@ static void	executelastcmd(t_cmd_list *cmd_list, t_cmd *cmd)
 	while (cmd)
 	{
 		kill(cmd->pid, SIGTERM);
+		if (cmd->fd_in)
+			close(cmd->fd_in);
+		if (cmd->fd_out != 1)
+			close(cmd->fd_out);
 		cmd = cmd->next;
 	}
 }
@@ -44,6 +49,7 @@ void	executecmds(t_cmd_list *cmd_list)
 	int		fds[2];
 
 	cmd = cmd_list->cmds;
+	dup2(cmd_list->cmds->fd_in, 0);
 	while (cmd->next)
 	{
 		if (pipe(fds) < 0)
@@ -55,6 +61,7 @@ void	executecmds(t_cmd_list *cmd_list)
 			executecmd(cmd, cmd_list->env, fds);
 		dup2(fds[0], 0);
 		close(fds[1]);
+		close(fds[0]);
 		cmd = cmd->next;
 	}
 	executelastcmd(cmd_list, cmd);
