@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/11 00:21:01 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/13 00:29:13 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_pipes_exist(t_token *tokens)
 	return (false);
 }
 
-void	ft_parse_redirections(t_env_v **env, t_token *tokens)
+void	ft_redirections_parse(t_env_v **env, t_token *tokens)
 {
 	int		pid;
 	int		fd_in;
@@ -91,9 +91,9 @@ void	ft_parser(char *line, t_env_v **env, char	**envp)
 	{
 		ft_remove_quotes(tokens);
 		if (ft_pipes_exist(tokens) == TRUE)
-			ft_pipe_parse(tokens, env, 0);
+			ft_pipe_parse(tokens, env, 0, envp);
 		else if (ft_redirections_exist(tokens) == TRUE)
-			ft_redirections_parse(env, tokens);
+			ft_redirections_parse(env, tokens, envp);
 		else
 		{
 			input = ft_tokens_convert(tokens);

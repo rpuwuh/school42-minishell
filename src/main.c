@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/09 23:48:38 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/12 23:30:43 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,27 @@ void	ft_exit_with_error(char *func, char *msg)
 	write(STDERR_FILENO, "\n", 1);
 	write(STDERR_FILENO, RESETCOLOR, ft_strlen(RESETCOLOR));
 	exit(EXIT_FAILURE);
+}
+
+int	ft_shell_init(t_env_v	**env, char **envp, char *prompt)
+{
+	char	*env_value;
+
+	ft_env_init(env, envp);
+	env_value = ft_env_get_value(*env, "SHLVL");
+	if (env_value)
+	{
+		env_value = ft_itoa(ft_atoi(env_value) + 1);
+		ft_env_replace(env, "SHLVL", env_value, 1);
+		free(env_value);
+	}
+	env_value = getcwd(NULL, 1000);
+	env_value = ft_strjoin(env_value, "/minishell");
+	ft_env_replace(env, "SHELL", env_value, 1);
+	free(env_value);
+	prompt = ft_get_prompt(env);
+	ft_env_add(env, ft_strdup("?"), ft_strdup("0"), FALSE);
+	return (0);
 }
 
 int	main(int argc, char **argv, char **envp)

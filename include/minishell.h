@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/07/11 00:17:52 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/13 00:30:54 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef enum e_token_type{
 }			t_token_type;
 
 typedef enum e_quote_type{
-	NONE,
+	NO_QOUTE,
 	SINGLE,
 	DOUBLE
 }			t_quote_type;
@@ -125,5 +125,11 @@ static int		ft_redirect_check(char *s);
 static int		ft_quotes_check(char *s);
 t_token			*ft_tokens_init(void);
 static void		ft_tokens_get(t_token *tokens, char **line);
+char			**ft_tokens_join(t_token *tokens);
+static void		ft_free_and_close(int *fd, char **input);
+static void		ft_pipe_process(char *input, int *fd,
+					t_env_v **env, int *tmp);
+static void		ft_iterate_join(char **pipe_part, t_token *tokens);
+char			**ft_tokens_convert(t_token *tokens);
 
 #endif
