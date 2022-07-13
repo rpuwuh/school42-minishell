@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 22:44:27 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/07/11 19:21:19 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/07/13 19:09:29 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 
 # include <readline/readline.h>
 # include <readline/history.h>
+
+# include "libft/libft.h"
 
 /*# include </goinfre/bpoetess/.brew/Cellar/readline/8.1.2/include/readline/\
 readline.h>
@@ -58,5 +60,6 @@ typedef struct s_cmd_list
 }	t_cmd_list;
 
 void	executecmds(t_cmd_list *cmd_list);
+void	builtin_pwd(void);
 
 #endif
