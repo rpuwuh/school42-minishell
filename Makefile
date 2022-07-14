@@ -4,7 +4,7 @@ OBJDIR=./obj/
 
 HEADER = minishell.h
 
-SRC = executer.c builtin_pwd.c
+SRC = executer.c builtins.c builtin_choose.c searchbinarypath.c
 
 SRC_O = $(addprefix $(OBJDIR),$(SRC:.c=.o))
 

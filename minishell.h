@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 22:44:27 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/07/13 19:09:29 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/07/15 01:40:20 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,10 @@
 
 # include "libft/libft.h"
 
-/*# include </goinfre/bpoetess/.brew/Cellar/readline/8.1.2/include/readline/\
-readline.h>
-# include </goinfre/bpoetess/.brew/Cellar/readline/8.1.2/include/readline/\
-// history.h>*/
-
-typedef struct	s_cmd t_cmd;
+/*# include </goinfre/bpoetess/.brew/Cellar/readline/8.1.2/include/
+	readline/readline.h>
+# include </goinfre/bpoetess/.brew/Cellar/readline/8.1.2/include/readline/
+history.h>*/
 
 /*
 
@@ -42,6 +40,8 @@ typedef struct	s_cmd t_cmd;
 ** next is for next command
  
 */
+
+typedef struct s_cmd	t_cmd;
 
 struct	s_cmd
 {
@@ -60,6 +60,16 @@ typedef struct s_cmd_list
 }	t_cmd_list;
 
 void	executecmds(t_cmd_list *cmd_list);
+
+int		builtin_check(char *cmd);
+void	choosefunc(t_cmd *cmd, char **env);
+
+void	builtin_echo(char **args);
 void	builtin_pwd(void);
+void	builtin_cd(char *path, char **env);
+void	builtin_exit(void);
+
+char	*searchbinarypath(char *cmd, char **env);
+int		checkexecutabless(t_cmd_list *cmd_list);
 
 #endif
