@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 00:03:20 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/09 23:48:41 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/15 02:56:37 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,13 @@ void	ft_env_free(t_env_v **env_v)
 	*env_v = NULL;
 }
 
-void	ft_env_replace(t_env_v **env_v, char *name, char *value, int export)
+void	ft_env_replace(t_env_v **env, char *name, char *value, int export)
 {
 	t_env_v	*tmp;
 
-	tmp = *env_v;
+	tmp = *env;
 	if (tmp != NULL && ft_strcmp(tmp->name, name) == 0)
 	{
-		free(tmp->value);
 		tmp->value = value;
 		tmp->export = export;
 		return ;
@@ -79,7 +78,6 @@ void	ft_env_replace(t_env_v **env_v, char *name, char *value, int export)
 	if (tmp == NULL)
 		return ;
 	free(tmp->value);
-	free(name);
 	tmp->value = value;
 	tmp->export = export;
 }

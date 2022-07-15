@@ -6,12 +6,38 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 22:34:34 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/08 22:42:45 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/15 03:08:20 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
+
+char	*ft_append(char *start, char *end)
+{
+	size_t	i;
+	size_t	j;
+	char	*tmp;
+
+	tmp = malloc(ft_strlen(start) + ft_strlen(end) + 1);
+	if (tmp == NULL)
+		return (NULL);
+	i = 0;
+	while (start[i] != '\0')
+	{
+		tmp[i] = start[i];
+		i++;
+	}
+	j = 0;
+	while (end[j] != '\0')
+	{
+		tmp[i] = end[j];
+		i++;
+		j++;
+	}
+	tmp[i] = '\0';
+	return (tmp);
+}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -36,6 +62,5 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		str[i++] = s2[j++];
 	str[i] = '\0';
 	free ((char *)s1);
-	free ((char *)s2);
 	return (str);
 }

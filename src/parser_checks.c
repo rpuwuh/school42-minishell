@@ -6,13 +6,13 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 23:13:26 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/10 20:29:32 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/15 03:39:37 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../include/minishell.h"
 
-static int	ft_cmd_or_file(char c)
+int	ft_cmd_or_file(char c)
 {
 	if (c > 32 && c < 127)
 	{
@@ -23,7 +23,7 @@ static int	ft_cmd_or_file(char c)
 	return (FALSE);
 }
 
-static int	ft_pipes_parsecheck(char *s)
+int	ft_pipes_parsecheck(char *s)
 {
 	int	i;
 
@@ -71,10 +71,10 @@ static int	ft_arrows_parsecheck(char *s, char arr_symb)
 		}
 		i++;
 	}
-	return (FALSE);
+	return (TRUE);
 }
 
-static int	ft_double_arrows_parsecheck(char *s, char arr_symb)
+int	ft_double_arrows_parsecheck(char *s, char arr_symb)
 {
 	int	i;
 
@@ -95,7 +95,7 @@ static int	ft_double_arrows_parsecheck(char *s, char arr_symb)
 	return (TRUE);
 }
 
-static int	ft_redirect_check(char *s)
+int	ft_redirect_check(char *s)
 {
 	if (ft_pipes_parsecheck(s) == FALSE)
 	{

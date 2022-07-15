@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 18:22:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/09 23:48:32 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/15 03:27:53 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ static char	*ft_get_home(t_env_v	**env)
 		pwd = ft_strdup("∅ ");
 	home = ft_env_get_value(*env, "HOME");
 	if (home && home[0] && ft_strnstr(pwd, home, ft_strlen(pwd)))
-		pwd = ft_strjoin("~", &pwd[ft_strlen(home)]);
+		pwd = ft_append("~", pwd + ft_strlen(home));
 	free(home);
-	pwd = ft_strjoin(BLUE, pwd);
-	pwd = ft_strjoin(pwd, " ");
-	pwd = ft_strjoin(" ", pwd);
-	pwd = ft_strjoin(pwd, RESETCOLOR);
+	pwd = ft_append(BLUE, pwd);
+	pwd = ft_append(pwd, " ");
+	pwd = ft_append(" ", pwd);
+	pwd = ft_append(pwd, RESETCOLOR);
 	return (pwd);
 }
 
@@ -38,13 +38,11 @@ static char	*ft_get_user(t_env_v	**env)
 
 	user = NULL;
 	temp = NULL;
-	user = ft_env_get_value(*env, "HOME");
+	user = ft_env_get_value(*env, "USER");
 	if (!user)
 		user = ft_strjoin(NULL, "guest");
-	temp = ft_strjoin(NULL, BLUE);
-	temp = ft_strjoin(temp, user);
-	free(user);
-	return (temp);
+	user = ft_append(BLUE, user);
+	return (user);
 }
 
 char	*ft_get_prompt(t_env_v	**env)
@@ -54,16 +52,16 @@ char	*ft_get_prompt(t_env_v	**env)
 	char	*prompt_full;
 
 	user = ft_get_user(env);
-	prompt_full = ft_strjoin(user, "@minishell");
+	prompt_full = ft_append(user, "@minishell");
 	free(user);
 	home = ft_get_home(env);
-	prompt_full = ft_strjoin(prompt_full, home);
+	prompt_full = ft_append(prompt_full, home);
 	free(home);
 	if (!g_status || g_status == -1)
-		prompt_full = ft_strjoin(prompt_full, BLUE);
+		prompt_full = ft_append(prompt_full, BLUE);
 	else
-		prompt_full = ft_strjoin(prompt_full, RED);
-	prompt_full = ft_strjoin(prompt_full, "$ ");
-	prompt_full = ft_strjoin(prompt_full, RESETCOLOR);
+		prompt_full = ft_append(prompt_full, RED);
+	prompt_full = ft_append(prompt_full, "$ ");
+	prompt_full = ft_append(prompt_full, RESETCOLOR);
 	return (prompt_full);
 }

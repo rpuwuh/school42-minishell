@@ -6,26 +6,11 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:56:08 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/10 20:29:34 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/15 02:49:15 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-static int	ft_get_fd(int	*fd_list)
-{
-	int	i;
-
-	i = 0;
-	while (fd_list[i] != -1)
-	{
-		if (fd_list[i + 1] == -1)
-			return (fd_list[i]);
-		close(fd_list[i]);
-		i++;
-	}
-	return (-1);
-}
 
 int	ft_quotes_open(char *s, int pos, char symb1, char symb2)
 {
@@ -51,7 +36,7 @@ int	ft_quotes_open(char *s, int pos, char symb1, char symb2)
 	return (TRUE);
 }
 
-static int	ft_quotes_check(char *s)
+int	ft_quotes_check(char *s)
 {
 	if (ft_quotes_open(s, ft_strlen(s), '"', '\'') == FALSE)
 		return (TRUE);
@@ -95,5 +80,5 @@ char	*ft_remove_extra_spaces(char *s)
 		i--;
 	}
 	free(s);
-	return (ret);
+	return (word);
 }
