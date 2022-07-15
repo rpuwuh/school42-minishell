@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 23:13:26 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/15 03:39:37 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/15 21:20:37 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_pipes_parsecheck(char *s)
 		}
 		i++;
 	}
-	return (true);
+	return (TRUE);
 }
 
 static int	ft_arrows_parsecheck(char *s, char arr_symb)

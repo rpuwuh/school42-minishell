@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 23:08:46 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/15 02:02:25 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/15 21:53:04 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ void ft_executer(t_cmd_list *cmd_list)
 	i = 0;
 	while (cmd_list->cmds->cmd[i])
 	{
-		printf("%s\n", cmd_list->cmds->cmd[i]);
+		printf("command = %s\n", cmd_list->cmds->cmd[i]);
 		i++;
 	}
+	printf("fd_in = %d\n", cmd_list->cmds->fd_in);
+	printf("fd_out = %d\n", cmd_list->cmds->fd_out);
 }
 
 static int	free_arg(char **args, t_env_v *env_v)

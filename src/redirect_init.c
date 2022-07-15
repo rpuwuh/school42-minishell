@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 00:41:41 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/15 02:30:16 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/16 01:14:10 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,14 @@ int	ft_fd_list_check(t_token *tokens,
 	return (TRUE);
 }
 
-int	**ft_redirect_init(t_token *tokens)
+int	**ft_redirect_init(t_token **token_list)
 {
 	int		**fd_list;
 	int		i;
 	int		check;
+	t_token	*tokens;
 
+	tokens = *token_list;
 	fd_list = (int **)malloc(2 * sizeof(int *));
 	if (fd_list == NULL)
 		return (NULL);

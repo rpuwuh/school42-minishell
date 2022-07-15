@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 23:14:08 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/15 02:33:12 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/16 01:15:23 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_add_cmd(t_cmd_list *cmd_list,
 	cmd_new->pid = 0;
 	cmd_temp = cmd_list->cmds;
 	while (cmd_temp && cmd_temp->next)
-		cmd_temp = cmd_temp -> next;
+		cmd_temp = cmd_temp->next;
 	if (cmd_temp)
 		cmd_temp->next = cmd_new;
 	else

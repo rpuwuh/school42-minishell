@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 23:53:24 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/15 02:28:11 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/16 00:53:17 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,13 @@ static char	*ft_quotes_replace(t_token *tmp, char c)
 	return (quoted);
 }
 
-void	ft_quotes_remove(t_token *tokens, t_env_v **env)
+void	ft_quotes_remove(t_token **tokens, t_env_v **env)
 {
 	t_token	*tmp;
 	char	symb;
 	int		i;
 
-	tmp = tokens;
+	tmp = *tokens;
 	i = 0;
 	while (tmp != NULL)
 	{
