@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/07/16 02:45:36 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/17 01:18:23 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,9 +118,9 @@ int				ft_redirect_check(char *s);
 int				ft_quotes_check(char *s);
 t_token			*ft_tokens_init(void);
 void			ft_tokens_get(t_token *tokens, char **line);
-void			ft_pipe_parse(t_token *tokens, t_cmd_list *cmd_list);
-void			ft_pipe_process(t_token *tokens_part, t_cmd_list *cmd_list);
-char			**ft_tokens_convert(t_token *tokens);
+void			ft_pipe_parse(t_token **tokens, t_cmd_list *cmd_list);
+void			ft_pipe_process(t_token **tokens_part, t_cmd_list *cmd_list);
+char			**ft_tokens_convert(t_token **tokens);
 int				ft_get_fd(int *fd_list);
 int				ft_redirect(char *filename, int type);
 int				**ft_redirect_init(t_token **tokens);
@@ -132,8 +132,8 @@ void			ft_heredoc_remove(t_cmd_list *cmd_list);
 void 			ft_executer(t_cmd_list *cmd_list);
 void			ft_tokens_free(t_token *tokens);
 int				ft_redirections_exist(t_token **tokens);
-void			ft_redirections_parse(t_token *tokens, t_cmd_list *cmd_list);
-void			ft_token_add(t_token *tokens, t_token *token_to_add);
+void			ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list);
+void			ft_token_add(t_token **tokens, t_token *token_to_add);
 void			ft_tokens_clean_last(t_token *tokens);
 
 #endif

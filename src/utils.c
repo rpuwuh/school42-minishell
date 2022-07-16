@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 23:14:08 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/16 01:15:23 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/17 02:57:18 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,9 @@ void	ft_add_cmd(t_cmd_list *cmd_list,
 	cmd_new->fd_out = fd_out;
 	cmd_new->pid = 0;
 	cmd_temp = cmd_list->cmds;
-	while (cmd_temp && cmd_temp->next)
-		cmd_temp = cmd_temp->next;
-	if (cmd_temp)
-		cmd_temp->next = cmd_new;
-	else
-		cmd_list->cmds = cmd_new;
+	cmd_new->next = cmd_temp;
+	cmd_temp = cmd_new;
+	cmd_list->cmds = cmd_temp;
 }
 
 int	ft_count_env(t_env_v	*tmp)
@@ -83,15 +80,15 @@ char	**ft_collect_envp(t_env_v **env)
 	return (envp);
 }
 
-char	**ft_tokens_convert(t_token *tokens)
+char	**ft_tokens_convert(t_token **tokens)
 {
 	char	**command;
 	t_token	*tmp;
 	int		i;
 
-	tmp = tokens;
+	tmp = *tokens;
 	i = 0;
-	while (tmp != NULL && tmp->type == NONE)
+	while (tmp->next && tmp->type == NONE)
 	{
 		tmp = tmp->next;
 		i++;
@@ -99,7 +96,7 @@ char	**ft_tokens_convert(t_token *tokens)
 	command = (char **)malloc((i + 1) * sizeof(char *));
 	if (command == NULL)
 		return (NULL);
-	tmp = tokens;
+	tmp = *tokens;
 	i = 0;
 	while (tmp != NULL && tmp->type == NONE)
 	{
@@ -108,5 +105,6 @@ char	**ft_tokens_convert(t_token *tokens)
 		i++;
 	}
 	command[i] = NULL;
+	printf("%s\n", "check");
 	return (command);
 }
