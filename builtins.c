@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 18:47:03 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/07/14 23:27:21 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/07/16 04:23:55 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	builtin_echo(char **args)
 	}
 	if (ft_strncmp(*args, "-n", ft_strlen ("-n")))
 		printf("\n");
+	exit (0);
 }
 
 void	builtin_pwd(void)
@@ -67,6 +68,7 @@ void	builtin_pwd(void)
 		exit (12);
 	printf("%s\n", s);
 	free (s);
+	exit (0);
 }
 
 void	builtin_exit(void)

@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 22:44:27 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/07/15 01:40:20 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/07/16 02:22:26 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	builtin_cd(char *path, char **env);
 void	builtin_exit(void);
 
 char	*searchbinarypath(char *cmd, char **env);
+int		checkexecutabless(t_cmd_list *cmd_list);
+
 int		checkexecutabless(t_cmd_list *cmd_list);
 
 #endif

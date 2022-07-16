@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 00:10:38 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/07/15 00:11:00 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/07/16 04:21:59 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ int	builtin_check(char *cmd)
 	if (!ft_strncmp(cmd, "cd", ft_strlen("cd"))
 		|| !ft_strncmp(cmd, "export", ft_strlen("export"))
 		|| !ft_strncmp(cmd, "unset", ft_strlen("unset"))
-		|| !ft_strncmp(cmd, "exit", ft_strlen("exit"))
-		|| !ft_strncmp(cmd, "pwd", ft_strlen("pwd"))
+		|| !ft_strncmp(cmd, "exit", ft_strlen("exit")))
+		return (1);
+	if (!ft_strncmp(cmd, "pwd", ft_strlen("pwd"))
 		|| !ft_strncmp(cmd, "env", ft_strlen("env"))
 		|| !ft_strncmp(cmd, "echo", ft_strlen("echo")))
-		return (1);
+		return (2);
 	return (0);
 }
 

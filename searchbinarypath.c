@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 23:37:48 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/07/15 01:41:33 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/07/16 02:35:01 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static char	**getbinarypaths(char **env)
 {
 	char	**paths;
-	char	*temp;
 	int		i;
 
 	if (!env || !*env)
@@ -25,38 +24,53 @@ static char	**getbinarypaths(char **env)
 	{	
 		if (!ft_strncmp(env[i], "PATH=", ft_strlen("PATH=") - 1))
 		{
-			temp = ft_strjoin(env[i], ":./");
-			if (!temp)
-				return (0);
-			paths = ft_split(temp + 5, ':');
-			free (temp);
+			paths = ft_split(env[i] + 5, ':');
 			return (paths);
 		}
 		i++;
 	}
+	paths = (char **) malloc (sizeof (char *) * 2);
+	paths [0] = ft_strdup(".");
+	paths [1] = 0;
+	return (paths);
+}
+
+static char	*choosebinarypath(char **oldfullpath, char *newpath, char *cmd)
+{
+	char	*tmp;
+	char	*res;
+
+	tmp = ft_strjoin(newpath, "/");
+	if (!tmp)
+		return (0);
+	res = ft_strjoin(tmp, cmd);
+	free (tmp);
+	if (access(res, F_OK) != -1)
+	{
+		if (oldfullpath)
+			free (*oldfullpath);
+		return (res);
+	}
+	else
+		free (res);
 	return (0);
 }
 
 static char	*checkbinarypaths(char *cmd, char **paths)
 {
-	char	*tmp;
 	char	*res;
 	int		i;
 
 	i = 0;
+	res = 0;
 	while (paths && paths[i])
 	{
-		tmp = ft_strjoin(paths[i], "/");
-		if (!tmp)
-			return (0);
-		res = ft_strjoin(tmp, cmd);
-		free (tmp);
+		res = choosebinarypath(&res, paths[i], cmd);
 		if (access(res, X_OK) != -1)
 			return (res);
-		free (res);
 		i++;
 	}
-	return (0);
+	return (res);
 }
 
 char	*searchbinarypath(char *cmd, char **env)
@@ -74,32 +88,4 @@ char	*searchbinarypath(char *cmd, char **env)
 		free (paths[i++]);
 	free (paths);
 	return (res);
-}
-
-int	checkexecutabless(t_cmd_list *cmd_list)
-{
-	t_cmd	*cmd;
-	char	*path;
-
-	cmd = cmd_list->cmds;
-	while (cmd)
-	{
-		if (!builtin_check(*cmd->cmd))
-		{
-			if (!ft_strchr(*cmd->cmd, '/'))
-				path = searchbinarypath(*cmd->cmd, cmd_list->env);
-			else
-				path = ft_strdup(*cmd->cmd);
-			if (!(path && access(path, X_OK) != -1))
-			{
-				printf("minishell: no such file or directory: %s\n", *cmd->cmd);
-				if (path)
-					free(path);
-				return (1);
-			}
-			free(path);
-		}
-		cmd = cmd->next;
-	}
-	return (0);
 }
