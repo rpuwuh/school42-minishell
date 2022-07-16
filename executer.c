@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/07/16 04:29:57 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/07/16 05:09:12 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,27 @@ static void	executecmd(t_cmd *cmd, char **env)
 		execve(path, cmd->cmd, env);
 }
 
+static void	clearlistcmds(t_cmd_list *cmdlist)
+{
+	t_cmd	*cmd;
+	t_cmd	*cmdtemp;
+	int		i;
+
+	cmd = cmdlist->cmds;
+	while (cmd)
+	{
+		i = 0;
+		while (cmd->cmd && cmd->cmd[i])
+			free (cmd->cmd[i++]);
+		if (cmd->cmd)
+			free (cmd->cmd);
+		cmdtemp = cmd;
+		cmd = cmd->next;
+		free(cmdtemp);
+	}
+	free(cmdlist);
+}
+
 static void	clearexecuter(t_cmd_list *cmd_list)
 {
 	t_cmd	*cmd;
@@ -58,15 +79,16 @@ static void	clearexecuter(t_cmd_list *cmd_list)
 			close(cmd->fd_out);
 		cmd = cmd->next;
 	}
+	clearlistcmds(cmd_list);
 }
 
 void	executecmds(t_cmd_list *cmd_list)
 {
 	t_cmd	*cmd;
 
-	cmd = cmd_list->cmds;
 	if (checkexecutabless(cmd_list))
 		return ;
+	cmd = cmd_list->cmds;
 	while (cmd)
 	{
 		if (builtin_check(*cmd->cmd) == 1)
