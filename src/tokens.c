@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 22:36:05 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/17 02:41:48 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/17 23:10:36 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,6 @@ t_token	*ft_tokens_init(void)
 	token_new->next = NULL;
 	token_new->type = NONE;
 	return (token_new);
-}
-
-void	ft_tokens_clean_last(t_token *tokens)
-{
-	t_token	*token_last;
-
-	token_last = tokens;
-	while (token_last->next->next)
-		token_last = token_last->next;
-	token_last->next = NULL;
 }
 
 void	ft_token_add(t_token **tokens, t_token *token_to_add)

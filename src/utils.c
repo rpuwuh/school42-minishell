@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 23:14:08 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/17 02:57:18 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/18 00:08:16 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,27 @@ void	ft_add_cmd(t_cmd_list *cmd_list,
 	cmd_new->fd_in = fd_in;
 	cmd_new->fd_out = fd_out;
 	cmd_new->pid = 0;
+	if (!cmd_list->cmds)
+		cmd_list->cmds = NULL;
 	cmd_temp = cmd_list->cmds;
 	cmd_new->next = cmd_temp;
 	cmd_temp = cmd_new;
 	cmd_list->cmds = cmd_temp;
+}
+void	ft_cmdlist_free(t_cmd_list *cmd_list)
+{
+	t_cmd	*tmp;
+
+	tmp = cmd_list->cmds;
+	while (tmp != NULL)
+	{
+		tmp = cmd_list->cmds->next;
+		int i = 0;
+		while (cmd_list->cmds->cmd[i] != NULL)
+			free(cmd_list->cmds->cmd[i]);
+		cmd_list->cmds = tmp;
+	}
+	free(cmd_list);
 }
 
 int	ft_count_env(t_env_v	*tmp)

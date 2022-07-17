@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/07/17 01:18:23 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/18 00:04:16 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,6 @@ void			ft_tokens_free(t_token *tokens);
 int				ft_redirections_exist(t_token **tokens);
 void			ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list);
 void			ft_token_add(t_token **tokens, t_token *token_to_add);
-void			ft_tokens_clean_last(t_token *tokens);
+void			ft_cmdlist_free(t_cmd_list *cmd_list);
 
 #endif
