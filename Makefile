@@ -12,13 +12,13 @@ MINISHELL_NAME := minishell
 
 CC := gcc
 CFLAGS := -Wall -Werror -Wextra
-INC	:= -I./$(INC_DIR) -I $(HOME)/goinfre/.brew/opt/readline/include/
+INC	:= -I./$(INC_DIR) -I $(HOME)/.brew/opt/readline/include/
 RM = rm -f
 
 all:	$(MINISHELL_NAME)
 
 $(MINISHELL_NAME): lib $(OBJ_DIRS) $(MINISHELL_OBJS)
-	$(CC) $(CFLAGS) $(MINISHELL_OBJS) -lncurses libft.a -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline -o $(MINISHELL_NAME) 
+	$(CC) $(CFLAGS) $(MINISHELL_OBJS) -lncurses libft.a -L $(HOME)/.brew/opt/readline/lib/ -lreadline -o $(MINISHELL_NAME) 
 	echo "----- \033[32m $@ compiled\033[0m  -----"
 
 $(OBJ_DIRS):

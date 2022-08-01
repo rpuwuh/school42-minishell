@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/18 00:07:52 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/21 19:28:41 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
 	int		**fd_list;
 	char	**input;
 
+	printf("%s\n", "redirect_start_parse");
 	fd_list = ft_redirect_init(tokens);
+	printf("%s\n", "redirect_init_parse");
 	if (fd_list == NULL)
 		return ;
 	fd_in = ft_get_fd(fd_list[0]);
@@ -60,6 +62,7 @@ void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
 	free(fd_list[1]);
 	free(fd_list);
 	ft_heredoc_remove(cmd_list);
+	printf("%s\n", "redirect_end_parse");
 }
 
 t_token	*ft_lexer(char *line)
@@ -88,17 +91,12 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 	{
 		ft_quotes_remove(&tokens, env);
 		if (ft_pipes_exist(&tokens) == TRUE)
-		{
 			ft_pipe_parse(&tokens, cmd_list);
-		}
 		else if (ft_redirections_exist(&tokens) == TRUE)
 			ft_redirections_parse(&tokens, cmd_list);
 		else
 		{
 			input = ft_tokens_convert(&tokens);
-			int i = 0;
-			while (input[++i])
-				printf ("input_%d = %s\n", i, input[i]);
 			if (input != NULL && input[0] != NULL)
 				ft_add_cmd(cmd_list, input, 0, 1);
 		}

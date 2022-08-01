@@ -82,13 +82,11 @@ void	ft_token_data_fill(t_token *tokens, char **line, int i)
 void	ft_tokens_get(t_token *tokens, char **line)
 {
 	t_token	*token_new;
-	t_token	*tmp;
 	int		i;
 
 	i = 0;
 	while (line[i + 1] != NULL)
 		i++;
-	tmp = tokens;
 	while (i >= 0)
 	{
 		tokens->idx = i;

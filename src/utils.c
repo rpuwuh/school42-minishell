@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 23:14:08 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/18 00:08:16 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/07/25 21:54:39 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	ft_add_cmd(t_cmd_list *cmd_list,
 {
 	t_cmd	*cmd_new;
 	t_cmd	*cmd_temp;
+	t_cmd	*cmd_temp2;
+	int i;
 
 	cmd_new = (t_cmd *)malloc(sizeof(t_cmd));
 	cmd_new->cmd = pipe_part;
@@ -42,8 +44,19 @@ void	ft_add_cmd(t_cmd_list *cmd_list,
 		cmd_list->cmds = NULL;
 	cmd_temp = cmd_list->cmds;
 	cmd_new->next = cmd_temp;
-	cmd_temp = cmd_new;
-	cmd_list->cmds = cmd_temp;
+	cmd_list->cmds = cmd_new;
+	cmd_temp2 = cmd_list->cmds;
+	i = 0;
+	while (cmd_temp2)
+	{
+		i = 0;
+		while ((cmd_temp2->cmd)[i])
+		{
+			printf("cmd_%d = %s\n", i, cmd_temp2->cmd[i]);
+			i++;
+		}
+		cmd_temp2 = cmd_temp2->next;
+	}
 }
 void	ft_cmdlist_free(t_cmd_list *cmd_list)
 {
@@ -55,10 +68,10 @@ void	ft_cmdlist_free(t_cmd_list *cmd_list)
 		tmp = cmd_list->cmds->next;
 		int i = 0;
 		while (cmd_list->cmds->cmd[i] != NULL)
-			free(cmd_list->cmds->cmd[i]);
+			free(cmd_list->cmds->cmd[i++]);
 		cmd_list->cmds = tmp;
 	}
-	free(cmd_list);
+	//free(cmd_list);
 }
 
 int	ft_count_env(t_env_v	*tmp)
@@ -105,7 +118,7 @@ char	**ft_tokens_convert(t_token **tokens)
 
 	tmp = *tokens;
 	i = 0;
-	while (tmp->next && tmp->type == NONE)
+	while (tmp && tmp->type == NONE)
 	{
 		tmp = tmp->next;
 		i++;
@@ -122,6 +135,5 @@ char	**ft_tokens_convert(t_token **tokens)
 		i++;
 	}
 	command[i] = NULL;
-	printf("%s\n", "check");
 	return (command);
 }

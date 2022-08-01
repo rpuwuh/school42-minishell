@@ -11,9 +11,11 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+int g_status;
 
 void	handle_signals(int sig)
 {
+
 	if (sig == SIGINT)
 	{
 		g_status = 130;

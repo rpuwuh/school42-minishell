@@ -17,14 +17,21 @@ void ft_executer(t_cmd_list *cmd_list)
 	int i;
 
 	i = 0;
-	printf("command_check = %s\n", cmd_list->cmds->cmd[i]);
-	while (cmd_list->cmds->cmd[i])
+	while (cmd_list->cmds)
 	{
-		printf("command = %s\n", cmd_list->cmds->cmd[i]);
-		i++;
+		while (cmd_list->cmds->cmd[i])
+		{
+			printf("command_%d = %s\n", i, cmd_list->cmds->cmd[i]);
+			i++;
+		}
+		printf("fd_in = %d\n", cmd_list->cmds->fd_in);
+		printf("fd_out = %d\n", cmd_list->cmds->fd_out);
+		if (cmd_list->cmds->next)
+			cmd_list->cmds = cmd_list->cmds->next;
+		else
+			break;
+		i = 0;
 	}
-	printf("fd_in = %d\n", cmd_list->cmds->fd_in);
-	printf("fd_out = %d\n", cmd_list->cmds->fd_out);
 }
 
 static int	free_arg(char **args, t_env_v *env_v)

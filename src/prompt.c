@@ -34,10 +34,8 @@ static char	*ft_get_home(t_env_v	**env)
 static char	*ft_get_user(t_env_v	**env)
 {
 	char	*user;
-	char	*temp;
 
 	user = NULL;
-	temp = NULL;
 	user = ft_env_get_value(*env, "USER");
 	if (!user)
 		user = ft_strjoin(NULL, "guest");

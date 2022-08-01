@@ -109,10 +109,8 @@ void	ft_quotes_remove(t_token **tokens, t_env_v **env)
 {
 	t_token	*tmp;
 	char	symb;
-	int		i;
 
 	tmp = *tokens;
-	i = 0;
 	while (tmp != NULL)
 	{
 		symb = tmp->value[0];
@@ -124,6 +122,5 @@ void	ft_quotes_remove(t_token **tokens, t_env_v **env)
 			tmp->value = ft_check_for_env(tmp, env);
 		}
 		tmp = tmp->next;
-		i = 0;
 	}
 }
