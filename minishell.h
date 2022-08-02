@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 22:44:27 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/07/16 02:22:26 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/02 08:25:45 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ history.h>*/
  
 */
 
+typedef struct s_env_v
+{
+	char			*name;
+	char			*value;
+	int				export;
+	struct s_env_v	*next;
+}					t_env_v;
+
 typedef struct s_cmd	t_cmd;
 
 struct	s_cmd
@@ -54,20 +62,20 @@ struct	s_cmd
 
 typedef struct s_cmd_list
 {
-	int		count;
 	t_cmd	*cmds;
+	t_env_v	*env_list;
 	char	**env;
 }	t_cmd_list;
 
-void	executecmds(t_cmd_list *cmd_list);
+int		executecmds(t_cmd_list *cmd_list);
 
 int		builtin_check(char *cmd);
-void	choosefunc(t_cmd *cmd, char **env);
+int		choosefunc(t_cmd *cmd, t_cmd_list *cmd_list);
 
-void	builtin_echo(char **args);
-void	builtin_pwd(void);
-void	builtin_cd(char *path, char **env);
-void	builtin_exit(void);
+int		builtin_echo(char **args);
+int		builtin_pwd(void);
+int		builtin_cd(char *path, char **env);
+int		builtin_exit(char **s);
 
 char	*searchbinarypath(char *cmd, char **env);
 int		checkexecutabless(t_cmd_list *cmd_list);

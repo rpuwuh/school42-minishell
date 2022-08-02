@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 00:10:38 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/07/16 04:21:59 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/02 06:40:42 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,17 @@ int	builtin_check(char *cmd)
 	return (0);
 }
 
-void	choosefunc(t_cmd *cmd, char **env)
+int	choosefunc(t_cmd *cmd, t_cmd_list *cmd_list)
 {
 	if (!ft_strncmp(cmd->cmd[0], "pwd", ft_strlen("pwd")))
-		builtin_pwd();
+		return (builtin_pwd());
 	if (!ft_strncmp(cmd->cmd[0], "echo", ft_strlen("echo")))
-		builtin_echo(&(cmd->cmd)[1]);
+		return (builtin_echo(&(cmd->cmd)[1]));
 	if (!ft_strncmp(cmd->cmd[0], "env", ft_strlen("env")))
-		builtin_echo(env);
+		return (builtin_echo(cmd_list->env));
 	if (!ft_strncmp(cmd->cmd[0], "cd", ft_strlen("cd")))
-		builtin_cd(cmd->cmd[1], env);
+		return (builtin_cd(cmd->cmd[1], cmd_list->env));
 	if (!ft_strncmp(cmd->cmd[0], "exit", ft_strlen("exit")))
-		builtin_exit();
+		return (builtin_exit(cmd->cmd + 1));
+	return (1);
 }
