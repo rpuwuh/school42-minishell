@@ -53,11 +53,13 @@ void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
 	if (fd_list == NULL)
 		return ;
 	fd_in = ft_get_fd(fd_list[0]);
+	printf("fd_in = %d\n", fd_in);
 	fd_out = ft_get_fd(fd_list[1]);
+	printf("fd_out = %d\n", fd_out);
 	input = ft_tokens_convert(tokens);
 	if (input[0] != NULL)
 		ft_add_cmd(cmd_list, input, fd_in, fd_out);
-	ft_free_line(input);
+	//ft_free_line(input);
 	free(fd_list[0]);
 	free(fd_list[1]);
 	free(fd_list);

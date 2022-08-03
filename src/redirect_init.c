@@ -120,5 +120,6 @@ int	**ft_redirect_init(t_token **token_list)
 		free(fd_list);
 		return (NULL);
 	}
+	printf("check = true\n");
 	return (fd_list);
 }
