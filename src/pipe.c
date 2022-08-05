@@ -42,7 +42,6 @@ void	ft_pipe_parse(t_token **tokens, t_cmd_list *cmd_list)
 	while (tmp != NULL)
 	{
 		ft_token_add(&tokens_part, tmp);
-		printf("pipe = %s\n", tmp->value);
 		if (tmp->next && tmp->next->type == PIPE)
 		{
 			ft_pipe_process(&tokens_part, cmd_list);
