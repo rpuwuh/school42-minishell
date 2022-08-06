@@ -120,6 +120,7 @@ char	**ft_tokens_convert(t_token **tokens)
 	i = 0;
 	while (tmp && tmp->type == NONE)
 	{
+		printf("tokentmp_%d = %s\n", i, tmp->value);
 		tmp = tmp->next;
 		i++;
 	}
@@ -135,5 +136,12 @@ char	**ft_tokens_convert(t_token **tokens)
 		i++;
 	}
 	command[i] = NULL;
+
+	i = 0;
+	while(command[i])
+	{
+		printf("token_%d = %s\n", i, command[i]);
+		i++;
+	}
 	return (command);
 }

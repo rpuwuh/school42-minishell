@@ -46,11 +46,13 @@ void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
 	int		fd_out;
 	int		**fd_list;
 	char	**input;
-	t_token **tmp;	
+	t_token *tmp;
+	t_token *tmp2;
 
 	printf("%s\n", "redirect_start_parse");
-	tmp = tokens;
-	fd_list = ft_redirect_init(tmp);
+	tmp = *tokens;
+	tmp2 = *tokens;
+	fd_list = ft_redirect_init(&tmp);
 	printf("%s\n", "redirect_init_parse");
 	if (fd_list == NULL)
 		return ;
@@ -58,7 +60,7 @@ void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
 	printf("fd_in = %d\n", fd_in);
 	fd_out = ft_get_fd(fd_list[1]);
 	printf("fd_out = %d\n", fd_out);
-	input = ft_tokens_convert(tokens);
+	input = ft_tokens_convert(&tmp2);
 	int i = 0;
 	while (input[i])
 		printf("input = %s\n", input[i++]);
