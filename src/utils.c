@@ -118,7 +118,7 @@ char	**ft_tokens_convert(t_token **tokens)
 
 	tmp = *tokens;
 	i = 0;
-	while (tmp && tmp->type == NONE)
+	while (tmp)
 	{
 		printf("tokentmp_%d = %s\n", i, tmp->value);
 		tmp = tmp->next;
@@ -129,7 +129,7 @@ char	**ft_tokens_convert(t_token **tokens)
 		return (NULL);
 	tmp = *tokens;
 	i = 0;
-	while (tmp != NULL && tmp->type == NONE)
+	while (tmp != NULL)
 	{
 		command[i] = ft_strdup(tmp->value);
 		tmp = tmp->next;
