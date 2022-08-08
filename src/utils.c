@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 23:14:08 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/25 21:54:39 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/08 23:53:02 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void	ft_add_cmd(t_cmd_list *cmd_list,
 {
 	t_cmd	*cmd_new;
 	t_cmd	*cmd_temp;
-	t_cmd	*cmd_temp2;
-	int i;
 
 	cmd_new = (t_cmd *)malloc(sizeof(t_cmd));
 	cmd_new->cmd = pipe_part;
@@ -45,18 +43,6 @@ void	ft_add_cmd(t_cmd_list *cmd_list,
 	cmd_temp = cmd_list->cmds;
 	cmd_new->next = cmd_temp;
 	cmd_list->cmds = cmd_new;
-	cmd_temp2 = cmd_list->cmds;
-	i = 0;
-	while (cmd_temp2)
-	{
-		i = 0;
-		while ((cmd_temp2->cmd)[i])
-		{
-			printf("cmd_%d = %s\n", i, cmd_temp2->cmd[i]);
-			i++;
-		}
-		cmd_temp2 = cmd_temp2->next;
-	}
 }
 void	ft_cmdlist_free(t_cmd_list *cmd_list)
 {
@@ -108,40 +94,4 @@ char	**ft_collect_envp(t_env_v **env)
 		i++;
 	}
 	return (envp);
-}
-
-char	**ft_tokens_convert(t_token **tokens)
-{
-	char	**command;
-	t_token	*tmp;
-	int		i;
-
-	tmp = *tokens;
-	i = 0;
-	while (tmp)
-	{
-		printf("tokentmp_%d = %s\n", i, tmp->value);
-		tmp = tmp->next;
-		i++;
-	}
-	command = (char **)malloc((i + 1) * sizeof(char *));
-	if (command == NULL)
-		return (NULL);
-	tmp = *tokens;
-	i = 0;
-	while (tmp != NULL)
-	{
-		command[i] = ft_strdup(tmp->value);
-		tmp = tmp->next;
-		i++;
-	}
-	command[i] = NULL;
-
-	i = 0;
-	while(command[i])
-	{
-		printf("token_%d = %s\n", i, command[i]);
-		i++;
-	}
-	return (command);
 }

@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/07/18 00:04:16 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/08 23:34:32 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,11 +129,12 @@ int				ft_fd_list_check(t_token *tokens,
 void			ft_add_cmd(t_cmd_list *cmd_list,
 					char **pipe_part, int fd_in, int fd_out);
 void			ft_heredoc_remove(t_cmd_list *cmd_list);
-void 			ft_executer(t_cmd_list *cmd_list);
+void			ft_executer(t_cmd_list *cmd_list);
 void			ft_tokens_free(t_token *tokens);
 int				ft_redirections_exist(t_token **tokens);
 void			ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list);
 void			ft_token_add(t_token **tokens, t_token *token_to_add);
+t_token			**ft_tokens_invert(t_token **tokens);
 void			ft_cmdlist_free(t_cmd_list *cmd_list);
 
 #endif

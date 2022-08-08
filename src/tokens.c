@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 22:36:05 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/17 23:10:36 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/08 23:18:03 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	ft_tokens_get(t_token *tokens, char **line)
 		ft_token_data_fill(tokens, line, i);
 		if (tokens->type == NONE)
 			tokens->value = ft_strdup(line[i]);
-		if (i  > 0)
+		if (i > 0)
 		{
 			token_new = ft_tokens_init();
 			tokens->next = token_new;

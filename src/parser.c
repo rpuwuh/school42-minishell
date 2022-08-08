@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/21 19:28:41 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/08 23:51:50 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,17 @@ void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
 	int		fd_out;
 	int		**fd_list;
 	char	**input;
-	t_token *tmp;
-	t_token *tmp2;
+	t_token	*tmp;
+	t_token	*tmp2;
 
-	printf("%s\n", "redirect_start_parse");
 	tmp = *tokens;
 	tmp2 = *tokens;
 	fd_list = ft_redirect_init(&tmp);
-	printf("%s\n", "redirect_init_parse");
 	if (fd_list == NULL)
 		return ;
 	fd_in = ft_get_fd(fd_list[0]);
-	printf("fd_in = %d\n", fd_in);
 	fd_out = ft_get_fd(fd_list[1]);
-	printf("fd_out = %d\n", fd_out);
 	input = ft_tokens_convert(&tmp2);
-	
-	int i = 0;
-	while (input[i])
-		printf("input = %s\n", input[i++]);
 	if (input[0] != NULL)
 		ft_add_cmd(cmd_list, input, fd_in, fd_out);
 	//ft_free_line(input);
@@ -72,13 +64,12 @@ void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
 	free(fd_list[1]);
 	free(fd_list);
 	ft_heredoc_remove(cmd_list);
-	printf("%s\n", "redirect_end_parse");
 }
 
 t_token	*ft_lexer(char *line)
 {
 	t_token	*tokens;
-	char **line_split;
+	char	**line_split;
 
 	line_split = ft_split(line, ' ');
 	if (line_split == NULL)
@@ -103,10 +94,10 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 		if (ft_pipes_exist(&tokens) == TRUE)
 			ft_pipe_parse(&tokens, cmd_list);
 		else if (ft_redirections_exist(&tokens) == TRUE)
-			ft_redirections_parse(&tokens, cmd_list);
+			ft_redirections_parse(ft_tokens_invert(&tokens), cmd_list);
 		else
 		{
-			input = ft_tokens_convert(&tokens);
+			input = ft_tokens_convert(ft_tokens_invert(&tokens));
 			if (input != NULL && input[0] != NULL)
 				ft_add_cmd(cmd_list, input, 0, 1);
 		}
