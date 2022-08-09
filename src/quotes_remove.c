@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 23:53:24 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/16 00:53:17 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/10 00:34:44 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ char	*ft_insert_env(t_token *tmp, t_env_v **env, int i)
 	n_size = 0;
 	while (tmp->value[i + n_size] != ' ' && tmp->value[i + n_size] != '\0')
 		n_size++;
-	env_value = ft_env_get_value(*env, ft_strndup(ft_substr(tmp->value, i, (size_t)n_size), n_size));
-	value = malloc((ft_strlen(tmp->value) - n_size + ft_strlen(env_value) + 1) * sizeof(char));
+	env_value = ft_env_get_value(*env, ft_strndup(ft_substr(tmp->value,
+					i, (size_t)n_size), n_size));
+	value = malloc((ft_strlen(tmp->value) - n_size
+				+ ft_strlen(env_value) + 1) * sizeof(char));
 	j = -1;
 	while (++j < i - 1)
 		value[j] = tmp->value[j];

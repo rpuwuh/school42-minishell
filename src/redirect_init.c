@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 00:41:41 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/08 23:52:11 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/10 00:47:38 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,7 @@ int	**ft_redirect_init(t_token **token_list)
 		check = ft_fd_list_check(tokens, TRUNC, APPEND, fd_list[1]);
 	if (check == FALSE)
 	{
-		free(fd_list[0]);
-		free(fd_list[1]);
-		free(fd_list);
+		ft_free_fd(fd_list);
 		return (NULL);
 	}
 	return (fd_list);

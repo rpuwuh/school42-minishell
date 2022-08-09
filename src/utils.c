@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 23:14:08 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/08 23:53:02 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/10 00:39:08 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,17 @@ void	ft_add_cmd(t_cmd_list *cmd_list,
 	cmd_new->next = cmd_temp;
 	cmd_list->cmds = cmd_new;
 }
+
 void	ft_cmdlist_free(t_cmd_list *cmd_list)
 {
+	int		i;
 	t_cmd	*tmp;
 
 	tmp = cmd_list->cmds;
 	while (tmp != NULL)
 	{
 		tmp = cmd_list->cmds->next;
-		int i = 0;
+		i = 0;
 		while (cmd_list->cmds->cmd[i] != NULL)
 			free(cmd_list->cmds->cmd[i++]);
 		cmd_list->cmds = tmp;

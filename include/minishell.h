@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/08/08 23:34:32 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/10 00:47:06 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ typedef struct s_cmd
 
 typedef struct s_cmd_list
 {
-	struct s_cmd	*cmds;
-	char			**envp;
-}					t_cmd_list;
+	t_cmd			*cmds;
+	struct s_env_v	*env_list;
+	char			**env;
+}	t_cmd_list;
 
 typedef struct s_env_v
 {
@@ -78,7 +79,7 @@ typedef struct s_env_v
 	char			*value;
 	int				export;
 	struct s_env_v	*next;
-}					t_env_v;
+}	t_env_v;
 
 typedef enum e_token_type{
 	NONE,
@@ -129,12 +130,25 @@ int				ft_fd_list_check(t_token *tokens,
 void			ft_add_cmd(t_cmd_list *cmd_list,
 					char **pipe_part, int fd_in, int fd_out);
 void			ft_heredoc_remove(t_cmd_list *cmd_list);
-void			ft_executer(t_cmd_list *cmd_list);
+void			ft_executer(t_cmd_list *cmd_list, t_env_v *env);
 void			ft_tokens_free(t_token *tokens);
 int				ft_redirections_exist(t_token **tokens);
 void			ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list);
 void			ft_token_add(t_token **tokens, t_token *token_to_add);
 t_token			**ft_tokens_invert(t_token **tokens);
 void			ft_cmdlist_free(t_cmd_list *cmd_list);
+int				executecmds(t_cmd_list *cmd_list);
+int				builtin_check(char *cmd);
+int				choosefunc(t_cmd *cmd, t_cmd_list *cmd_list);
+int				builtin_echo(char **args);
+int				builtin_pwd(void);
+int				builtin_cd(char *path, char **env);
+int				builtin_exit(char **s);
+char			*searchbinarypath(char *cmd, char **env);
+int				checkexecutabless(t_cmd_list *cmd_list);
+int				envnamechecker(char *s);
+int				builtin_unset(t_cmd *cmd, t_cmd_list *cmd_list);
+int				builtin_export(t_cmd *cmd, t_cmd_list *cmd_list);
+void			ft_free_fd(int	**fd_list);
 
 #endif

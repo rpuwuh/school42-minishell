@@ -6,16 +6,16 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/15 21:47:52 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/10 00:33:37 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-int g_status;
+
+int	g_status;
 
 void	handle_signals(int sig)
 {
-
 	if (sig == SIGINT)
 	{
 		g_status = 130;
@@ -25,9 +25,10 @@ void	handle_signals(int sig)
 	}
 }
 
-t_cmd_list	*ft_cmd_init(t_cmd_list	*cmd_list, char **envp)
+t_cmd_list	*ft_cmd_init(t_cmd_list	*cmd_list, t_env_v	**env, char **envp)
 {
-	cmd_list->envp = envp;
+	cmd_list->env = envp;
+	cmd_list->env_list = *env;
 	cmd_list->cmds = NULL;
 	return (cmd_list);
 }
@@ -95,7 +96,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(line);
 		else
 			ft_exit(NULL, CTRL_D, *env);
-		ft_parser(line, env, ft_cmd_init(cmd_list, envp));
+		ft_parser(line, env, ft_cmd_init(cmd_list, env, envp));
 	}
 	exit(g_status);
 }

@@ -6,33 +6,11 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 23:08:46 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/17 02:31:45 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/10 00:30:45 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void ft_executer(t_cmd_list *cmd_list)
-{
-	int i;
-
-	i = 0;
-	while (cmd_list->cmds)
-	{
-		while (cmd_list->cmds->cmd[i])
-		{
-			printf("command_%d = %s\n", i, cmd_list->cmds->cmd[i]);
-			i++;
-		}
-		printf("fd_in = %d\n", cmd_list->cmds->fd_in);
-		printf("fd_out = %d\n", cmd_list->cmds->fd_out);
-		if (cmd_list->cmds->next)
-			cmd_list->cmds = cmd_list->cmds->next;
-		else
-			break;
-		i = 0;
-	}
-}
 
 static int	free_arg(char **args, t_env_v *env_v)
 {

@@ -6,11 +6,18 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 23:04:39 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/08 23:49:00 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/10 00:36:26 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	ft_free_fd(int	**fd_list)
+{
+	free(fd_list[0]);
+	free(fd_list[1]);
+	free(fd_list);
+}
 
 t_token	**ft_tokens_invert(t_token **tokens)
 {
