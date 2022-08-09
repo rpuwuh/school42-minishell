@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/10 00:40:14 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/10 01:06:12 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_token	*ft_lexer(char *line)
 	t_token	*tokens;
 	char	**line_split;
 
-	line_split = ft_split(line, ' ');
+	line_split = ft_sp_split(line, " |");
 	if (line_split == NULL)
 		return (NULL);
 	tokens = ft_tokens_init();
@@ -85,7 +85,6 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 	t_token		*tokens;
 	char		**input;
 
-	//line = env_vars(line, env->env_v); //checks $$ at the end of the line (?)
 	line = ft_remove_extra_spaces(line);
 	tokens = ft_lexer(line);
 	if (line[0] != '\0' && ft_redirect_check(line) && ft_quotes_check(line))

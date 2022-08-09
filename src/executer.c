@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/10 00:49:49 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/10 01:07:28 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,24 @@ void	ft_executer(t_cmd_list *cmd_list, t_env_v *env)
 	int	i;
 
 	printf("got to executor\n");
+
+	i = 0;
+	while (cmd_list->cmds)
+	{
+		while (cmd_list->cmds->cmd[i])
+		{
+			printf("command_%d = %s\n", i, cmd_list->cmds->cmd[i]);
+			i++;
+		}
+		printf("fd_in = %d\n", cmd_list->cmds->fd_in);
+		printf("fd_out = %d\n", cmd_list->cmds->fd_out);
+		if (cmd_list->cmds->next)
+			cmd_list->cmds = cmd_list->cmds->next;
+		else
+			break;
+		i = 0;
+	}
+	
 	i = executecmds(cmd_list);
 	while (ft_strncmp(env->name, "?", ft_strlen("?")))
 		env = env->next;

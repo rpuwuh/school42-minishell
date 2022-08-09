@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/08/10 00:47:06 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/10 01:05:20 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,5 +150,6 @@ int				envnamechecker(char *s);
 int				builtin_unset(t_cmd *cmd, t_cmd_list *cmd_list);
 int				builtin_export(t_cmd *cmd, t_cmd_list *cmd_list);
 void			ft_free_fd(int	**fd_list);
+char			**ft_sp_split(char const *s, char *c);
 
 #endif
