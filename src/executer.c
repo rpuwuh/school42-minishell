@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/10 17:58:22 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/10 18:55:44 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 {
 	char	*path;
 
-	if (cmd->fd_in)
+	if (cmd->fd_in > 0)
 	{
 		dup2(cmd->fd_in, 0);
 		close (cmd->fd_in);
 	}
-	if (cmd->fd_out != 1)
+	if (cmd->fd_out != 1 && cmd->fd_out)
 	{
 		dup2(cmd->fd_out, 1);
 		close (cmd->fd_out);
@@ -36,29 +36,6 @@ static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 	if (path && access(path, X_OK) != -1)
 		execve(path, cmd->cmd, cmd_list->env);
 	return (0);
-}
-
-static void	clearlistcmds(t_cmd_list *cmdlist)
-{
-	(void) cmdlist;
-	return ;
-	// t_cmd	*cmd;
-	// t_cmd	*cmdtemp;
-	// int		i;
-
-	// cmd = cmdlist->cmds;
-	// while (cmd)
-	// {
-	// 	i = 0;
-		// while (cmd->cmd && cmd->cmd[i])
-			// free (cmd->cmd[i++]);
-		// if (cmd->cmd)
-		// 	free (cmd->cmd);
-		// cmdtemp = cmd;
-		// cmd = cmd->next;
-		// free(cmdtemp);
-	// }
-	// free(cmdlist);
 }
 
 static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
@@ -85,7 +62,6 @@ static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
 			close(cmd->fd_out);
 		cmd = cmd->next;
 	}
-	clearlistcmds(cmd_list);
 	return (res);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/08/10 01:05:20 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/10 19:04:13 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ int				builtin_echo(char **args);
 int				builtin_pwd(void);
 int				builtin_cd(char *path, char **env);
 int				builtin_exit(char **s);
+int				builtin_env(char **env);
 char			*searchbinarypath(char *cmd, char **env);
 int				checkexecutabless(t_cmd_list *cmd_list);
 int				envnamechecker(char *s);

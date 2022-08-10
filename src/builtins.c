@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 18:47:03 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/10 00:31:56 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/10 19:06:00 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,14 @@ int	builtin_exit(char **s)
 	if ((*s)[i] == 0 || ft_isdigit((*s)[i]))
 		exit(ft_atoi(*s) % 255);
 	exit(255);
+}
+
+int	builtin_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env && env[i])
+		printf("%s\n", env[i++]);
+	return (0);
 }

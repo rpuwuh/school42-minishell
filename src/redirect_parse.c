@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_parse.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 00:49:31 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/15 02:30:48 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/10 18:14:47 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,5 @@ int	ft_redirect(char *filename, int type)
 		}
 		return (fd);
 	}
-	return (-1);
+	return (fd);
 }

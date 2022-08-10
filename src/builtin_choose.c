@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_choose.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 00:10:38 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/10 00:31:50 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/10 19:05:12 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	choosefunc(t_cmd *cmd, t_cmd_list *cmd_list)
 	if (!ft_strncmp(cmd->cmd[0], "echo", ft_strlen("echo")))
 		return (builtin_echo(&(cmd->cmd)[1]));
 	if (!ft_strncmp(cmd->cmd[0], "env", ft_strlen("env")))
-		return (builtin_echo(cmd_list->env));
+		return (builtin_env(cmd_list->env));
 	if (!ft_strncmp(cmd->cmd[0], "cd", ft_strlen("cd")))
 		return (builtin_cd(cmd->cmd[1], cmd_list->env));
 	if (!ft_strncmp(cmd->cmd[0], "exit", ft_strlen("exit")))
