@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/10 01:07:28 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/10 17:58:22 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,25 @@ static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 
 static void	clearlistcmds(t_cmd_list *cmdlist)
 {
-	t_cmd	*cmd;
-	t_cmd	*cmdtemp;
-	int		i;
+	(void) cmdlist;
+	return ;
+	// t_cmd	*cmd;
+	// t_cmd	*cmdtemp;
+	// int		i;
 
-	cmd = cmdlist->cmds;
-	while (cmd)
-	{
-		i = 0;
-		while (cmd->cmd && cmd->cmd[i])
-			free (cmd->cmd[i++]);
-		if (cmd->cmd)
-			free (cmd->cmd);
-		cmdtemp = cmd;
-		cmd = cmd->next;
-		free(cmdtemp);
-	}
-	free(cmdlist);
+	// cmd = cmdlist->cmds;
+	// while (cmd)
+	// {
+	// 	i = 0;
+		// while (cmd->cmd && cmd->cmd[i])
+			// free (cmd->cmd[i++]);
+		// if (cmd->cmd)
+		// 	free (cmd->cmd);
+		// cmdtemp = cmd;
+		// cmd = cmd->next;
+		// free(cmdtemp);
+	// }
+	// free(cmdlist);
 }
 
 static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
@@ -69,7 +71,7 @@ static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
 		cmd = cmd->next;
 	printf ("waited cmd is %s, pid is %d\n", *cmd->cmd, cmd->pid);
 	if (cmd->pid)
-		waitpid(cmd->pid, &res, WUNTRACED | WEXITED);
+		waitpid(cmd->pid, &res, WUNTRACED);
 	else
 		res = lastcode;
 	cmd = cmd_list->cmds;
@@ -118,7 +120,6 @@ void	ft_executer(t_cmd_list *cmd_list, t_env_v *env)
 	int	i;
 
 	printf("got to executor\n");
-
 	i = 0;
 	while (cmd_list->cmds)
 	{
@@ -132,10 +133,9 @@ void	ft_executer(t_cmd_list *cmd_list, t_env_v *env)
 		if (cmd_list->cmds->next)
 			cmd_list->cmds = cmd_list->cmds->next;
 		else
-			break;
+			break ;
 		i = 0;
 	}
-	
 	i = executecmds(cmd_list);
 	while (ft_strncmp(env->name, "?", ft_strlen("?")))
 		env = env->next;

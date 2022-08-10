@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   searchbinarypath.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 23:37:48 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/10 00:32:25 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/10 17:56:18 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,16 @@ static char	*choosebinarypath(char **oldfullpath, char *newpath, char *cmd)
 	char	*tmp;
 	char	*res;
 
-	tmp = ft_strjoin(newpath, "/");
+	tmp = ft_strjoin(ft_strdup(newpath), "/");
 	if (!tmp)
 		return (0);
 	res = ft_strjoin(tmp, cmd);
-	free (tmp);
 	if (access(res, F_OK) != -1)
 	{
 		if (oldfullpath)
 			free (*oldfullpath);
+		if (oldfullpath)
+			*oldfullpath = 0;
 		return (res);
 	}
 	else
@@ -84,6 +85,7 @@ char	*searchbinarypath(char *cmd, char **env)
 		return (0);
 	res = checkbinarypaths(cmd, paths);
 	i = 0;
+	(void) i;
 	while (paths[i])
 		free (paths[i++]);
 	free (paths);

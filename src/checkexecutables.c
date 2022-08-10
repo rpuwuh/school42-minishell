@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkexecutables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 01:30:38 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/10 00:31:59 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/10 17:35:01 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	checkexecutabless(t_cmd_list *cmd_list)
 	result = 0;
 	while (cmd)
 	{
+		printf("\n\nim here\n\n");
 		if (!builtin_check(*cmd->cmd))
 		{
 			if (!ft_strchr(*cmd->cmd, '/'))
