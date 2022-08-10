@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 04:23:48 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/10 00:31:54 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/10 19:35:54 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	envnamechecker(char *s)
 
 	if (!s || !*s)
 		return (1);
-	if (!ft_isalpha(*s) || *s != '_')
+	if (!(ft_isalpha(*s) || *s == '_'))
 		return (0);
 	i = 0;
 	while (s[i] && (ft_isalnum(s[i]) || s[i] == '_'))
@@ -91,6 +91,7 @@ int	builtin_unset(t_cmd *cmd, t_cmd_list *cmd_list)
 	result = 0;
 	while (cmd->cmd[++i])
 	{
+		printf("name = %s\n", cmd->cmd[i]);
 		if (!envnamechecker(cmd->cmd[i]))
 		{
 			printf("minishell: unset: `%s': not a valid identifier\n",

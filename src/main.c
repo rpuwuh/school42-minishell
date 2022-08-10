@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/10 00:33:37 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/10 20:24:53 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,19 @@ void	handle_signals(int sig)
 
 t_cmd_list	*ft_cmd_init(t_cmd_list	*cmd_list, t_env_v	**env, char **envp)
 {
-	cmd_list->env = envp;
+	int	i;
+
+	i = 0;
+	while (envp && envp[i])
+		i++;
+	cmd_list->env = (char **) malloc (sizeof (char *) * (i + 1));
+	i = 0;
+	while (envp && envp[i])
+	{
+		cmd_list->env[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	cmd_list->env[i] = 0;
 	cmd_list->env_list = *env;
 	cmd_list->cmds = NULL;
 	return (cmd_list);

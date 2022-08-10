@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/10 18:55:44 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/10 20:14:40 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	ft_executer(t_cmd_list *cmd_list, t_env_v *env)
 {
 	int	i;
 
-	printf("got to executor\n");
+	cmd_list->env_list = env;
 	i = 0;
 	while (cmd_list->cmds)
 	{
