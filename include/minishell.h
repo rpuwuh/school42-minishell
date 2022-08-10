@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/08/10 19:04:13 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/11 00:40:46 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,8 @@ void			ft_tokens_get(t_token *tokens, char **line);
 void			ft_pipe_parse(t_token **tokens, t_cmd_list *cmd_list);
 void			ft_pipe_process(t_token **tokens_part, t_cmd_list *cmd_list);
 char			**ft_tokens_convert(t_token **tokens);
-int				ft_get_fd(int *fd_list);
+int				ft_get_fd_in(int *fd_list);
+int				ft_get_fd_out(int *fd_list);
 int				ft_redirect(char *filename, int type);
 int				**ft_redirect_init(t_token **tokens);
 int				ft_fd_list_check(t_token *tokens,
@@ -152,5 +153,6 @@ int				builtin_unset(t_cmd *cmd, t_cmd_list *cmd_list);
 int				builtin_export(t_cmd *cmd, t_cmd_list *cmd_list);
 void			ft_free_fd(int	**fd_list);
 char			**ft_sp_split(char const *s, char *c);
+char			**ft_tokens_convert_redirect(t_token **tokens);
 
 #endif

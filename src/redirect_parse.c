@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_parse.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 00:49:31 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/10 18:14:47 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/11 00:43:19 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static int	ft_return_fd_input(char *filename, int fd)
 		ft_exit_with_error(filename, "Permission denied");
 		return (-1);
 	}
+	printf("fd_in = %d\n", fd);
 	return (fd);
 }
 
@@ -60,6 +61,7 @@ static int	ft_return_fd_output(char *filename, int fd)
 		ft_exit_with_error(filename, "Permission denied");
 		return (-1);
 	}
+	printf("fd_out = %d\n", fd);
 	return (fd);
 }
 
@@ -82,5 +84,5 @@ int	ft_redirect(char *filename, int type)
 		}
 		return (fd);
 	}
-	return (fd);
+	return (-1);
 }

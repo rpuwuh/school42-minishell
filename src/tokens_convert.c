@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 23:04:39 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/10 00:36:26 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/11 00:25:04 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,41 @@ char	**ft_tokens_convert(t_token **tokens)
 		command[i] = ft_strdup(tmp->value);
 		tmp = tmp->next;
 		i++;
+	}
+	command[i] = NULL;
+	return (command);
+}
+
+char	**ft_tokens_convert_redirect(t_token **tokens)
+{
+	char	**command;
+	t_token	*tmp;
+	t_token	*tmp2;
+	int		i;
+
+	i = 0;
+	tmp = *tokens;
+	tmp2 = *tokens;
+	while (tmp2)
+	{
+		tmp2 = tmp2->next;
+		i++;
+	}
+	command = (char **)malloc((i + 1) * sizeof(char *));
+	if (command == NULL)
+		return (NULL);
+	tmp = *tokens;
+	i = 0;
+	while (tmp != NULL)
+	{
+		if (tmp->type != NONE)
+			tmp = tmp->next->next;
+		else
+		{
+			command[i] = ft_strdup(tmp->value);
+			tmp = tmp->next;
+			i++;
+		}
 	}
 	command[i] = NULL;
 	return (command);

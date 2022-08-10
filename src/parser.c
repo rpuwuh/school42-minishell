@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/10 20:14:15 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/11 00:39:34 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
 	fd_list = ft_redirect_init(&tmp);
 	if (fd_list == NULL)
 		return ;
-	fd_in = ft_get_fd(fd_list[0]);
-	fd_out = ft_get_fd(fd_list[1]);
-	input = ft_tokens_convert(&tmp2);
+	fd_in = ft_get_fd_in(fd_list[0]);
+	fd_out = ft_get_fd_out(fd_list[1]);
+	input = ft_tokens_convert_redirect(&tmp2);
 	if (input[0] != NULL)
 		ft_add_cmd(cmd_list, input, fd_in, fd_out);
 	//ft_free_line(input);
