@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/10 20:14:40 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/10 20:42:57 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 	}
 	printf("cmd = %s\n", *cmd->cmd);
 	if (builtin_check(*cmd->cmd) == 2)
-		return (choosefunc(cmd, cmd_list));
+		exit (choosefunc(cmd, cmd_list));
 	if (!ft_strchr(*cmd->cmd, '/'))
 		path = searchbinarypath(*cmd->cmd, cmd_list->env);
 	else
