@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 00:25:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/14 23:46:30 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/15 00:33:31 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,9 @@ static void	changeenv(t_cmd_list *cmd_list, char *name, char *value)
 	if (!env->next)
 		exit (12);
 	env->next->next = 0;
+	env->next->export = 1;
 	env->next->name = ft_strdup(name);
-	if (value)
-		env->next->value = ft_strdup(value);
-	else
-		env->next->value = ft_strdup("");
+	env->next->value = ft_strdup(value);
 }
 
 static int	builtin_exportmainloop(char *cmd, t_cmd_list *cmd_list)
