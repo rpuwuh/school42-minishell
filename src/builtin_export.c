@@ -6,13 +6,13 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 00:25:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/10 20:37:29 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/14 23:46:30 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/*	writes env if command was "export"                                        */
+/*	writes env if command was "export"										*/
 
 static int	writeenv(t_env_v *envin)
 {
@@ -28,7 +28,7 @@ static int	writeenv(t_env_v *envin)
 	return (0);
 }
 
-/*	changes env structure                                                     */
+/*	changes env (t_env_v) structure											*/
 
 static void	changeenv(t_cmd_list *cmd_list, char *name, char *value)
 {
@@ -38,9 +38,8 @@ static void	changeenv(t_cmd_list *cmd_list, char *name, char *value)
 	while (env && ft_strncmp(name, env->name, ft_strlen(name)))
 		env = env->next;
 	if (env && !ft_strncmp(name, env->name, ft_strlen(name)) && env->value)
-		free (env->value);
-	if (env)
 	{
+		free (env->value);
 		env->value = ft_strdup(value);
 		return ;
 	}
@@ -74,7 +73,7 @@ static int	builtin_exportmainloop(char *cmd, t_cmd_list *cmd_list)
 		if (ft_strchr(cmd, '='))
 			changeenv(cmd_list, name, ft_strchr(cmd, '=') + 1);
 		else
-			changeenv(cmd_list, name, 0);
+			changeenv(cmd_list, name, "");
 	}
 	free (name);
 	return (0);
@@ -95,7 +94,10 @@ static void	builtin_envreassemble(t_cmd_list *cmd_list, int i)
 		if (env->export)
 		{
 			tmp = ft_strjoin(ft_strdup(env->name), "=");
-			cmd_list->env[i] = ft_strjoin (tmp, env->value);
+			if (env->value)
+				cmd_list->env[i] = ft_strjoin (tmp, env->value);
+			else
+				cmd_list->env[i] = ft_strjoin (tmp, ft_strdup(""));
 			i++;
 		}
 		env = env->next;
@@ -128,5 +130,6 @@ int	builtin_export(t_cmd *cmd, t_cmd_list *cmd_list)
 			i++;
 	}
 	builtin_envreassemble(cmd_list, i);
+	builtin_env(cmd_list->env);
 	return (result);
 }

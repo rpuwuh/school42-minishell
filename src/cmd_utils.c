@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 00:57:23 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/10 00:57:53 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/14 22:30:18 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,5 @@ void	ft_cmdlist_free(t_cmd_list *cmd_list)
 			free(cmd_list->cmds->cmd[i++]);
 		cmd_list->cmds = tmp;
 	}
-	//free(cmd_list);
+	free(cmd_list);
 }
