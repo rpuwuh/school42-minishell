@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/18 03:48:19 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/18 23:54:58 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,17 @@ void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
 	int		**fd_list;
 	char	**input;
 	t_token	*tmp;
-	t_token	*tmp2;
 
 	tmp = *tokens;
-	tmp2 = *tokens;
 	fd_list = ft_redirect_init(&tmp);
 	if (fd_list == NULL)
 		return ;
+	tmp = *tokens;
 	fd_in = ft_get_fd_in(fd_list[0]);
 	printf("parser_fd_in = %d\n", fd_in);
 	fd_out = ft_get_fd_out(fd_list[1]);
 	printf("parser_fd_out = %d\n", fd_out);
-	input = ft_tokens_convert_redirect(&tmp2);
+	input = ft_tokens_convert_redirect(&tmp);
 	if (input != NULL && input[0] != NULL)
 		ft_add_cmd(cmd_list, input, fd_in, fd_out);
 	//ft_free_line(input);
@@ -104,7 +103,7 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 			if (input != NULL && input[0] != NULL)
 				ft_add_cmd(cmd_list, input, 0, 1);
 		}
-		ft_executer(cmd_list, *env);
+		//ft_executer(cmd_list, *env);
 	}
 	//ft_cmdlist_free(cmd_list);
 	//ft_tokens_free(tokens);
