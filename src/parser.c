@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/14 22:32:27 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/18 03:48:19 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	ft_pipes_exist(t_token **tokens)
 	tmp = *tokens;
 	while (tmp != NULL)
 	{
+		printf("type = %d\n", tmp->type);
 		if (tmp->type == PIPE)
 			return (TRUE);
 		tmp = tmp->next;
@@ -55,15 +56,17 @@ void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
 	if (fd_list == NULL)
 		return ;
 	fd_in = ft_get_fd_in(fd_list[0]);
+	printf("parser_fd_in = %d\n", fd_in);
 	fd_out = ft_get_fd_out(fd_list[1]);
+	printf("parser_fd_out = %d\n", fd_out);
 	input = ft_tokens_convert_redirect(&tmp2);
-	if (input[0] != NULL)
+	if (input != NULL && input[0] != NULL)
 		ft_add_cmd(cmd_list, input, fd_in, fd_out);
 	//ft_free_line(input);
 	free(fd_list[0]);
 	free(fd_list[1]);
 	free(fd_list);
-	ft_heredoc_remove(cmd_list);
+	//ft_heredoc_remove(cmd_list);
 }
 
 t_token	*ft_lexer(char *line)
@@ -71,9 +74,10 @@ t_token	*ft_lexer(char *line)
 	t_token	*tokens;
 	char	**line_split;
 
-	line_split = ft_sp_split(line, " |");
+	line_split = ft_split(line, ' ');
 	if (line_split == NULL)
 		return (NULL);
+	line_split = ft_sp_split(line_split, '|');
 	tokens = ft_tokens_init();
 	ft_tokens_get(tokens, line_split);
 	ft_free_line(line_split);
@@ -102,7 +106,7 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 		}
 		ft_executer(cmd_list, *env);
 	}
-	ft_cmdlist_free(cmd_list);
-	ft_tokens_free(tokens);
+	//ft_cmdlist_free(cmd_list);
+	//ft_tokens_free(tokens);
 	free(line);
 }

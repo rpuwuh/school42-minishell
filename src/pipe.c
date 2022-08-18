@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 00:19:34 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/11 00:25:57 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/18 00:16:57 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_pipe_parse(t_token **tokens, t_cmd_list *cmd_list)
 
 	tmp = *tokens;
 	tokens_part = NULL;
+	printf("into pipe\n");
 	while (tmp != NULL)
 	{
 		ft_token_add(&tokens_part, tmp);

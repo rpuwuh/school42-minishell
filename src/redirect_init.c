@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 00:41:41 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/11 00:44:45 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/17 23:49:49 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,14 @@ int	ft_fd_list_check(t_token *tokens,
 		tmp = tmp->next;
 	}
 	fd_list[i] = -1;
+
+	i = 0;
+	while (fd_list[i])
+	{
+			printf("fd_inout_%d = %d\n", i, fd_list[i]);
+			i++;
+	}
+
 	return (TRUE);
 }
 
@@ -105,8 +113,10 @@ int	**ft_redirect_init(t_token **token_list)
 	if (fd_list == NULL)
 		return (NULL);
 	i = ft_redirections_count(tokens, INPUT, HEREDOC);
+	printf("i = %d\n", i);
 	fd_list[0] = (int *)malloc((i + 1) * sizeof(int));
 	i = ft_redirections_count(tokens, TRUNC, APPEND);
+	printf("i = %d\n", i);
 	fd_list[1] = (int *)malloc((i + 1) * sizeof(int));
 	if (fd_list[0] == NULL || fd_list[1] == NULL)
 		return (NULL);

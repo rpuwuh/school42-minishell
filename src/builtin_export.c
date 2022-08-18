@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 00:25:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/15 00:33:31 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/18 04:10:56 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int	builtin_exportmainloop(char *cmd, t_cmd_list *cmd_list)
 	return (0);
 }
 
-static void	builtin_envreassemble(t_cmd_list *cmd_list, int i)
+void	builtin_envreassemble(t_cmd_list *cmd_list, int i)
 {
 	char	*tmp;
 	t_env_v	*env;

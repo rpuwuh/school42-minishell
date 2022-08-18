@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 00:03:20 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/15 02:56:37 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/18 04:27:47 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,6 @@ void	ft_env_replace(t_env_v **env, char *name, char *value, int export)
 	t_env_v	*tmp;
 
 	tmp = *env;
-	if (tmp != NULL && ft_strcmp(tmp->name, name) == 0)
-	{
-		tmp->value = value;
-		tmp->export = export;
-		return ;
-	}
 	while (tmp != NULL && ft_strcmp(tmp->name, name) != 0)
 		tmp = tmp->next;
 	if (tmp == NULL)

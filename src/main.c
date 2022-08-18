@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/14 22:32:25 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/18 04:33:41 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,21 @@ void	handle_signals(int sig)
 	}
 }
 
-t_cmd_list	*ft_cmd_init(t_cmd_list	*cmd_list, t_env_v	**env, char **envp)
+t_cmd_list	*ft_cmd_init(t_cmd_list	*cmd_list, t_env_v	**env)
 {
-	int	i;
+	int		i;
+	t_env_v	*env_list;
 
-	i = 0;
-	while (envp && envp[i])
-		i++;
-	cmd_list->env = (char **) malloc (sizeof (char *) * (i + 1));
-	i = 0;
-	while (envp && envp[i])
-	{
-		cmd_list->env[i] = ft_strdup(envp[i]);
-		i++;
-	}
-	cmd_list->env[i] = 0;
 	cmd_list->env_list = *env;
+	i = 0;
+	env_list = cmd_list->env_list;
+	while (env_list)
+	{
+		env_list = env_list->next;
+		if (env_list && env_list->export)
+			i++;
+	}
+	builtin_envreassemble(cmd_list, i);
 	cmd_list->cmds = NULL;
 	return (cmd_list);
 }
@@ -69,11 +68,11 @@ int	ft_shell_init(t_env_v	**env, char **envp)
 
 	ft_env_init(env, envp);
 	env_value = ft_env_get_value(*env, "SHLVL");
+	printf("SHLVL_value = %s\n", env_value);
 	if (env_value)
 	{
 		env_value = ft_itoa(ft_atoi(env_value) + 1);
 		ft_env_replace(env, "SHLVL", env_value, 1);
-		free(env_value);
 	}
 	env_value = getcwd(NULL, 1000);
 	env_value = ft_strjoin(env_value, "/minishell");
@@ -108,7 +107,8 @@ int	main(int argc, char **argv, char **envp)
 			add_history(line);
 		else
 			ft_exit(NULL, CTRL_D, *env);
-		ft_parser(line, env, ft_cmd_init(cmd_list, env, envp));
+		ft_parser(line, env, ft_cmd_init(cmd_list, env));
 	}
+	//ft_cmdlist_free(cmd_list);
 	exit(g_status);
 }
