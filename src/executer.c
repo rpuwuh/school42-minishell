@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/18 04:34:39 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/18 07:40:01 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
 		cmd = cmd->next;
 	printf ("waited cmd is %s, pid is %d\n", *cmd->cmd, cmd->pid);
 	if (cmd->pid)
-		waitpid(cmd->pid, &res, WUNTRACE);
+		waitpid(cmd->pid, &res, WUNTRACED);
 	else
 		res = lastcode;
 	cmd = cmd_list->cmds;

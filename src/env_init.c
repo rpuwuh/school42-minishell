@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 21:56:02 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/15 02:52:43 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/18 08:05:47 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	ft_env_init(t_env_v **env, char **envp)
 		ft_free_line(split_str);
 		if (envp[i + 1] == NULL)
 			break ;
+		printf("%s=%s\n", (*env)->name, (*env)->value);
 		(*env)->next = ft_env_create();
 		(*env) = (*env)->next;
 		i++;

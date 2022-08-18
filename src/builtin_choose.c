@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 00:10:38 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/10 19:05:12 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/18 08:11:15 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	builtin_check(char *cmd)
 {
-	if (!ft_strncmp(cmd, "cd", ft_strlen("cd"))
-		|| !ft_strncmp(cmd, "export", ft_strlen("export"))
-		|| !ft_strncmp(cmd, "unset", ft_strlen("unset"))
-		|| !ft_strncmp(cmd, "exit", ft_strlen("exit")))
+	if (!ft_strncmp(cmd, "cd", ft_strlen("cd") + 1)
+		|| !ft_strncmp(cmd, "export", ft_strlen("export") + 1)
+		|| !ft_strncmp(cmd, "unset", ft_strlen("unset") + 1)
+		|| !ft_strncmp(cmd, "exit", ft_strlen("exit") + 1))
 		return (1);
-	if (!ft_strncmp(cmd, "pwd", ft_strlen("pwd"))
-		|| !ft_strncmp(cmd, "env", ft_strlen("env"))
-		|| !ft_strncmp(cmd, "echo", ft_strlen("echo")))
+	if (!ft_strncmp(cmd, "pwd", ft_strlen("pwd") + 1)
+		|| !ft_strncmp(cmd, "env", ft_strlen("env") + 1)
+		|| !ft_strncmp(cmd, "echo", ft_strlen("echo") + 1))
 		return (2);
 	return (0);
 }
