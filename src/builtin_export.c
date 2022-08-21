@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 00:25:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/18 08:04:40 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/22 01:06:33 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,32 +77,6 @@ static int	builtin_exportmainloop(char *cmd, t_cmd_list *cmd_list)
 	return (0);
 }
 
-void	builtin_envreassemble(t_cmd_list *cmd_list, int i)
-{
-	char	*tmp;
-	t_env_v	*env;
-
-	cmd_list->env = (char **) malloc (sizeof (char *) * (i + 1));
-	if (!cmd_list)
-		return ;
-	i = 0;
-	env = cmd_list->env_list;
-	while (env)
-	{
-		if (env->export)
-		{
-			tmp = ft_strjoin(ft_strdup(env->name), "=");
-			if (env->value)
-				cmd_list->env[i] = ft_strjoin (tmp, env->value);
-			else
-				cmd_list->env[i] = ft_strjoin (tmp, ft_strdup(""));
-			i++;
-		}
-		env = env->next;
-	}
-	cmd_list->env[i] = 0;
-}
-
 int	builtin_export(t_cmd *cmd, t_cmd_list *cmd_list)
 {
 	int		i;
@@ -127,7 +101,7 @@ int	builtin_export(t_cmd *cmd, t_cmd_list *cmd_list)
 		if (env && env->export)
 			i++;
 	}
-	builtin_envreassemble(cmd_list, i);
+	reassemble_env(cmd_list);
 	builtin_env(cmd_list->env);
 	return (result);
 }

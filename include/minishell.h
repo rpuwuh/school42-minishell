@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/08/18 23:16:59 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/22 01:05:24 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ int				checkexecutabless(t_cmd_list *cmd_list);
 int				envnamechecker(char *s);
 int				builtin_unset(t_cmd *cmd, t_cmd_list *cmd_list);
 int				builtin_export(t_cmd *cmd, t_cmd_list *cmd_list);
-void			builtin_envreassemble(t_cmd_list *cmd_list, int i);
+void			reassemble_env(t_cmd_list *cmd_list);
 void			ft_free_fd(int	**fd_list);
 char			**ft_sp_split(char **s, char c);
 char			**ft_tokens_convert_redirect(t_token **tokens);

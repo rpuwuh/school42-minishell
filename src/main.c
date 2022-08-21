@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/18 23:26:50 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/22 01:06:52 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,8 @@ int	g_status;
 
 t_cmd_list	*ft_cmd_init(t_cmd_list	*cmd_list, t_env_v	**env)
 {
-	int		i;
-	t_env_v	*env_list;
-
 	cmd_list->env_list = *env;
-	i = 0;
-	env_list = cmd_list->env_list;
-	while (env_list)
-	{
-		env_list = env_list->next;
-		if (env_list && env_list->export)
-			i++;
-	}
-	builtin_envreassemble(cmd_list, i);
+	reassemble_env(cmd_list);
 	cmd_list->cmds = NULL;
 	return (cmd_list);
 }
