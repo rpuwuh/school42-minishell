@@ -6,21 +6,13 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/22 01:06:52 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/22 08:28:35 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 int	g_status;
-
-t_cmd_list	*ft_cmd_init(t_cmd_list	*cmd_list, t_env_v	**env)
-{
-	cmd_list->env_list = *env;
-	reassemble_env(cmd_list);
-	cmd_list->cmds = NULL;
-	return (cmd_list);
-}
 
 void	ft_exit_with_error(char *func, char *msg)
 {

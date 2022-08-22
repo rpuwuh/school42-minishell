@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 18:47:03 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/10 19:06:00 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/22 03:46:39 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	builtin_cd(char *path, char **env)
 	i = 0;
 	while (env && env[i])
 	{
-		if (!ft_strncmp(env[i], "HOME=", ft_strlen("HOME=") - 1))
+		if (!ft_strncmp(env[i], "HOME=", ft_strlen("HOME=")))
 		{
 			if (!chdir(env[i] + 5))
 				return (0);
