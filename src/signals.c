@@ -6,11 +6,20 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 23:10:17 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/18 23:17:55 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/24 00:06:10 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	ft_tty_mask(void)
+{
+	struct termios	sterm;
+
+	tcgetattr(0, &sterm);
+	sterm.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, 0, &sterm);
+}
 
 void	ft_prompt_restore(int sig)
 {

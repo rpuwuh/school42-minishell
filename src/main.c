@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/22 08:28:35 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/23 23:45:43 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,11 @@ int	ft_shell_init(t_env_v **env, char **envp)
 	return (0);
 }
 
-char	*ft_line_get(t_env_v **env, char *line)
+void	ft_line_get(t_env_v **env, char *line, t_cmd_list	*cmd_list)
 {
 	char	*prompt;
 
+	ft_tty_mask();
 	prompt = (char *)malloc(sizeof(char));
 	prompt = ft_get_prompt(env);
 	ft_signals_run(1);
@@ -64,8 +65,10 @@ char	*ft_line_get(t_env_v **env, char *line)
 		add_history(line);
 	else
 		ft_exit(NULL, CTRL_D, *env);
+	ft_parser(line, env, ft_cmd_init(cmd_list, env));
 	free(prompt);
-	return (line);
+	//free(line);
+	ft_signals_run(1);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -82,10 +85,7 @@ int	main(int argc, char **argv, char **envp)
 	if (ft_shell_init(env, envp))
 		exit(EXIT_FAILURE);
 	while (1)
-	{
-		line = ft_line_get(env, line);
-		ft_parser(line, env, ft_cmd_init(cmd_list, env));
-	}
+		ft_line_get(env, line, cmd_list);
 	//ft_cmdlist_free(cmd_list);
 	exit(g_status);
 }

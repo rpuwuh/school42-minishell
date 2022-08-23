@@ -6,11 +6,23 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 00:41:41 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/17 23:49:49 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/24 00:37:18 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	ft_sig_empty(int sig)
+{
+	(void)sig;
+	write(1, "\n", 1);
+}
+
+void	ft_sig_heredoc(int sig)
+{
+	(void)sig;
+	exit(1);
+}
 
 char	*ft_read_until_heredoc(char *delimiter)
 {
@@ -28,6 +40,7 @@ char	*ft_read_until_heredoc(char *delimiter)
 			free(tmp);
 			break ;
 		}
+		signal(SIGINT, ft_sig_empty);
 		if (tmp != NULL && input != NULL)
 		{
 			tmp = ft_strjoin(tmp, "\n");
