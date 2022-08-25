@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 01:00:03 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/22 08:28:42 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/25 16:37:51 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	envreassemble(t_cmd_list *cmd_list, int i)
 		env = env->next;
 	}
 	(cmd_list->env)[i] = (char *) NULL;
+	(cmd_list->env)[i + 1] = (char *) NULL;
 }
 
 void	reassemble_env(t_cmd_list *cmd_list)

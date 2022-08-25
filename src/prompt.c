@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 18:22:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/07/15 03:27:53 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/25 17:25:20 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ static char	*ft_get_home(t_env_v	**env)
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		pwd = ft_strdup("∅ ");
-	home = ft_env_get_value(*env, "HOME");
+	home = ft_strdup(ft_env_get_value(*env, "HOME"));
 	if (home && home[0] && ft_strnstr(pwd, home, ft_strlen(pwd)))
 		pwd = ft_append("~", pwd + ft_strlen(home));
-	free(home);
+	if (home)
+		free(home);
+	home = 0;
 	pwd = ft_append(BLUE, pwd);
 	pwd = ft_append(pwd, " ");
 	pwd = ft_append(" ", pwd);
@@ -38,7 +40,7 @@ static char	*ft_get_user(t_env_v	**env)
 	user = NULL;
 	user = ft_env_get_value(*env, "USER");
 	if (!user)
-		user = ft_strjoin(NULL, "guest");
+		user = ft_strdup("guest");
 	user = ft_append(BLUE, user);
 	return (user);
 }
@@ -52,6 +54,7 @@ char	*ft_get_prompt(t_env_v	**env)
 	user = ft_get_user(env);
 	prompt_full = ft_append(user, "@minishell");
 	free(user);
+	user = 0;
 	home = ft_get_home(env);
 	prompt_full = ft_append(prompt_full, home);
 	free(home);

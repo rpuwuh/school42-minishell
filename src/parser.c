@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/22 05:09:52 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/25 17:14:57 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,5 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 	}
 	//ft_cmdlist_free(cmd_list);
 	//ft_tokens_free(tokens);
-	free(line);
+	// free(line);
 }

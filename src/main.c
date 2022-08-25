@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/23 23:45:43 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/25 17:20:52 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	ft_line_get(t_env_v **env, char *line, t_cmd_list	*cmd_list)
 {
 	char	*prompt;
 
+
 	ft_tty_mask();
 	prompt = (char *)malloc(sizeof(char));
 	prompt = ft_get_prompt(env);
@@ -66,8 +67,9 @@ void	ft_line_get(t_env_v **env, char *line, t_cmd_list	*cmd_list)
 	else
 		ft_exit(NULL, CTRL_D, *env);
 	ft_parser(line, env, ft_cmd_init(cmd_list, env));
+	line = 0;
 	free(prompt);
-	//free(line);
+	prompt = 0;
 	ft_signals_run(1);
 }
 
