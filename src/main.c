@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/25 17:20:52 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/25 17:26:25 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	ft_shell_init(t_env_v **env, char **envp)
 void	ft_line_get(t_env_v **env, char *line, t_cmd_list	*cmd_list)
 {
 	char	*prompt;
-
 
 	ft_tty_mask();
 	prompt = (char *)malloc(sizeof(char));

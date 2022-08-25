@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/18 07:40:01 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/25 18:20:38 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 {
 	char	*path;
 
+	printf("cmd = %s\n", *cmd->cmd);
 	if (cmd->fd_in > 0)
 	{
 		dup2(cmd->fd_in, 0);
@@ -26,7 +27,6 @@ static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 		dup2(cmd->fd_out, 1);
 		close (cmd->fd_out);
 	}
-	printf("cmd = %s\n", *cmd->cmd);
 	if (builtin_check(*cmd->cmd) == 2)
 		exit (choosefunc(cmd, cmd_list));
 	if (!ft_strchr(*cmd->cmd, '/'))
