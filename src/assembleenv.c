@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 01:00:03 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/29 19:59:43 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/29 20:13:43 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	reassemble_env(t_cmd_list *cmd_list)
 			i++;
 	}
 	envreassemble(cmd_list, i);
-	cmd_list->cmds = NULL;
 	return ;
 }
 
