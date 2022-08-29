@@ -6,13 +6,13 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 16:19:30 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/29 16:38:35 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/29 16:55:07 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	here_doc(char *stop_word)
+int	here_doc_fd(char *stop_word)
 {
 	int		fds[2];
 	char	tmp;
