@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/25 18:20:38 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/29 20:09:17 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
 	cmd = cmd_list->cmds;
 	while (cmd->next)
 		cmd = cmd->next;
+	printf("\n\n\t\tIM HERE!!!!\n"); // вот здесь сегается при экспорте
 	printf ("waited cmd is %s, pid is %d\n", *cmd->cmd, cmd->pid);
 	if (cmd->pid)
 		waitpid(cmd->pid, &res, WUNTRACED);

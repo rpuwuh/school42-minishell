@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 00:25:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/22 01:06:33 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/29 19:55:37 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ static int	builtin_exportmainloop(char *cmd, t_cmd_list *cmd_list)
 int	builtin_export(t_cmd *cmd, t_cmd_list *cmd_list)
 {
 	int		i;
-	t_env_v	*env;
 	int		result;
 
 	if (!cmd->cmd[1])
@@ -89,18 +88,6 @@ int	builtin_export(t_cmd *cmd, t_cmd_list *cmd_list)
 	result = 0;
 	while (cmd->cmd[++i])
 		result = result | builtin_exportmainloop(cmd->cmd[i], cmd_list);
-	i = 0;
-	while (cmd_list->env && cmd_list->env[i])
-		free (cmd_list->env[i++]);
-	free(cmd_list->env);
-	i = 0;
-	env = cmd_list->env_list;
-	while (env)
-	{
-		env = env->next;
-		if (env && env->export)
-			i++;
-	}
 	reassemble_env(cmd_list);
 	builtin_env(cmd_list->env);
 	return (result);
