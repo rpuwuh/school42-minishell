@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/25 18:20:38 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/29 20:13:25 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
 	int		res;
 
 	cmd = cmd_list->cmds;
-	while (cmd->next)
+	while (cmd && cmd->next)
 		cmd = cmd->next;
 	printf ("waited cmd is %s, pid is %d\n", *cmd->cmd, cmd->pid);
 	if (cmd->pid)
