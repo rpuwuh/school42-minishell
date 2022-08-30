@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 04:23:48 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/14 22:06:31 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/30 21:17:09 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,31 +56,6 @@ static void	unsetfromcmd_list(char *name, t_cmd_list *cmd_list)
 	free(env);
 }
 
-static void	changeenvarray(char *name, char ***arr)
-{
-	char	**strs;
-	int		i;
-
-	if (!arr || !*arr)
-		return ;
-	strs = *arr;
-	i = 0;
-	while (strs[i] && !(!ft_strncmp(strs[i], name, ft_strlen(name) - 1)
-			&& strs[i][ft_strlen(name)] == '='))
-		i++;
-	if (!strs[i])
-		return ;
-	printf("%s\n", strs[i]);
-	free (strs[i]);
-	strs[i] = strs[i + 1];
-	i++;
-	while (strs[i])
-	{
-		strs[i] = strs[i + 1];
-		i++;
-	}
-}
-
 int	builtin_unset(t_cmd *cmd, t_cmd_list *cmd_list)
 {
 	int		result;
@@ -100,11 +75,7 @@ int	builtin_unset(t_cmd *cmd, t_cmd_list *cmd_list)
 			result = 1;
 		}
 		unsetfromcmd_list(cmd->cmd[i], cmd_list);
-		changeenvarray(cmd->cmd[i], &cmd_list->env);
-		printf("\n");
-		i = 0;
-		while (cmd_list->env && cmd_list->env[i])
-			printf("%s\n", cmd_list->env[i++]);
 	}
+	reassemble_env(cmd_list);
 	return (result);
 }
