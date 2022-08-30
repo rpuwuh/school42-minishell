@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 18:22:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/25 17:25:20 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/08/30 20:49:09 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ static char	*ft_get_home(t_env_v	**env)
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		pwd = ft_strdup("∅ ");
-	home = ft_strdup(ft_env_get_value(*env, "HOME"));
+	home = 0;
+	if (ft_env_get_value(*env, "HOME"))
+		home = ft_strdup(ft_env_get_value(*env, "HOME"));
 	if (home && home[0] && ft_strnstr(pwd, home, ft_strlen(pwd)))
 		pwd = ft_append("~", pwd + ft_strlen(home));
 	if (home)
