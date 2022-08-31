@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/29 20:01:17 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/01 00:48:56 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 	char		**input;
 
 	line = ft_remove_extra_spaces(line);
-	tokens = ft_lexer(line);
 	if (line[0] != '\0' && ft_redirect_check(line) && ft_quotes_check(line))
 	{
+		tokens = ft_lexer(line);
 		ft_quotes_remove(&tokens, env);
 		if (ft_pipes_exist(&tokens) == TRUE)
 			ft_pipe_parse(&tokens, cmd_list);

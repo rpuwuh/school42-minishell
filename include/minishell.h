@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/08/23 23:22:22 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/08/31 23:29:21 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,5 +158,6 @@ char			**ft_sp_split(char **s, char c);
 char			**ft_tokens_convert_redirect(t_token **tokens);
 void			ft_signals_run(int sig);
 void			ft_tty_mask(void);
+char			**sp_split(char *str);
 
 #endif
