@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/29 20:00:39 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/01 19:38:52 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	ft_shell_init(t_env_v **env, char **envp)
 
 	ft_env_init(env, envp);
 	env_value = ft_env_get_value(*env, "SHLVL");
-	printf("SHLVL_value = %s\n", env_value);
 	if (env_value)
 	{
 		env_value = ft_itoa(ft_atoi(env_value) + 1);
@@ -47,8 +46,9 @@ int	ft_shell_init(t_env_v **env, char **envp)
 	env_value = getcwd(NULL, 1000);
 	env_value = ft_strjoin(env_value, "/minishell");
 	ft_env_replace(env, "SHELL", env_value, 1);
-	free(env_value);
 	ft_env_add(env, ft_strdup("?"), ft_strdup("0"), FALSE);
+	printf("\nSHLVL_value = %s\n", ft_env_get_value(*env, "SHLVL"));
+	printf("SHELL_value = %s\n", ft_env_get_value(*env, "SHELL"));
 	return (0);
 }
 
