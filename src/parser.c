@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/02 20:17:40 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/03 00:39:23 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ t_token	*ft_lexer(char *line)
 	t_token	*tokens;
 	char	**line_split;
 
-	line_split = ft_split(line, ' ');
+	line_split = sp_split(line);
 	if (line_split == NULL)
 		return (NULL);
-	line_split = ft_sp_split(line_split, '|');
+	//line_split = ft_sp_split(line_split, '|');
 	tokens = ft_tokens_init();
 	ft_tokens_get(tokens, line_split);
 	ft_free_line(line_split);
