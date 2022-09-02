@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 04:23:48 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/30 21:17:09 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/02 20:36:22 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ static void	unsetfromcmd_list(char *name, t_cmd_list *cmd_list)
 	t_env_v	*env_prev;
 
 	env = cmd_list->env_list;
-	while (env && ft_strncmp(name, env->name, ft_strlen(name)))
+	while (env && ft_strncmp(name, env->name, ft_strlen(name) + 1))
 		env = env->next;
 	if (!env)
 		return ;
-	if (!ft_strncmp(name, env->name, ft_strlen(name)))
+	if (!ft_strncmp(name, env->name, ft_strlen(name) + 1))
 	{
 		free (env->name);
 		free (env->value);

@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 21:56:02 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/01 19:04:15 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/02 20:27:07 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	ft_env_search(t_env_v *env_v, char *name)
 
 char	*ft_env_get_value(t_env_v *env_v, char *name)
 {
+	if (env_v == NULL || name == NULL)
+		return (NULL);
 	if (env_v != NULL && ft_strcmp(env_v->name, name) == 0)
 		return (env_v->value);
 	while (env_v != NULL && ft_strcmp(env_v->name, name) != 0)

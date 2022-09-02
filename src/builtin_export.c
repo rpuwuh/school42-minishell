@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 00:25:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/29 19:55:37 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/02 20:37:13 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ static void	changeenv(t_cmd_list *cmd_list, char *name, char *value)
 	t_env_v	*env;
 
 	env = cmd_list->env_list;
-	while (env && ft_strncmp(name, env->name, ft_strlen(name)))
+	while (env && ft_strncmp(name, env->name, ft_strlen(name) + 1))
 		env = env->next;
-	if (env && !ft_strncmp(name, env->name, ft_strlen(name)) && env->value)
+	if (env && !ft_strncmp(name, env->name, ft_strlen(name) + 1) && env->value)
 	{
 		free (env->value);
 		env->value = ft_strdup(value);

@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/29 20:13:25 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/01 20:53:26 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,29 +93,22 @@ int	executecmds(t_cmd_list *cmd_list)
 
 void	ft_executer(t_cmd_list *cmd_list, t_env_v *env)
 {
-	int	i;
+	int		i;
+	t_cmd	*cmds;
 
 	cmd_list->env_list = env;
-	i = 0;
-	while (cmd_list->cmds)
+	cmds = cmd_list->cmds;
+	while (cmds)
 	{
-		while (cmd_list->cmds->cmd[i])
+		i = 0;
+		while (cmds->cmd[i])
 		{
-			printf("command_%d = %s\n", i, cmd_list->cmds->cmd[i]);
+			printf("command_%d = %s\n", i, cmds->cmd[i]);
 			i++;
 		}
-		printf("fd_in = %d\n", cmd_list->cmds->fd_in);
-		printf("fd_out = %d\n", cmd_list->cmds->fd_out);
-		if (cmd_list->cmds->next)
-			cmd_list->cmds = cmd_list->cmds->next;
-		else
-			break ;
-		i = 0;
+		printf("fd_in = %d\n", cmds->fd_in);
+		printf("fd_out = %d\n", cmds->fd_out);
+		cmds = cmds->next;
 	}
-	i = executecmds(cmd_list);
-	while (ft_strncmp(env->name, "?", ft_strlen("?")))
-		env = env->next;
-	if (env && env->name && env->value)
-		free (env->value);
-	env->value = ft_itoa(i);
+	ft_env_replace(&env, "?", ft_itoa(executecmds(cmd_list)), 0);
 }
