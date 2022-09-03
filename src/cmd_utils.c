@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 00:57:23 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/18 00:10:24 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/09/03 18:27:12 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_add_cmd(t_cmd_list *cmd_list,
 	cmd_list->cmds = cmd_new;
 }
 
-void	ft_cmdlist_free(t_cmd_list *cmd_list)
+void	ft_cmd_free(t_cmd_list *cmd_list)
 {
 	int		i;
 	t_cmd	*tmp;
@@ -38,11 +38,10 @@ void	ft_cmdlist_free(t_cmd_list *cmd_list)
 	tmp = cmd_list->cmds;
 	while (tmp != NULL)
 	{
-		tmp = cmd_list->cmds->next;
 		i = 0;
-		while (cmd_list->cmds->cmd[i] != NULL)
-			free(cmd_list->cmds->cmd[i++]);
-		cmd_list->cmds = tmp;
+		while (tmp->cmd[i] != NULL)
+			free(tmp->cmd[i++]);
+		tmp = tmp->next;
 	}
-	free(cmd_list);
+	cmd_list->cmds = 0;
 }

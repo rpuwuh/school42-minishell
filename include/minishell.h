@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/08/31 23:29:21 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/09/03 18:27:48 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int				ft_redirections_exist(t_token **tokens);
 void			ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list);
 void			ft_token_add(t_token **tokens, t_token *token_to_add);
 t_token			**ft_tokens_invert(t_token **tokens);
-void			ft_cmdlist_free(t_cmd_list *cmd_list);
+void			ft_cmd_free(t_cmd_list *cmd_list);
 int				executecmds(t_cmd_list *cmd_list);
 int				builtin_check(char *cmd);
 int				choosefunc(t_cmd *cmd, t_cmd_list *cmd_list);

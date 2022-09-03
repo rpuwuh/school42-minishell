@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/03 00:39:23 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/09/03 19:25:44 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 		}
 		ft_executer(cmd_list, *env);
 	}
-	//ft_cmdlist_free(cmd_list);
+	ft_cmd_free(cmd_list);
 	//ft_tokens_free(tokens);
 	// free(line);
 }

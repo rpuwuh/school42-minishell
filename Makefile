@@ -22,7 +22,7 @@ RM = rm -f
 
 all:	$(MINISHELL_NAME)
 
-$(MINISHELL_NAME): lib $(OBJ_DIRS) $(MINISHELL_OBJS)
+$(MINISHELL_NAME): lib $(OBJ_DIRS) $(MINISHELL_OBJS) Makefile
 	$(CC) $(CFLAGS) $(MINISHELL_OBJS) -lncurses libft.a -L $(HOME)/.brew/opt/readline/lib/ -lreadline -o $(MINISHELL_NAME) 
 	echo "----- \033[32m $@ compiled\033[0m  -----"
 

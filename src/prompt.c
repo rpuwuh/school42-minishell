@@ -6,16 +6,26 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 18:22:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/02 20:34:48 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/03 19:36:36 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+static char	*ft_append_free_secondstr(char *s1, char *s2)
+{
+	char	*res;
+
+	res = ft_append(s1, s2);
+	free (s2);
+	return (res);
+}
+
 static char	*ft_get_home(t_env_v	**env)
 {
 	char	*pwd;
 	char	*home;
+	char	*tmp;
 
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
@@ -24,14 +34,18 @@ static char	*ft_get_home(t_env_v	**env)
 	if (ft_env_get_value(*env, "HOME"))
 		home = ft_strdup(ft_env_get_value(*env, "HOME"));
 	if (home && home[0] && ft_strnstr(pwd, home, ft_strlen(pwd)))
+	{
+		tmp = pwd;
 		pwd = ft_append("~", pwd + ft_strlen(home));
+		free (tmp);
+	}
 	if (home)
 		free(home);
 	home = 0;
-	pwd = ft_append(BLUE, pwd);
-	pwd = ft_append(pwd, " ");
-	pwd = ft_append(" ", pwd);
-	pwd = ft_append(pwd, RESETCOLOR);
+	pwd = ft_append_free_secondstr(BLUE, pwd);
+	pwd = ft_strjoin(pwd, " ");
+	pwd = ft_append_free_secondstr(" ", pwd);
+	pwd = ft_strjoin(pwd, RESETCOLOR);
 	return (pwd);
 }
 
@@ -58,13 +72,13 @@ char	*ft_get_prompt(t_env_v	**env)
 	free(user);
 	user = 0;
 	home = ft_get_home(env);
-	prompt_full = ft_append(prompt_full, home);
+	prompt_full = ft_strjoin(prompt_full, home);
 	free(home);
 	if (!g_status || g_status == -1)
-		prompt_full = ft_append(prompt_full, BLUE);
+		prompt_full = ft_strjoin(prompt_full, BLUE);
 	else
-		prompt_full = ft_append(prompt_full, RED);
-	prompt_full = ft_append(prompt_full, "$ ");
-	prompt_full = ft_append(prompt_full, RESETCOLOR);
+		prompt_full = ft_strjoin(prompt_full, RED);
+	prompt_full = ft_strjoin(prompt_full, "$ ");
+	prompt_full = ft_strjoin(prompt_full, RESETCOLOR);
 	return (prompt_full);
 }
