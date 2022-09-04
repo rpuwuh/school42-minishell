@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sp_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 00:59:32 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/03 00:38:00 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/09/04 19:38:22 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ char	*ft_create_word(char *s, unsigned int i, int len)
 
 	tmp = ft_substr(s, i, len);
 	str = ft_strdup(tmp);
+	free (tmp);
 	return (str);
 }
 
@@ -110,8 +111,7 @@ static void	ft_sp_divide(char *s, char **words_new)
 			else if (quote_counter[0] == 1)
 			{
 				quote_counter[0] = 0;
-				words_new[j] = ft_create_word(s, i - count[1], count[1] + 1);
-				j++;
+				words_new[j++] = ft_create_word(s, i - count[1], count[1] + 1);
 				count[1] = 0;
 				i++;
 			}
@@ -135,8 +135,7 @@ static void	ft_sp_divide(char *s, char **words_new)
 		if (s[i] == ' ' && (i == 0 || (s[i - 1] && s[i - 1] != ('|' || ' ')))
 			&& quote_counter[0] == 0 && quote_counter[1] == 0)
 		{
-			words_new[j] = ft_create_word(s, i - count[0], count[0]);
-			j++;
+			words_new[j++] = ft_create_word(s, i - count[0], count[0]);
 			count[0] = 0;
 		}
 		if (s[i] == '|' && quote_counter[0] == 0 && quote_counter[1] == 0)
