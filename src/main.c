@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/05 23:19:18 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/09/05 23:23:04 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_line_get(t_env_v **env, char *line, t_cmd_list	*cmd_list)
 	ft_signals_run(1);
 }
 
-int	main(int argc, char **argv./m	, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
 	t_env_v		**env;
