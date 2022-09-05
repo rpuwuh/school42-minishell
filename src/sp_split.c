@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sp_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 00:59:32 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/04 19:38:22 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/05 23:10:44 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ static int	ft_sp_wordnum(char *s)
 			else if (quote_counter[1] == 1)
 				quote_counter[1] = 0;
 		}
-		else if (s[i] == ' ' && ((s[i + 1] && s[i + 1] != '|' && s[i + 1] != ' ')
-				|| !s[i + 1]) && ((s[i - 1] && s[i - 1] != '|') || i == 0)
-			&& quote_counter[0] == 0 && quote_counter[1] == 0)
+		else if (s[i] == ' ' && ((s[i + 1] && s[i + 1] != '|' && s[i + 1]
+					!= ' ') || !s[i + 1]) && ((s[i - 1] && s[i - 1] != '|')
+				|| i == 0) && quote_counter[0] == 0 && quote_counter[1] == 0)
 			j++;
 		else if (s[i] == ' ' && (s[i + 1] == ' ' || s[i + 1] == '|'))
 			i++;
@@ -169,8 +169,8 @@ char	**sp_split(char *str)
 	if (str == NULL)
 		return (NULL);
 	words = (char **)malloc(sizeof(char *) * ft_sp_wordnum(str));
-	if (words == NULL)
-		return (NULL);
+	//if (words == NULL)
+		//return (NULL);
 	ft_sp_divide(str, words);
 
 	int i = 0;
