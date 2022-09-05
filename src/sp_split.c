@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 00:59:32 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/05 23:10:44 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/09/05 23:25:03 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,8 +169,8 @@ char	**sp_split(char *str)
 	if (str == NULL)
 		return (NULL);
 	words = (char **)malloc(sizeof(char *) * ft_sp_wordnum(str));
-	//if (words == NULL)
-		//return (NULL);
+	if (words == NULL)
+		return (NULL);
 	ft_sp_divide(str, words);
 
 	int i = 0;
