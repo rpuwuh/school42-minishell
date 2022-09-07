@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 00:10:38 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/18 08:11:15 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/07 19:08:13 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int	choosefunc(t_cmd *cmd, t_cmd_list *cmd_list)
 	if (!ft_strncmp(cmd->cmd[0], "echo", ft_strlen("echo")))
 		return (builtin_echo(&(cmd->cmd)[1]));
 	if (!ft_strncmp(cmd->cmd[0], "env", ft_strlen("env")))
-		return (builtin_env(cmd_list->env));
+		return (builtin_env(cmd_list->env_list));
 	if (!ft_strncmp(cmd->cmd[0], "cd", ft_strlen("cd")))
-		return (builtin_cd(cmd->cmd[1], cmd_list->env));
+		return (builtin_cd(cmd->cmd[1], cmd_list->env_list));
 	if (!ft_strncmp(cmd->cmd[0], "exit", ft_strlen("exit")))
 		return (builtin_exit(cmd->cmd + 1));
 	if (!ft_strncmp(cmd->cmd[0], "unset", ft_strlen("unset")))

@@ -6,16 +6,14 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 18:47:03 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/29 19:13:44 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/07 19:17:17 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	builtin_cd(char *path, char **env)
+int	builtin_cd(char *path, t_env_v *env_list)
 {
-	int	i;
-
 	if (path)
 	{
 		if (access(path, F_OK))
@@ -26,16 +24,11 @@ int	builtin_cd(char *path, char **env)
 		printf("minishell: cd: not a directory: %s\n", path);
 		return (1);
 	}
-	i = 0;
-	while (env && env[i])
+	if (ft_env_get_value(env_list, "HOME"))
 	{
-		if (!ft_strncmp(env[i], "HOME=", ft_strlen("HOME=")))
-		{
-			if (!chdir(env[i] + 5))
-				return (0);
-			return (builtin_cd(env[i], env));
-		}
-		i++;
+		if (!chdir(ft_env_get_value(env_list, "HOME")))
+			return (0);
+		return (builtin_cd(ft_env_get_value(env_list, "HOME"), env_list));
 	}
 	printf("minishell: cd: HOME not set\n");
 	return (1);
@@ -102,12 +95,15 @@ int	builtin_exit(char **s)
 	exit(255);
 }
 
-int	builtin_env(char **env)
+int	builtin_env(t_env_v *env_list)
 {
-	int	i;
+	t_env_v	*env_temp;
 
-	i = 0;
-	while (env && env[i])
-		printf("%s\n", env[i++]);
+	env_temp = env_list;
+	while (env_temp)
+	{
+		printf("%s=%s\n", env_temp->name, env_temp->value);
+		env_temp = env_temp->next;
+	}
 	return (0);
 }

@@ -6,28 +6,20 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 23:37:48 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/10 17:56:18 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/07 18:52:44 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static char	**getbinarypaths(char **env)
+static char	**getbinarypaths(char *env_paths)
 {
 	char	**paths;
-	int		i;
 
-	if (!env || !*env)
-		return (0);
-	i = 0;
-	while (env[i])
-	{	
-		if (!ft_strncmp(env[i], "PATH=", ft_strlen("PATH=") - 1))
-		{
-			paths = ft_split(env[i] + 5, ':');
-			return (paths);
-		}
-		i++;
+	if (env_paths)
+	{
+		paths = ft_split(env_paths, ':');
+		return (paths);
 	}
 	paths = (char **) malloc (sizeof (char *) * 2);
 	paths [0] = ft_strdup(".");
@@ -74,13 +66,13 @@ static char	*checkbinarypaths(char *cmd, char **paths)
 	return (res);
 }
 
-char	*searchbinarypath(char *cmd, char **env)
+char	*searchbinarypath(char *cmd, t_env_v *env_list)
 {
 	char	**paths;
 	char	*res;
 	int		i;
 
-	paths = getbinarypaths(env);
+	paths = getbinarypaths(ft_env_get_value(env_list, "PATH"));
 	if (!paths)
 		return (0);
 	res = checkbinarypaths(cmd, paths);

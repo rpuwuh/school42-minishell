@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/09/03 18:27:48 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/07 19:17:02 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_cmd_list
 {
 	t_cmd			*cmds;
 	struct s_env_v	*env_list;
-	char			**env;
+	// char			**env;
 }	t_cmd_list;
 
 typedef struct s_env_v
@@ -143,16 +143,16 @@ int				builtin_check(char *cmd);
 int				choosefunc(t_cmd *cmd, t_cmd_list *cmd_list);
 int				builtin_echo(char **args);
 int				builtin_pwd(void);
-int				builtin_cd(char *path, char **env);
+int				builtin_cd(char *path, t_env_v *env_list);
 int				builtin_exit(char **s);
-int				builtin_env(char **env);
-char			*searchbinarypath(char *cmd, char **env);
+int				builtin_env(t_env_v *env_list);
+char			*searchbinarypath(char *cmd, t_env_v *env);
 int				checkexecutabless(t_cmd_list *cmd_list);
 int				envnamechecker(char *s);
 int				builtin_unset(t_cmd *cmd, t_cmd_list *cmd_list);
 int				builtin_export(t_cmd *cmd, t_cmd_list *cmd_list);
 t_cmd_list		*ft_cmd_init(t_cmd_list	*cmd_list, t_env_v	**env);
-void			reassemble_env(t_cmd_list *cmd_list);
+char			**reassemble_env(t_cmd_list *cmd_list);
 void			ft_free_fd(int	**fd_list);
 char			**ft_sp_split(char **s, char c);
 char			**ft_tokens_convert_redirect(t_token **tokens);

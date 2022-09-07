@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/04 19:52:55 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/07 20:45:24 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 {
 	char	*path;
+	char	**paths;
 
 	printf("cmd = %s\n", *cmd->cmd);
 	if (cmd->fd_in > 0)
@@ -30,12 +31,17 @@ static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 	if (builtin_check(*cmd->cmd) == 2)
 		exit (choosefunc(cmd, cmd_list));
 	if (!ft_strchr(*cmd->cmd, '/'))
-		path = searchbinarypath(*cmd->cmd, cmd_list->env);
+		path = searchbinarypath(*cmd->cmd, cmd_list->env_list);
 	else
 		path = ft_strdup(*cmd->cmd);
+	printf("\texecutable = \'%s\'\n\n", path);
+	paths = reassemble_env(cmd_list);
+	for (int i = 0; cmd->cmd && cmd->cmd[i]; i++)
+		printf("\tcmd = \'%s\'\n", cmd->cmd[i]);
+	printf("\n");
 	if (path && access(path, X_OK) != -1)
-		execve(path, cmd->cmd, cmd_list->env);
-	return (0);
+		execve(path, cmd->cmd, paths);
+	exit (255);
 }
 
 static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)

@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 01:30:38 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/08/10 18:45:39 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/07 19:37:37 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int	checkexecutabless(t_cmd_list *cmd_list)
 	result = 0;
 	while (cmd)
 	{
-		if (!builtin_check(*cmd->cmd))
+		if (*cmd->cmd && !builtin_check(*cmd->cmd))
 		{
 			if (!ft_strchr(*cmd->cmd, '/'))
-				path = searchbinarypath(*cmd->cmd, cmd_list->env);
+				path = searchbinarypath(*cmd->cmd, cmd_list->env_list);
 			else
 				path = ft_strdup(*cmd->cmd);
 			if (checkcmdshowmessage(path, *cmd->cmd))

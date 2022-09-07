@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/05 23:23:04 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/09/07 20:51:59 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	ft_line_get(t_env_v **env, char *line, t_cmd_list	*cmd_list)
 		add_history(line);
 	else
 		ft_exit(NULL, CTRL_D, *env);
+	line = ft_strtrim(line, "\t\n\v\f\r ");
 	ft_parser(line, env, ft_cmd_init(cmd_list, env));
 	line = 0;
 	free(prompt);
