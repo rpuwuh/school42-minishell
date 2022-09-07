@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 04:23:48 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/02 20:36:22 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/07 21:28:52 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	unsetfromcmd_list(char *name, t_cmd_list *cmd_list)
 	}
 	if (env && env == cmd_list->env_list)
 	{
-		cmd_list->env_list = env->next;
+		cmd_list->env_list = cmd_list->env_list->next;
 		free (env);
 		return ;
 	}
@@ -76,6 +76,5 @@ int	builtin_unset(t_cmd *cmd, t_cmd_list *cmd_list)
 		}
 		unsetfromcmd_list(cmd->cmd[i], cmd_list);
 	}
-	reassemble_env(cmd_list);
 	return (result);
 }

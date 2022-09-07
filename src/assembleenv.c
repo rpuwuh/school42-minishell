@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 01:00:03 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/07 19:03:30 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/07 21:27:22 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ char	**reassemble_env(t_cmd_list *cmd_list)
 	env_list = cmd_list->env_list;
 	while (env_list)
 	{
-		env_list = env_list->next;
-		if (env_list && env_list->export)
+		if (env_list->export)
 			i++;
+		env_list = env_list->next;
 	}
 	env = envreassemble(cmd_list, i);
 	return (env);
@@ -62,7 +62,6 @@ char	**reassemble_env(t_cmd_list *cmd_list)
 t_cmd_list	*ft_cmd_init(t_cmd_list	*cmd_list, t_env_v	**env)
 {
 	cmd_list->env_list = *env;
-	// reassemble_env(cmd_list);
 	cmd_list->cmds = NULL;
 	return (cmd_list);
 }
