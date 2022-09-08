@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/08 23:10:53 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/08 23:21:33 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_shell_init(t_env_v **env, char **envp)
 	return (0);
 }
 
-void	ft_line_get(t_env_v **env, char *line, t_cmd_list	*cmd_list)
+void	ft_line_handler(t_env_v **env, char *line, t_cmd_list	*cmd_list)
 {
 	char	*prompt;
 
@@ -81,7 +81,7 @@ int	main(int argc, char **argv, char **envp)
 	if (ft_shell_init(env, envp))
 		exit(EXIT_FAILURE);
 	while (1)
-		ft_line_get(env, line, cmd_list);
+		ft_line_handler(env, line, cmd_list);
 	//ft_cmdlist_free(cmd_list);
 	exit(g_status);
 }
