@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/09/08 21:27:13 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/08 21:59:16 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,6 @@ char			**ft_tokens_convert_redirect(t_token **tokens);
 void			ft_signals_run(int sig);
 void			ft_tty_mask(void);
 char			**sp_split(char *str);
-char			*readline_minishell(char *prompt);
+char			*readline_minishell(char *prompt, t_env_v **env);
 
 #endif

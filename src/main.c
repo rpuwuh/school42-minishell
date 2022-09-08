@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/08 21:53:43 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/08 23:10:53 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,7 @@ void	ft_line_get(t_env_v **env, char *line, t_cmd_list	*cmd_list)
 	ft_tty_mask();
 	prompt = ft_get_prompt(env);
 	ft_signals_run(1);
-	line = readline_minishell(prompt);
-	printf("\tline = <%s>\n", line);
-	if (line != NULL && *line)
-		add_history(line);
-	else
-		ft_exit(NULL, CTRL_D, *env);
-	line = ft_strtrim(line, "\t\n\v\f\r ");
+	line = readline_minishell(prompt, env);
 	ft_parser(line, env, ft_cmd_init(cmd_list, env));
 	line = 0;
 	free(prompt);
