@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/07 21:28:08 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/07 23:14:50 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,5 @@ void	ft_executer(t_cmd_list *cmd_list, t_env_v *env)
 		printf("fd_out = %d\n", cmds->fd_out);
 		cmds = cmds->next;
 	}
-	// exit (0);
 	ft_env_replace(&env, "?", ft_itoa(executecmds(cmd_list)), 0);
 }

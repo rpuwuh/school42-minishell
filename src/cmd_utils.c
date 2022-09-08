@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 00:57:23 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/03 18:27:12 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/07 22:24:35 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_cmd_free(t_cmd_list *cmd_list)
 {
 	int		i;
 	t_cmd	*tmp;
+	t_cmd	*tmp_prev;
 
 	tmp = cmd_list->cmds;
 	while (tmp != NULL)
@@ -41,7 +42,10 @@ void	ft_cmd_free(t_cmd_list *cmd_list)
 		i = 0;
 		while (tmp->cmd[i] != NULL)
 			free(tmp->cmd[i++]);
+		free (tmp->cmd);
+		tmp_prev = tmp;
 		tmp = tmp->next;
+		free (tmp_prev);
 	}
 	cmd_list->cmds = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 04:23:48 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/07 21:28:52 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/07 21:55:15 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	builtin_unset(t_cmd *cmd, t_cmd_list *cmd_list)
 	result = 0;
 	while (cmd->cmd[++i])
 	{
-		printf("name = %s\n", cmd->cmd[i]);
 		if (!envnamechecker(cmd->cmd[i]))
 		{
 			printf("minishell: unset: `%s': not a valid identifier\n",
