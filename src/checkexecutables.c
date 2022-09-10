@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 01:30:38 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/07 19:37:37 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/10 19:55:12 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	checkcmdshowmessage(char *path, char *cmd)
 {
-	if (!(path || access(path, 0) != -1))
+	if (!path || access(path, 0) == -1)
 	{
 		printf("minishell: no such file or directory: %s\n", cmd);
 		if (path)

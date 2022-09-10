@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 20:14:33 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/09 00:09:11 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/10 20:22:38 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,6 @@ char	*readline_minishell(char *prompt, t_env_v **env)
 	tmp = ft_strtrim(line, "\t\n\v\f\r ");
 	free (line);
 	line = tmp;
-	printf("\n\tline = <%s>\n", line);
+	printf("\tline = <%s>\n", line);
 	return (line);
 }

@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/08 23:12:51 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/09 20:33:14 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 	t_token		*tokens;
 	char		**input;
 
-	line = ft_remove_extra_spaces(line);
+	// line = ft_remove_extra_spaces(line);
 	if (line[0] != '\0' && ft_redirect_check(line) && ft_quotes_check(line))
 	{
 		tokens = ft_lexer(line);

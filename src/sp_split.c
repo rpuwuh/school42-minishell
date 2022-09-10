@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sp_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 00:59:32 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/05 23:25:03 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/09/09 21:03:36 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*ft_create_word(char *s, unsigned int i, int len)
 
 	tmp = ft_substr(s, i, len);
 	str = ft_strdup(tmp);
-	free (tmp);
+	// free (tmp);
 	return (str);
 }
 

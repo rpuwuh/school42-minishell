@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/08 23:21:33 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/10 23:17:21 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,6 @@ int	main(int argc, char **argv, char **envp)
 		exit(EXIT_FAILURE);
 	while (1)
 		ft_line_handler(env, line, cmd_list);
-	//ft_cmdlist_free(cmd_list);
+	ft_cmdlist_free(cmd_list);
 	exit(g_status);
 }
