@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/10 23:17:21 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/12 03:31:19 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ void	ft_line_handler(t_env_v **env, char *line, t_cmd_list	*cmd_list)
 	prompt = ft_get_prompt(env);
 	ft_signals_run(1);
 	line = readline_minishell(prompt, env);
+	printf("\tline = <%s>\n", line);
+	line = stringnormalizespaces(line);
+	printf("\tline = <%s>\n", line);
 	ft_parser(line, env, ft_cmd_init(cmd_list, env));
 	line = 0;
 	free(prompt);
@@ -82,6 +85,6 @@ int	main(int argc, char **argv, char **envp)
 		exit(EXIT_FAILURE);
 	while (1)
 		ft_line_handler(env, line, cmd_list);
-	ft_cmdlist_free(cmd_list);
+	ft_cmd_free(cmd_list);
 	exit(g_status);
 }

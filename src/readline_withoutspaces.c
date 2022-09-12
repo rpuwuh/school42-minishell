@@ -6,25 +6,31 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 00:02:22 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/10 22:14:22 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/11 23:06:11 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+int	ft_isspace(int c)
+{
+	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r'
+		|| c == ' ')
+		return ((int) c);
+	return ((int) 0);
+}
+
 static int	readline_withoutspaces_check_emptiness(char *line)
 {
-	char	*tmp;
+	int	i;
 
-	tmp = ft_strtrim(line, "\t\n\v\f\r ");
-	if (!tmp)
+	if (!line)
 		return (1);
-	if (!tmp[0])
-	{
-		free (tmp);
+	i = 0;
+	while (ft_isspace(line[i]))
+		i++;
+	if (!line[0])
 		return (1);
-	}
-	free (tmp);
 	return (0);
 }
 

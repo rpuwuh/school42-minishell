@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 20:14:33 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/10 20:22:38 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/12 02:43:38 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,13 +118,12 @@ char	*readline_minishell(char *prompt, t_env_v **env)
 		else
 			line = read_one_more_line(line, 0);
 	}
-	if (line != NULL && *line)
+	if (line && *line)
 		add_history(line);
-	else
+	else if (line)
 		ft_exit(NULL, CTRL_D, *env);
 	tmp = ft_strtrim(line, "\t\n\v\f\r ");
 	free (line);
 	line = tmp;
-	printf("\tline = <%s>\n", line);
 	return (line);
 }

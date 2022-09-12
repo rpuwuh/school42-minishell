@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/09/09 00:07:46 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/12 01:23:47 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,8 @@ void			ft_signals_run(int sig);
 void			ft_tty_mask(void);
 char			**sp_split(char *str);
 char			*readline_minishell(char *prompt, t_env_v **env);
+int				ft_isspace(int c);
 char			*readline_withoutspaces(char *prompt);
+char			*stringnormalizespaces(char *line);
 
 #endif
