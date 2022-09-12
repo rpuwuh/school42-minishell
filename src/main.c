@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/12 03:31:19 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/12 07:24:49 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	ft_line_handler(t_env_v **env, char *line, t_cmd_list	*cmd_list)
 	line = stringnormalizespaces(line);
 	printf("\tline = <%s>\n", line);
 	ft_parser(line, env, ft_cmd_init(cmd_list, env));
+	free(line);
 	line = 0;
 	free(prompt);
 	prompt = 0;

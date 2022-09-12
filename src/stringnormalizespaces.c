@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 22:58:02 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/12 03:30:34 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/12 04:29:53 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ char	*stringnormalizespaces(char *line)
 	char	*res;
 	int		i;
 
-	printf("\t\tim here!\n");
 	res = copy_until_space_charecter(line, &i);
 	while (line && line[i])
 	{
