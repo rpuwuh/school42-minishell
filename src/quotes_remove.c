@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 23:53:24 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/05 23:07:31 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/09/13 23:57:27 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,26 @@ char	*ft_insert_env(t_token *tmp, t_env_v **env, int i)
 	int		k;
 	int		l;
 	int		n_size;
-	char	*value;
-	char	*env_value;
+	char	*value[2];
 
 	n_size = 0;
 	while (tmp->value[i + n_size] != ' ' && tmp->value[i + n_size] != '\0')
 		n_size++;
-	env_value = ft_env_get_value(*env, ft_strndup(ft_substr(tmp->value,
+	value[1] = ft_env_get_value(*env, ft_strndup(ft_substr(tmp->value,
 					i, (size_t)n_size), n_size));
-	value = malloc((ft_strlen(tmp->value) - n_size
-				+ ft_strlen(env_value) + 1) * sizeof(char));
+	value[0] = malloc((ft_strlen(tmp->value) - n_size
+				+ ft_strlen(value[1]) + 1) * sizeof(char));
 	j = -1;
 	while (++j < i - 1)
-		value[j] = tmp->value[j];
+		value[0][j] = tmp->value[j];
 	k = -1;
-	while (++k < (int)ft_strlen(env_value))
-		value[j + k] = env_value[k];
+	while (++k < (int)ft_strlen(value[1]))
+		value[0][j + k] = value[1][k];
 	l = -1;
 	while (tmp->value[++l + j + 1 + n_size] != '\0')
-		value[j + k + l] = tmp->value[j + 1 + n_size + l];
-	value[j + k + l] = '\0';
-	return (value);
+		value[0][j + k + l] = tmp->value[j + 1 + n_size + l];
+	value[0][j + k + l] = '\0';
+	return (value[0]);
 }
 
 char	*ft_check_for_env(t_token *tmp, t_env_v **env)
@@ -51,6 +50,7 @@ char	*ft_check_for_env(t_token *tmp, t_env_v **env)
 		if (tmp->value[i] == '$')
 		{
 			tmp->value = ft_insert_env(tmp, env, i + 1);
+			printf("check_env = %s\n", tmp->value);
 			break ;
 		}
 		i++;
