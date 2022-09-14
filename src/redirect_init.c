@@ -6,11 +6,27 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 00:41:41 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/14 00:09:02 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/09/14 23:56:31 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	ft_redirections_count(t_token *tokens, int type_a, int type_b)
+{
+	int		i;
+	t_token	*tmp;
+
+	tmp = tokens;
+	i = 0;
+	while (tmp != NULL)
+	{
+		if ((int)tmp->type == type_a || (int)tmp->type == type_b)
+			i++;
+		tmp = tmp->next;
+	}
+	return (i);
+}
 
 int	ft_fd_list_check(t_token *tokens,
 		int type_a, int type_b, int *fd_list)
@@ -25,7 +41,7 @@ int	ft_fd_list_check(t_token *tokens,
 		if ((int)tmp->type == type_a || (int)tmp->type == type_b)
 		{
 			if (tmp->type == HEREDOC)
-				ft_create_heredoc(tmp, fd_list, i);
+				fd_list[i] = here_doc_fd(tmp->next->value);
 			else
 				fd_list[i] = ft_redirect(tmp->next->value, tmp->type);
 			if (fd_list[i] == -1)

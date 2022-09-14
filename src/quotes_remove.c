@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 23:53:24 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/13 23:57:27 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/09/14 23:40:03 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,8 @@ void	ft_quotes_remove(t_token **tokens, t_env_v **env)
 			tmp->value = ft_quotes_replace(tmp, ' ');
 			tmp->value = ft_check_for_env(tmp, env);
 		}
+		if (symb == '$' && ft_strlen(tmp->value) >= 2)
+			tmp->value = ft_check_for_env(tmp, env);
 		tmp = tmp->next;
 	}
 }

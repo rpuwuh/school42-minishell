@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/12 07:03:39 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/15 00:09:12 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
 	free(fd_list[0]);
 	free(fd_list[1]);
 	free(fd_list);
-	//ft_heredoc_remove(cmd_list);
 }
 
 t_token	*ft_lexer(char *line)
@@ -76,7 +75,6 @@ t_token	*ft_lexer(char *line)
 	line_split = sp_split(line);
 	if (line_split == NULL)
 		return (NULL);
-	//line_split = ft_sp_split(line_split, '|');
 	tokens = ft_tokens_init();
 	ft_tokens_get(tokens, line_split);
 	ft_free_line(line_split);
@@ -106,5 +104,4 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 		ft_cmd_free(cmd_list);
 		//ft_tokens_free(tokens);
 	}
-	// exit (0);
 }

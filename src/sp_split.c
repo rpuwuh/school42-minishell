@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sp_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 00:59:32 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/12 01:50:21 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/15 00:09:58 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,12 +172,5 @@ char	**sp_split(char *str)
 	if (words == NULL)
 		return (NULL);
 	ft_sp_divide(str, words);
-
-	int i = 0;
-	printf("word = ");
-	while (words[i])
-		printf("%s ", words[i++]);
-	printf("\n");
-
 	return (words);
 }
