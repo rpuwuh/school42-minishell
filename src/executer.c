@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/10 23:17:15 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/14 16:37:26 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 	char	*path;
 
 	printf("cmd = %s\n", *cmd->cmd);
+	ft_signals_run(2);
 	if (cmd->fd_in > 0)
 	{
 		dup2(cmd->fd_in, 0);
@@ -51,6 +52,7 @@ static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
 		waitpid(cmd->pid, &res, WUNTRACED);
 	else
 		res = lastcode;
+	ft_signals_run(1);
 	cmd = cmd_list->cmds;
 	while (cmd)
 	{
@@ -74,6 +76,7 @@ int	executecmds(t_cmd_list *cmd_list)
 	if (checkexecutabless(cmd_list))
 		return (127);
 	cmd = cmd_list->cmds;
+	ft_signals_run(3);
 	while (cmd)
 	{
 		if (builtin_check(*cmd->cmd) == 1)

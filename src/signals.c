@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 23:10:17 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/14 00:03:38 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/09/14 16:37:16 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,10 @@ void	ft_signals_run(int sig)
 	{
 		signal(SIGINT, ft_ctrl_c);
 		signal(SIGQUIT, ft_backslash);
+	}
+	if (sig == 3)
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 	}
 }
