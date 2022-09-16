@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/16 19:42:32 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/16 20:07:22 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,22 @@ static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 	exit (255);
 }
 
-static void	show_stoping_message(int exitcode)
+static int	show_stoping_message(int exitcode)
 {
 	if (WIFSIGNALED(exitcode))
 	{
-		if (WTERMSIG(exitcode) == 3)
+		if (WTERMSIG(exitcode) == SIGQUIT)
 		{
 			ft_putstr_fd("Quit: 3\n", 1);
+			return (131);
 		}
-		else if (WTERMSIG(exitcode) == 2)
+		else if (WTERMSIG(exitcode) == SIGINT)
 		{
 			ft_putstr_fd("\n", 1);
+			return (132);
 		}
 	}
+	return (exitcode);
 }
 
 static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
@@ -79,7 +82,7 @@ static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
 			close(cmd->fd_out);
 		cmd = cmd->next;
 	}
-	show_stoping_message(res);
+	res = show_stoping_message(res);
 	return (res);
 }
 
