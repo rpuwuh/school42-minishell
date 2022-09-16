@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 16:19:30 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/16 18:02:36 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/16 18:08:55 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	stop_prompt(int sig)
 	(void)sig;
 }
 
-static void	here_doc_loop(char *stop_word, int fd)
+static int	here_doc_loop(char *stop_word, int fd)
 {
 	char	*tmp;
 	int		first_line;
@@ -47,19 +47,28 @@ static void	here_doc_loop(char *stop_word, int fd)
 	}
 	if (tmp)
 		free (tmp);
-	g_status = 0;
+	if (g_status == 130)
+		return (-1);
+	return (0);
 }
 
 int	here_doc_fd(char *stop_word)
 {
 	int		fds[2];
+	int		res;
 
 	if (!stop_word || !*stop_word || pipe(fds) < 0)
 		return (-1);
 	ft_signals_run(3);
 	signal(SIGINT, stop_prompt);
-	here_doc_loop(stop_word, fds[1]);
+	res = here_doc_loop(stop_word, fds[1]);
 	close (fds[1]);
 	rl_done = 0;
+	g_status = 0;
+	if (res == -1)
+	{
+		close (fds[0]);
+		return (-1);
+	}
 	return (fds[0]);
 }
