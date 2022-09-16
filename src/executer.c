@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/16 18:50:44 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/16 19:42:32 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 	char	*path;
 
 	printf("cmd = %s\n", *cmd->cmd); // delete this line before release
-	ft_signals_run(2);
 	if (cmd->fd_in > 0)
 	{
 		dup2(cmd->fd_in, 0);
@@ -34,9 +33,25 @@ static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 		path = searchbinarypath(*cmd->cmd, cmd_list->env_list);
 	else
 		path = ft_strdup(*cmd->cmd);
+	ft_signals_run(4);
 	if (path && access(path, X_OK) != -1)
 		execve(path, cmd->cmd, reassemble_env(cmd_list));
 	exit (255);
+}
+
+static void	show_stoping_message(int exitcode)
+{
+	if (WIFSIGNALED(exitcode))
+	{
+		if (WTERMSIG(exitcode) == 3)
+		{
+			ft_putstr_fd("Quit: 3\n", 1);
+		}
+		else if (WTERMSIG(exitcode) == 2)
+		{
+			ft_putstr_fd("\n", 1);
+		}
+	}
 }
 
 static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
@@ -64,6 +79,7 @@ static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
 			close(cmd->fd_out);
 		cmd = cmd->next;
 	}
+	show_stoping_message(res);
 	return (res);
 }
 
