@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 18:47:03 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/07 19:17:17 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/12 09:12:20 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ int	builtin_echo(char **args)
 {
 	int	i;
 
-	if (!args || !*args)
+	if (!args)
 		return (0);
+	else if (!*args)
+		return (printf("\n") & 0);
 	i = 0;
 	if (!ft_strncmp(*args, "-n", ft_strlen ("-n")))
 		i++;
