@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_parse.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 00:49:31 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/07 19:33:55 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/14 23:35:35 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	ft_heredoc_remove(t_cmd_list *cmd_list)
-{
-	char	**tmp;
-
-	if (access("heredoc", F_OK) == 0)
-	{
-		tmp = (char **)malloc(3 * sizeof(char *));
-		tmp[2] = NULL;
-		tmp[0] = ft_strdup("rm");
-		tmp[1] = ft_strdup("heredoc");
-		ft_add_cmd(cmd_list, tmp, 0, 1);
-		ft_free_line(tmp);
-	}
-}
 
 void	reset_fd(int og_fd, char *operator)
 {
