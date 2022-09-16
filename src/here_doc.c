@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 16:19:30 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/16 15:15:53 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/16 15:45:45 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,12 @@ int	here_doc_fd(char *stop_word)
 		return (-1);
 	tmp = readline(YELLOW"> "RESETCOLOR);
 	ft_signals_run(4);
-	while ((g_status != 130) && (tmp
-			&& ft_strncmp(tmp, stop_word, strlen(tmp))))
+	printf ("\n");
+	printf("\tstr = <%s>\n", tmp);
+	while (g_status != 130 && ((!tmp || !*tmp)
+			|| (tmp && ft_strncmp(tmp, stop_word, strlen(tmp)))))
 	{
+		printf("\tstr = <%s>\n", tmp);
 		ft_signals_run(4);
 		write(fds[1], "\n", 1);
 		write(fds[1], tmp, ft_strlen(tmp));
