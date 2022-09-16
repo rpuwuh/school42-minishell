@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/16 18:41:41 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/16 18:50:44 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 {
 	char	*path;
 
-	printf("cmd = %s\n", *cmd->cmd);
+	printf("cmd = %s\n", *cmd->cmd); // delete this line before release
 	ft_signals_run(2);
 	if (cmd->fd_in > 0)
 	{
@@ -47,7 +47,7 @@ static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
 	cmd = cmd_list->cmds;
 	while (cmd && cmd->next)
 		cmd = cmd->next;
-	printf ("waited cmd is %s, pid is %d\n", *cmd->cmd, cmd->pid);
+	printf ("waited cmd is %s, pid is %d\n", *cmd->cmd, cmd->pid); // delete this line before release
 	if (cmd->pid)
 		waitpid(cmd->pid, &res, WUNTRACED);
 	else
@@ -115,17 +115,17 @@ void	ft_executer(t_cmd_list *cmd_list, t_env_v *env)
 		}
 		cmds = cmds->next;
 	}
-	while (cmds)
-	{
-		i = 0;
-		while (cmds->cmd[i])
-		{
-			printf("command_%d = %s\n", i, cmds->cmd[i]);
-			i++;
-		}
-		printf("fd_in = %d\n", cmds->fd_in);
-		printf("fd_out = %d\n", cmds->fd_out);
-		cmds = cmds->next;
-	}
+	while (cmds) // delete this line before release
+	{ // delete this line before release
+		i = 0; // delete this line before release
+		while (cmds->cmd[i]) // delete this line before release
+		{ // delete this line before release
+			printf("command_%d = %s\n", i, cmds->cmd[i]); // delete this line before release
+			i++; // delete this line before release
+		} // delete this line before release
+		printf("fd_in = %d\n", cmds->fd_in); // delete this line before release
+		printf("fd_out = %d\n", cmds->fd_out); // delete this line before release
+		cmds = cmds->next;  // delete this line before release
+	} // delete this line before release
 	ft_env_replace(&env, "?", ft_itoa(executecmds(cmd_list)), 0);
 }

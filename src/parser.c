@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/16 18:25:24 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/16 18:51:15 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_pipes_exist(t_token **tokens)
 	tmp = *tokens;
 	while (tmp != NULL)
 	{
-		printf("type = %d\n", tmp->type);
+		printf("type = %d\n", tmp->type); // delete this line before release
 		if (tmp->type == PIPE)
 			return (TRUE);
 		tmp = tmp->next;
@@ -55,9 +55,9 @@ void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
 		return ;
 	tmp = *tokens;
 	fd_in = ft_get_fd_in(fd_list[0]);
-	printf("parser_fd_in = %d\n", fd_in);
+	printf("parser_fd_in = %d\n", fd_in); // delete this line before release
 	fd_out = ft_get_fd_out(fd_list[1]);
-	printf("parser_fd_out = %d\n", fd_out);
+	printf("parser_fd_out = %d\n", fd_out); // delete this line before release
 	input = ft_tokens_convert_redirect(&tmp);
 	if (input != NULL && input[0] != NULL)
 		ft_add_cmd(cmd_list, input, fd_in, fd_out);
