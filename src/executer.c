@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/16 20:07:22 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/17 18:25:08 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 		execve(path, cmd->cmd, reassemble_env(cmd_list));
 	exit (255);
 }
+
+/**	checks is the process stopped by signal
+ *	and if it was then checks was it SIGQUIT or SIGINT
+ *	and if it was then changes exit code */
 
 static int	show_stoping_message(int exitcode)
 {
