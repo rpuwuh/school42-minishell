@@ -6,50 +6,11 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 00:41:41 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/24 00:37:18 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/09/14 23:56:31 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	ft_sig_empty(int sig)
-{
-	(void)sig;
-	write(1, "\n", 1);
-}
-
-void	ft_sig_heredoc(int sig)
-{
-	(void)sig;
-	exit(1);
-}
-
-char	*ft_read_until_heredoc(char *delimiter)
-{
-	char	*input;
-	char	*tmp;
-
-	input = (char *)malloc(sizeof(char));
-	if (input == NULL)
-		return (NULL);
-	while (1)
-	{
-		tmp = readline(YELLOW"> "RESETCOLOR);
-		if (ft_strcmp(tmp, delimiter) == 0)
-		{
-			free(tmp);
-			break ;
-		}
-		signal(SIGINT, ft_sig_empty);
-		if (tmp != NULL && input != NULL)
-		{
-			tmp = ft_strjoin(tmp, "\n");
-			input = ft_strjoin(input, tmp);
-			free(tmp);
-		}
-	}
-	return (input);
-}
 
 int	ft_redirections_count(t_token *tokens, int type_a, int type_b)
 {
@@ -67,19 +28,6 @@ int	ft_redirections_count(t_token *tokens, int type_a, int type_b)
 	return (i);
 }
 
-static void	ft_create_heredoc(t_token *tmp, int *fd_list, int i)
-{
-	char	*heredoc;
-	int		fd;
-
-	heredoc = ft_read_until_heredoc(tmp->next->value);
-	fd = open("heredoc", O_RDWR | O_CREAT | O_TRUNC, 0777);
-	write (fd, heredoc, ft_strlen(heredoc));
-	close(fd);
-	free(heredoc);
-	fd_list[i] = ft_redirect("heredoc", HEREDOC);
-}
-
 int	ft_fd_list_check(t_token *tokens,
 		int type_a, int type_b, int *fd_list)
 {
@@ -93,7 +41,7 @@ int	ft_fd_list_check(t_token *tokens,
 		if ((int)tmp->type == type_a || (int)tmp->type == type_b)
 		{
 			if (tmp->type == HEREDOC)
-				ft_create_heredoc(tmp, fd_list, i);
+				fd_list[i] = here_doc_fd(tmp->next->value);
 			else
 				fd_list[i] = ft_redirect(tmp->next->value, tmp->type);
 			if (fd_list[i] == -1)
@@ -103,14 +51,6 @@ int	ft_fd_list_check(t_token *tokens,
 		tmp = tmp->next;
 	}
 	fd_list[i] = -1;
-
-	i = 0;
-	while (fd_list[i])
-	{
-			printf("fd_inout_%d = %d\n", i, fd_list[i]);
-			i++;
-	}
-
 	return (TRUE);
 }
 
@@ -126,10 +66,8 @@ int	**ft_redirect_init(t_token **token_list)
 	if (fd_list == NULL)
 		return (NULL);
 	i = ft_redirections_count(tokens, INPUT, HEREDOC);
-	printf("i = %d\n", i);
 	fd_list[0] = (int *)malloc((i + 1) * sizeof(int));
 	i = ft_redirections_count(tokens, TRUNC, APPEND);
-	printf("i = %d\n", i);
 	fd_list[1] = (int *)malloc((i + 1) * sizeof(int));
 	if (fd_list[0] == NULL || fd_list[1] == NULL)
 		return (NULL);

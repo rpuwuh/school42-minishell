@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/10 23:17:15 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/16 20:07:22 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 {
 	char	*path;
 
-	printf("cmd = %s\n", *cmd->cmd);
+	printf("cmd = %s\n", *cmd->cmd); // delete this line before release
 	if (cmd->fd_in > 0)
 	{
 		dup2(cmd->fd_in, 0);
@@ -33,9 +33,28 @@ static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 		path = searchbinarypath(*cmd->cmd, cmd_list->env_list);
 	else
 		path = ft_strdup(*cmd->cmd);
+	ft_signals_run(4);
 	if (path && access(path, X_OK) != -1)
 		execve(path, cmd->cmd, reassemble_env(cmd_list));
 	exit (255);
+}
+
+static int	show_stoping_message(int exitcode)
+{
+	if (WIFSIGNALED(exitcode))
+	{
+		if (WTERMSIG(exitcode) == SIGQUIT)
+		{
+			ft_putstr_fd("Quit: 3\n", 1);
+			return (131);
+		}
+		else if (WTERMSIG(exitcode) == SIGINT)
+		{
+			ft_putstr_fd("\n", 1);
+			return (132);
+		}
+	}
+	return (exitcode);
 }
 
 static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
@@ -46,11 +65,12 @@ static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
 	cmd = cmd_list->cmds;
 	while (cmd && cmd->next)
 		cmd = cmd->next;
-	printf ("waited cmd is %s, pid is %d\n", *cmd->cmd, cmd->pid);
+	printf ("waited cmd is %s, pid is %d\n", *cmd->cmd, cmd->pid); // delete this line before release
 	if (cmd->pid)
 		waitpid(cmd->pid, &res, WUNTRACED);
 	else
 		res = lastcode;
+	ft_signals_run(1);
 	cmd = cmd_list->cmds;
 	while (cmd)
 	{
@@ -62,6 +82,7 @@ static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
 			close(cmd->fd_out);
 		cmd = cmd->next;
 	}
+	res = show_stoping_message(res);
 	return (res);
 }
 
@@ -74,6 +95,7 @@ int	executecmds(t_cmd_list *cmd_list)
 	if (checkexecutabless(cmd_list))
 		return (127);
 	cmd = cmd_list->cmds;
+	ft_signals_run(3);
 	while (cmd)
 	{
 		if (builtin_check(*cmd->cmd) == 1)
@@ -98,17 +120,31 @@ void	ft_executer(t_cmd_list *cmd_list, t_env_v *env)
 
 	cmd_list->env_list = env;
 	cmds = cmd_list->cmds;
+	if (!cmd_list || !cmds)
+	{
+		ft_env_replace(&env, "?", ft_strdup("1"), 0);
+		return ;
+	}
 	while (cmds)
 	{
-		i = 0;
-		while (cmds->cmd[i])
+		if (cmds->fd_in == -1 || cmds->fd_out == -1)
 		{
-			printf("command_%d = %s\n", i, cmds->cmd[i]);
-			i++;
+			ft_env_replace(&env, "?", ft_strdup("1"), 0);
+			return ;
 		}
-		printf("fd_in = %d\n", cmds->fd_in);
-		printf("fd_out = %d\n", cmds->fd_out);
 		cmds = cmds->next;
 	}
+	while (cmds) // delete this line before release
+	{ // delete this line before release
+		i = 0; // delete this line before release
+		while (cmds->cmd[i]) // delete this line before release
+		{ // delete this line before release
+			printf("command_%d = %s\n", i, cmds->cmd[i]); // delete this line before release
+			i++; // delete this line before release
+		} // delete this line before release
+		printf("fd_in = %d\n", cmds->fd_in); // delete this line before release
+		printf("fd_out = %d\n", cmds->fd_out); // delete this line before release
+		cmds = cmds->next;  // delete this line before release
+	} // delete this line before release
 	ft_env_replace(&env, "?", ft_itoa(executecmds(cmd_list)), 0);
 }
