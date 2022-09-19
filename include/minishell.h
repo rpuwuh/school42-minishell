@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/09/12 01:23:47 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/14 23:48:16 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,5 +162,8 @@ char			*readline_minishell(char *prompt, t_env_v **env);
 int				ft_isspace(int c);
 char			*readline_withoutspaces(char *prompt);
 char			*stringnormalizespaces(char *line);
+void			ft_create_heredoc(t_token *tmp, int *fd_list, int i);
+int				ft_redirections_count(t_token *tokens, int type_a, int type_b);
+int				here_doc_fd(char *stop_word);
 
 #endif
