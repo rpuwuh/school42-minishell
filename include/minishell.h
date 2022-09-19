@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/09/14 23:48:16 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/09/19 20:02:15 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,5 +165,6 @@ char			*stringnormalizespaces(char *line);
 void			ft_create_heredoc(t_token *tmp, int *fd_list, int i);
 int				ft_redirections_count(t_token *tokens, int type_a, int type_b);
 int				here_doc_fd(char *stop_word);
+void			create_pipes(t_cmd_list *cmd_list);
 
 #endif

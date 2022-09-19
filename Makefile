@@ -9,7 +9,7 @@ MINISHELL_PRE_SRCS = 	main cmd_utils env_init env_utils here_doc exit \
 						redirect_init redirect_parse sp_split signals tokens tokens_convert utils \
 						executer builtins builtin_choose searchbinarypath checkexecutables \
 						builtin_unset builtin_export assembleenv readline_minishell \
-						readline_withoutspaces stringnormalizespaces
+						readline_withoutspaces stringnormalizespaces create_pipes
 
 MINISHELL_SRCS = $(addsuffix .c, $(addprefix $(SRC_DIR), $(MINISHELL_PRE_SRCS)))
 MINISHELL_OBJS = $(addsuffix .o, $(addprefix $(OBJ_DIR), $(MINISHELL_PRE_SRCS)))
