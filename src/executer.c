@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/19 22:00:23 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/20 21:40:36 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,15 @@ static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
 	while (cmd && cmd->next)
 		cmd = cmd->next;
 	printf ("waited cmd is %s, pid is %d\n", *cmd->cmd, cmd->pid); // delete this line before release
-	if (cmd->pid && waitpid(-1, &res, 0) == -1)
-		exit(ESRCH);
-	else
+	if (cmd->pid)
+		waitpid(cmd->pid, &res, 0);
+	else if (!cmd->pid)
 		res = lastcode;
 	ft_signals_run(1);
 	cmd = cmd_list->cmds;
 	while (cmd)
 	{
-		if (cmd->pid)
+		if (cmd && !cmd->next && cmd->pid)
 			kill(cmd->pid, SIGTERM);
 		if (cmd->fd_in)
 			close(cmd->fd_in);
@@ -87,7 +87,7 @@ static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
 		cmd = cmd->next;
 	}
 	res = show_stoping_message(res);
-	return (res);
+	return (res % 255);
 }
 
 int	executecmds(t_cmd_list *cmd_list)
