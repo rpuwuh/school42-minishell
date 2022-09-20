@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/19 20:03:05 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/21 00:06:58 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,12 @@ t_token	*ft_lexer(char *line)
 		return (NULL);
 	tokens = ft_tokens_init();
 	ft_tokens_get(tokens, line_split);
+	printf ("check1\n");
+	int i = 0;
+	while (line_split[i] != NULL)
+		printf ("the line = %s\n", line_split[i++]);
 	ft_free_line(line_split);
+	printf ("check1\n");
 	return (tokens);
 }
 
@@ -89,6 +94,7 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 	if (line[0] != '\0' && ft_redirect_check(line) && ft_quotes_check(line))
 	{
 		tokens = ft_lexer(line);
+		printf ("check2\n");
 		ft_quotes_remove(&tokens, env);
 		if (ft_pipes_exist(&tokens) == TRUE)
 			ft_pipe_parse(&tokens, cmd_list);
@@ -103,6 +109,6 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 		create_pipes(cmd_list);
 		ft_executer(cmd_list, *env);
 		ft_cmd_free(cmd_list);
-		//ft_tokens_free(tokens);
+		ft_tokens_free(tokens);
 	}
 }
