@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/09/19 20:02:15 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/22 18:18:51 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,5 +166,6 @@ void			ft_create_heredoc(t_token *tmp, int *fd_list, int i);
 int				ft_redirections_count(t_token *tokens, int type_a, int type_b);
 int				here_doc_fd(char *stop_word);
 void			create_pipes(t_cmd_list *cmd_list);
+int				clearexecuter(t_cmd_list *cmd_list, int lastcode);
 
 #endif

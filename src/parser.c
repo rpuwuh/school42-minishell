@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/21 00:06:58 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/09/22 18:32:33 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 			if (input != NULL && input[0] != NULL)
 				ft_add_cmd(cmd_list, input, 0, 1);
 		}
-		create_pipes(cmd_list);
 		ft_executer(cmd_list, *env);
 		ft_cmd_free(cmd_list);
 		ft_tokens_free(tokens);
