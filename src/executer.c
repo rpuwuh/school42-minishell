@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/23 21:03:49 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:28:53 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,10 @@ static void	close_extrafds(t_cmd *cmd, t_cmd_list *cmd_list)
 	}
 }
 
-static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
+static void	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 {
 	char	*path;
 
-	printf("cmd = %s\n", *cmd->cmd); // delete this line before release
 	close_extrafds(cmd, cmd_list);
 	if (cmd->fd_in > 0)
 	{
@@ -66,9 +65,7 @@ static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 int	executecmds(t_cmd_list *cmd_list)
 {
 	t_cmd	*cmd;
-	int		i;
 
-	i = 0;
 	if (checkexecutabless(cmd_list))
 		return (127);
 	cmd = cmd_list->cmds;
@@ -76,18 +73,18 @@ int	executecmds(t_cmd_list *cmd_list)
 	while (cmd)
 	{
 		if (builtin_check(*cmd->cmd) == 1)
-			i = choosefunc(cmd, cmd_list);
+			cmd->exitcode = choosefunc(cmd, cmd_list);
 		else
 		{
 			cmd->pid = fork();
 			if (cmd->pid < 0)
 				exit (10);
 			if (!cmd->pid)
-				i = executecmd(cmd, cmd_list);
+				executecmd(cmd, cmd_list);
 		}
 		cmd = cmd->next;
 	}
-	return (clearexecuter(cmd_list, i));
+	return (clearexecuter(cmd_list));
 }
 
 void	ft_executer(t_cmd_list *cmd_list, t_env_v *env)

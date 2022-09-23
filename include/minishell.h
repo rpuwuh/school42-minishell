@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/09/23 20:55:57 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:28:39 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_cmd
 	int					fd_in;
 	int					fd_out;
 	pid_t				pid;
+	int					exitcode;
 	struct s_cmd		*next;
 }						t_cmd;
 
@@ -166,7 +167,7 @@ void			ft_create_heredoc(t_token *tmp, int *fd_list, int i);
 int				ft_redirections_count(t_token *tokens, int type_a, int type_b);
 int				here_doc_fd(char *stop_word);
 void			create_pipes(t_cmd_list *cmd_list);
-int				clearexecuter(t_cmd_list *cmd_list, int lastcode);
+int				clearexecuter(t_cmd_list *cmd_list);
 void			close_fds(t_cmd_list *cmd_list);
 
 #endif

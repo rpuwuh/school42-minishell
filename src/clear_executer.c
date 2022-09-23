@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:02:09 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/23 21:00:17 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:31:46 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,42 @@ static int	show_stoping_message(int exitcode)
 	return (exitcode);
 }
 
-int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
+static void	addexitcode(t_cmd_list *cmd_list, pid_t pid, int exitcode)
+{	
+	t_cmd	*cmd;
+
+	cmd = cmd_list->cmds;
+	while (cmd && cmd->pid != pid)
+		cmd = cmd->next;
+	if (cmd && cmd->pid == pid)
+		cmd->exitcode = exitcode;
+}
+
+static int	waitlistofcmds(t_cmd_list *cmd_list)
+{
+	t_cmd	*cmd;
+	int		exitcode;
+	pid_t	pid;
+
+	if (!cmd_list || !cmd_list->cmds)
+		return (ENOMEM);
+	cmd = cmd_list->cmds;
+	while (cmd)
+	{
+		if (cmd)
+		{
+			pid = waitpid(-1, &exitcode, WUNTRACED);
+			addexitcode(cmd_list, pid, exitcode);
+		}
+		cmd = cmd->next;
+	}
+	cmd = cmd_list->cmds;
+	while (cmd && cmd->next)
+		cmd = cmd->next;
+	return (cmd->exitcode);
+}
+
+int	clearexecuter(t_cmd_list *cmd_list)
 {
 	t_cmd	*cmd;
 	int		res;
@@ -43,10 +78,7 @@ int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
 	while (cmd && cmd->next)
 		cmd = cmd->next;
 	close_fds(cmd_list);
-	if (cmd->pid)
-		waitpid(cmd->pid, &res, WUNTRACED);
-	else if (!cmd->pid)
-		res = lastcode;
+	res = waitlistofcmds(cmd_list);
 	cmd = cmd_list->cmds;
 	while (cmd)
 	{
