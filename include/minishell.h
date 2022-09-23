@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/09/23 21:28:39 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/23 22:37:27 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,5 @@ int				ft_redirections_count(t_token *tokens, int type_a, int type_b);
 int				here_doc_fd(char *stop_word);
 void			create_pipes(t_cmd_list *cmd_list);
 int				clearexecuter(t_cmd_list *cmd_list);
-void			close_fds(t_cmd_list *cmd_list);
 
 #endif

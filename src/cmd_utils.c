@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 00:57:23 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/23 21:20:13 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/23 22:37:15 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,6 @@ void	ft_add_cmd(t_cmd_list *cmd_list,
 	cmd_temp = cmd_list->cmds;
 	cmd_new->next = cmd_temp;
 	cmd_list->cmds = cmd_new;
-}
-
-void	close_fds(t_cmd_list *cmd_list)
-{
-	t_cmd	*cmd;
-
-	if (!cmd_list || !cmd_list->cmds)
-		return ;
-	cmd = cmd_list->cmds;
-	while (cmd)
-	{
-		if (cmd->fd_in && cmd->fd_in != -1)
-			close(cmd->fd_in);
-		if (cmd->fd_out != 1 && cmd->fd_out != -1)
-			close(cmd->fd_out);
-		cmd->fd_in = 0;
-		cmd->fd_out = 1;
-		cmd = cmd->next;
-	}
 }
 
 void	ft_cmd_free(t_cmd_list *cmd_list)
