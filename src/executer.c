@@ -6,17 +6,40 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/22 18:18:59 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:00:11 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+static void	close_extrafds(t_cmd *cmd, t_cmd_list *cmd_list)
+{
+	t_cmd	*cmd_tmp;
+
+	if (!cmd_list || !cmd_list->cmds || !cmd)
+		return ;
+	cmd_tmp = cmd_list->cmds;
+	while (cmd_tmp)
+	{
+		if (cmd_tmp != cmd && cmd_tmp->fd_in != 0)
+		{
+			close (cmd_tmp->fd_in);
+			cmd_tmp->fd_in = 0;
+		}
+		if (cmd_tmp != cmd && cmd_tmp->fd_out != 1)
+		{
+			close (cmd_tmp->fd_out);
+			cmd_tmp->fd_out = 1;
+		}
+		cmd_tmp = cmd_tmp->next;
+	}
+}
+
 static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 {
 	char	*path;
 
-	printf("cmd = %s\n", *cmd->cmd); // delete this line before release
+	close_extrafds(cmd, cmd_list);
 	if (cmd->fd_in > 0)
 	{
 		dup2(cmd->fd_in, 0);
@@ -88,18 +111,5 @@ void	ft_executer(t_cmd_list *cmd_list, t_env_v *env)
 		}
 		cmds = cmds->next;
 	}
-	cmds = cmd_list->cmds;
-	while (cmds) // delete this line before release
-	{ // delete this line before release
-		i = 0; // delete this line before release
-		while (cmds->cmd[i]) // delete this line before release
-		{ // delete this line before release
-			printf("command_%d = %s\n", i, cmds->cmd[i]); // delete this line before release
-			i++; // delete this line before release
-		} // delete this line before release
-		printf("fd_in = %d\n", cmds->fd_in); // delete this line before release
-		printf("fd_out = %d\n", cmds->fd_out); // delete this line before release
-		cmds = cmds->next;  // delete this line before release
-	} // delete this line before release
 	ft_env_replace(&env, "?", ft_itoa(executecmds(cmd_list)), 0);
 }

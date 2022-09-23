@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 00:57:23 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/22 17:44:09 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/23 20:56:09 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_add_cmd(t_cmd_list *cmd_list,
 	cmd_list->cmds = cmd_new;
 }
 
-static void	close_fds(t_cmd_list *cmd_list)
+void	close_fds(t_cmd_list *cmd_list)
 {
 	t_cmd	*cmd;
 
@@ -55,7 +55,6 @@ void	ft_cmd_free(t_cmd_list *cmd_list)
 	t_cmd	*tmp;
 	t_cmd	*tmp_prev;
 
-	close_fds(cmd_list);
 	tmp = cmd_list->cmds;
 	while (tmp != NULL)
 	{
