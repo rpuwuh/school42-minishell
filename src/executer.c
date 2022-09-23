@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/23 21:00:11 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:03:49 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 {
 	char	*path;
 
+	printf("cmd = %s\n", *cmd->cmd); // delete this line before release
 	close_extrafds(cmd, cmd_list);
 	if (cmd->fd_in > 0)
 	{
@@ -91,7 +92,6 @@ int	executecmds(t_cmd_list *cmd_list)
 
 void	ft_executer(t_cmd_list *cmd_list, t_env_v *env)
 {
-	int		i;
 	t_cmd	*cmds;
 
 	create_pipes(cmd_list);
@@ -111,5 +111,6 @@ void	ft_executer(t_cmd_list *cmd_list, t_env_v *env)
 		}
 		cmds = cmds->next;
 	}
+	cmds = cmd_list->cmds;
 	ft_env_replace(&env, "?", ft_itoa(executecmds(cmd_list)), 0);
 }
