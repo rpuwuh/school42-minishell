@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:02:09 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/23 21:31:46 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:36:01 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	waitlistofcmds(t_cmd_list *cmd_list)
 	cmd = cmd_list->cmds;
 	while (cmd)
 	{
-		if (cmd)
+		if (cmd && cmd->pid)
 		{
 			pid = waitpid(-1, &exitcode, WUNTRACED);
 			addexitcode(cmd_list, pid, exitcode);
