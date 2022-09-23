@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:02:09 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/23 21:36:01 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:46:47 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,21 +71,10 @@ static int	waitlistofcmds(t_cmd_list *cmd_list)
 
 int	clearexecuter(t_cmd_list *cmd_list)
 {
-	t_cmd	*cmd;
 	int		res;
 
-	cmd = cmd_list->cmds;
-	while (cmd && cmd->next)
-		cmd = cmd->next;
 	close_fds(cmd_list);
 	res = waitlistofcmds(cmd_list);
-	cmd = cmd_list->cmds;
-	while (cmd)
-	{
-		if (cmd->next && cmd->pid)
-			kill(cmd->pid, SIGTERM);
-		cmd = cmd->next;
-	}
 	ft_signals_run(1);
 	res = show_stoping_message(res);
 	return (res % 255);
