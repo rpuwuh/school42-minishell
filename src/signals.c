@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 23:10:17 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/10 22:56:40 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/16 19:31:48 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,15 @@ void	ft_signals_run(int sig)
 	{
 		signal(SIGINT, ft_ctrl_c);
 		signal(SIGQUIT, ft_backslash);
+	}
+	if (sig == 3)
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	if (sig == 4)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 	}
 }

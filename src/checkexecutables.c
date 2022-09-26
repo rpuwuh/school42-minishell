@@ -6,17 +6,20 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 01:30:38 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/10 19:55:12 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/17 15:46:05 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int	checkcmdshowmessage(char *path, char *cmd)
+static int	checkcmdshowmessage(char *path, char *cmd, char *paths)
 {
 	if (!path || access(path, 0) == -1)
 	{
-		printf("minishell: no such file or directory: %s\n", cmd);
+		if (paths)
+			printf("minishell: %s: command not found\n", cmd);
+		else
+			printf("minishell: no such file or directory: %s\n", cmd);
 		if (path)
 			free(path);
 		return (1);
@@ -47,7 +50,8 @@ int	checkexecutabless(t_cmd_list *cmd_list)
 				path = searchbinarypath(*cmd->cmd, cmd_list->env_list);
 			else
 				path = ft_strdup(*cmd->cmd);
-			if (checkcmdshowmessage(path, *cmd->cmd))
+			if (checkcmdshowmessage(path, *cmd->cmd,
+					ft_env_get_value(cmd_list->env_list, "PATH")))
 				result = 1;
 		}
 		cmd = cmd->next;

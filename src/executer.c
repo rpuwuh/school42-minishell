@@ -6,17 +6,40 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/10 23:17:15 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:28:53 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
+static void	close_extrafds(t_cmd *cmd, t_cmd_list *cmd_list)
+{
+	t_cmd	*cmd_tmp;
+
+	if (!cmd_list || !cmd_list->cmds || !cmd)
+		return ;
+	cmd_tmp = cmd_list->cmds;
+	while (cmd_tmp)
+	{
+		if (cmd_tmp != cmd && cmd_tmp->fd_in != 0)
+		{
+			close (cmd_tmp->fd_in);
+			cmd_tmp->fd_in = 0;
+		}
+		if (cmd_tmp != cmd && cmd_tmp->fd_out != 1)
+		{
+			close (cmd_tmp->fd_out);
+			cmd_tmp->fd_out = 1;
+		}
+		cmd_tmp = cmd_tmp->next;
+	}
+}
+
+static void	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 {
 	char	*path;
 
-	printf("cmd = %s\n", *cmd->cmd);
+	close_extrafds(cmd, cmd_list);
 	if (cmd->fd_in > 0)
 	{
 		dup2(cmd->fd_in, 0);
@@ -33,82 +56,58 @@ static int	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 		path = searchbinarypath(*cmd->cmd, cmd_list->env_list);
 	else
 		path = ft_strdup(*cmd->cmd);
+	ft_signals_run(4);
 	if (path && access(path, X_OK) != -1)
 		execve(path, cmd->cmd, reassemble_env(cmd_list));
 	exit (255);
 }
 
-static int	clearexecuter(t_cmd_list *cmd_list, int lastcode)
-{
-	t_cmd	*cmd;
-	int		res;
-
-	cmd = cmd_list->cmds;
-	while (cmd && cmd->next)
-		cmd = cmd->next;
-	printf ("waited cmd is %s, pid is %d\n", *cmd->cmd, cmd->pid);
-	if (cmd->pid)
-		waitpid(cmd->pid, &res, WUNTRACED);
-	else
-		res = lastcode;
-	cmd = cmd_list->cmds;
-	while (cmd)
-	{
-		if (cmd->pid)
-			kill(cmd->pid, SIGTERM);
-		if (cmd->fd_in)
-			close(cmd->fd_in);
-		if (cmd->fd_out != 1)
-			close(cmd->fd_out);
-		cmd = cmd->next;
-	}
-	return (res);
-}
-
 int	executecmds(t_cmd_list *cmd_list)
 {
 	t_cmd	*cmd;
-	int		i;
 
-	i = 0;
 	if (checkexecutabless(cmd_list))
 		return (127);
 	cmd = cmd_list->cmds;
+	ft_signals_run(3);
 	while (cmd)
 	{
 		if (builtin_check(*cmd->cmd) == 1)
-			i = choosefunc(cmd, cmd_list);
+			cmd->exitcode = choosefunc(cmd, cmd_list);
 		else
 		{
 			cmd->pid = fork();
 			if (cmd->pid < 0)
 				exit (10);
 			if (!cmd->pid)
-				i = executecmd(cmd, cmd_list);
+				executecmd(cmd, cmd_list);
 		}
 		cmd = cmd->next;
 	}
-	return (clearexecuter(cmd_list, i));
+	return (clearexecuter(cmd_list));
 }
 
 void	ft_executer(t_cmd_list *cmd_list, t_env_v *env)
 {
-	int		i;
 	t_cmd	*cmds;
 
+	create_pipes(cmd_list);
 	cmd_list->env_list = env;
 	cmds = cmd_list->cmds;
+	if (!cmd_list || !cmds)
+	{
+		ft_env_replace(&env, "?", ft_strdup("1"), 0);
+		return ;
+	}
 	while (cmds)
 	{
-		i = 0;
-		while (cmds->cmd[i])
+		if (cmds->fd_in == -1 || cmds->fd_out == -1)
 		{
-			printf("command_%d = %s\n", i, cmds->cmd[i]);
-			i++;
+			ft_env_replace(&env, "?", ft_strdup("1"), 0);
+			return ;
 		}
-		printf("fd_in = %d\n", cmds->fd_in);
-		printf("fd_out = %d\n", cmds->fd_out);
 		cmds = cmds->next;
 	}
+	cmds = cmd_list->cmds;
 	ft_env_replace(&env, "?", ft_itoa(executecmds(cmd_list)), 0);
 }

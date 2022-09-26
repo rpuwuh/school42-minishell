@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 00:57:23 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/07 22:24:35 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/23 22:37:15 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_add_cmd(t_cmd_list *cmd_list,
 	cmd_new->fd_in = fd_in;
 	cmd_new->fd_out = fd_out;
 	cmd_new->pid = 0;
+	cmd_new->exitcode = 0;
 	if (!cmd_list->cmds)
 		cmd_list->cmds = NULL;
 	cmd_temp = cmd_list->cmds;
