@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/09/23 22:37:27 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/27 03:07:44 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,5 +168,12 @@ int				ft_redirections_count(t_token *tokens, int type_a, int type_b);
 int				here_doc_fd(char *stop_word);
 void			create_pipes(t_cmd_list *cmd_list);
 int				clearexecuter(t_cmd_list *cmd_list);
+int				ft_sp_wordnum(char *s);
+char			*ft_create_word(char *s, unsigned int i, int len);
+void			ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list);
+int				ft_create_word_sp_symb(char *s, char **words_new,
+					unsigned int i, unsigned int j);
+int				ft_create_pipe_symb(char *s, char **words_new, unsigned int i,
+					unsigned int j, unsigned int count);
 
 #endif

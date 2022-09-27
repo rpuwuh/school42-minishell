@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/22 18:32:33 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/27 03:14:28 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
 	input = ft_tokens_convert_redirect(&tmp);
 	if (input != NULL && input[0] != NULL)
 		ft_add_cmd(cmd_list, input, fd_in, fd_out);
-	//ft_free_line(input);
+	ft_free_line(input);
 	free(fd_list[0]);
 	free(fd_list[1]);
 	free(fd_list);
@@ -107,7 +107,9 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 				ft_add_cmd(cmd_list, input, 0, 1);
 		}
 		ft_executer(cmd_list, *env);
-		ft_cmd_free(cmd_list);
+		printf("check_f\n");
+		//if (input != NULL && input[0] != NULL)
+			//ft_free_line(input);
 		ft_tokens_free(tokens);
 	}
 }

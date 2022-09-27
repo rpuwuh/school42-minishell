@@ -6,7 +6,7 @@ OBJ_DIRS = $(OBJ_DIR)
 
 MINISHELL_PRE_SRCS = 	main cmd_utils env_init env_utils here_doc exit \
 						parser_checks parser_utils parser pipe prompt quotes_remove \
-						redirect_init redirect_parse sp_split signals tokens tokens_convert utils \
+						redirect_init redirect_parse sp_split split_utils signals tokens tokens_convert utils \
 						executer builtins builtin_choose searchbinarypath checkexecutables \
 						builtin_unset builtin_export assembleenv readline_minishell \
 						readline_withoutspaces stringnormalizespaces create_pipes clear_executer
