@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 01:23:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/27 03:05:52 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/09/27 21:26:08 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	executecmd(t_cmd *cmd, t_cmd_list *cmd_list)
 		dup2(cmd->fd_out, 1);
 		close (cmd->fd_out);
 	}
-	if (builtin_check(*cmd->cmd) == 2)
+	if (builtin_check(cmd->cmd) == 2)
 		exit (choosefunc(cmd, cmd_list));
 	if (!ft_strchr(*cmd->cmd, '/'))
 		path = searchbinarypath(*cmd->cmd, cmd_list->env_list);
@@ -72,7 +72,7 @@ int	executecmds(t_cmd_list *cmd_list)
 	ft_signals_run(3);
 	while (cmd)
 	{
-		if (builtin_check(*cmd->cmd) == 1)
+		if (builtin_check(cmd->cmd) == 1)
 			cmd->exitcode = choosefunc(cmd, cmd_list);
 		else
 		{
@@ -108,6 +108,5 @@ void	ft_executer(t_cmd_list *cmd_list, t_env_v *env)
 		}
 		cmds = cmds->next;
 	}
-	cmds = cmd_list->cmds;
 	ft_env_replace(&env, "?", ft_itoa(executecmds(cmd_list)), 0);
 }

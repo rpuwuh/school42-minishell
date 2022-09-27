@@ -6,22 +6,23 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 00:10:38 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/07 19:08:13 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/27 21:25:26 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	builtin_check(char *cmd)
+int	builtin_check(char **cmd)
 {
-	if (!ft_strncmp(cmd, "cd", ft_strlen("cd") + 1)
-		|| !ft_strncmp(cmd, "export", ft_strlen("export") + 1)
-		|| !ft_strncmp(cmd, "unset", ft_strlen("unset") + 1)
-		|| !ft_strncmp(cmd, "exit", ft_strlen("exit") + 1))
+	if (!ft_strncmp(*cmd, "cd", ft_strlen("cd") + 1)
+		|| (!ft_strncmp(*cmd, "export", ft_strlen("export") + 1) && (cmd[1]))
+		|| !ft_strncmp(*cmd, "unset", ft_strlen("unset") + 1)
+		|| !ft_strncmp(*cmd, "exit", ft_strlen("exit") + 1))
 		return (1);
-	if (!ft_strncmp(cmd, "pwd", ft_strlen("pwd") + 1)
-		|| !ft_strncmp(cmd, "env", ft_strlen("env") + 1)
-		|| !ft_strncmp(cmd, "echo", ft_strlen("echo") + 1))
+	if (!ft_strncmp(*cmd, "pwd", ft_strlen("pwd") + 1)
+		|| !ft_strncmp(*cmd, "env", ft_strlen("env") + 1)
+		|| (!ft_strncmp(*cmd, "export", ft_strlen("env") + 1) && (!cmd[1]))
+		|| !ft_strncmp(*cmd, "echo", ft_strlen("echo") + 1))
 		return (2);
 	return (0);
 }
