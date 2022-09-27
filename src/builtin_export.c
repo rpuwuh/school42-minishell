@@ -6,11 +6,23 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 00:25:32 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/19 19:14:54 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/09/27 22:05:30 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	builtin_pwd(void)
+{
+	char	*s;
+
+	s = getcwd(0, 0);
+	if (!s)
+		return (12);
+	printf("%s\n", s);
+	free (s);
+	return (0);
+}
 
 /*	writes env if command was "export"										*/
 
@@ -62,7 +74,9 @@ static int	builtin_exportmainloop(char *cmd, t_cmd_list *cmd_list)
 	name = ft_substr(cmd, 0, ft_strchr(cmd, '=') - cmd);
 	if (name && !envnamechecker(name))
 	{
-		printf("minishell: export: `%s': not a valid identifier\n", name);
+		ft_putstr_fd("minishell: unset: `", STDERR_FILENO);
+		ft_putstr_fd(name, STDERR_FILENO);
+		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 		free (name);
 		return (1);
 	}
