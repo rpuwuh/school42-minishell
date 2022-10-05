@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/27 03:08:03 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/05 07:37:27 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	ft_line_handler(t_env_v **env, char *line, t_cmd_list	*cmd_list)
 	line = stringnormalizespaces(line);
 	printf("\tline = <%s>\n", line); // delete this line before release
 	ft_parser(line, env, ft_cmd_init(cmd_list, env));
+	ft_cmd_free(cmd_list);
 	free(line);
 	line = 0;
 	free(prompt);
@@ -85,6 +86,5 @@ int	main(int argc, char **argv, char **envp)
 		exit(EXIT_FAILURE);
 	while (1)
 		ft_line_handler(env, line, cmd_list);
-	ft_cmd_free(cmd_list);
 	exit(g_status);
 }
