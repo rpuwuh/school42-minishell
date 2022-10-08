@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 23:04:39 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/14 00:11:28 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/09 00:19:47 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,19 @@ void	ft_free_fd(int	**fd_list)
 	free(fd_list[0]);
 	free(fd_list[1]);
 	free(fd_list);
+}
+
+int	ft_token_size(t_token *token)
+{
+	int	size;
+
+	size = 0;
+	while (token)
+	{
+		token = token->next;
+		size++;
+	}
+	return (size);
 }
 
 t_token	**ft_tokens_invert(t_token **tokens)
@@ -46,15 +59,10 @@ char	**ft_tokens_convert(t_token **tokens)
 	i = 0;
 	tmp = *tokens;
 	tmp2 = *tokens;
-	while (tmp2)
-	{
-		tmp2 = tmp2->next;
-		i++;
-	}
+	i = ft_token_size(tmp2);
 	command = (char **)malloc((i + 1) * sizeof(char *));
 	if (command == NULL)
 		return (NULL);
-	tmp = *tokens;
 	i = 0;
 	while (tmp != NULL)
 	{
@@ -76,15 +84,10 @@ char	**ft_tokens_convert_redirect(t_token **tokens)
 	i = 0;
 	tmp = *tokens;
 	tmp2 = *tokens;
-	while (tmp2)
-	{
-		tmp2 = tmp2->next;
-		i++;
-	}
+	i = ft_token_size(tmp2);
 	command = (char **)malloc((i + 1) * sizeof(char *));
 	if (command == NULL)
 		return (NULL);
-	tmp = *tokens;
 	i = 0;
 	while (tmp != NULL)
 	{
@@ -92,9 +95,8 @@ char	**ft_tokens_convert_redirect(t_token **tokens)
 			tmp = tmp->next->next;
 		else
 		{
-			command[i] = ft_strdup(tmp->value);
+			command[i++] = ft_strdup(tmp->value);
 			tmp = tmp->next;
-			i++;
 		}
 	}
 	command[i] = NULL;

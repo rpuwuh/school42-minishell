@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 22:29:41 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/12 01:59:52 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/10/09 00:38:45 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-void	ft_free_line(char **s)
-{
-	int	i;
-
-	if (s == NULL)
-		return ;
-	i = 0;
-	while (s[i] != NULL)
-	{
-		free(s[i]);
-		i++;
-	}
-	free(s);
-}
 
 static int	ft_wordnum(char const *s, char c)
 {

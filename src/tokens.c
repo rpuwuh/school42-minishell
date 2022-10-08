@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 22:36:05 by dmillan           #+#    #+#             */
-/*   Updated: 2022/08/08 23:18:03 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/08 23:35:40 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ void	ft_tokens_free(t_token *tokens)
 	while (tmp != NULL)
 	{
 		tmp = tokens->next;
-		free(tokens->value);
-		free(tokens);
+		if (tokens->value != NULL)
+			free(tokens->value);
+		if (tokens != NULL)
+			free(tokens);
 		tokens = tmp;
 	}
 }
