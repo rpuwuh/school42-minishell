@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/09 01:16:54 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/10 00:31:27 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
 
 	tmp = *tokens;
 	fd_list = ft_redirect_init(&tmp);
+	printf ("check4\n");
 	if (fd_list == NULL)
 		return ;
 	tmp = *tokens;
@@ -61,7 +62,7 @@ void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
 	input = ft_tokens_convert_redirect(&tmp);
 	if (input != NULL && input[0] != NULL)
 		ft_add_cmd(cmd_list, input, fd_in, fd_out);
-	ft_free_line(input);
+	//ft_free_line(input);
 	free(fd_list[0]);
 	free(fd_list[1]);
 	free(fd_list);
@@ -82,6 +83,14 @@ t_token	*ft_lexer(char *line)
 	while (line_split[i] != NULL)
 		printf ("the line = %s\n", line_split[i++]);
 	ft_free_line(line_split);
+	i = 0;
+	t_token *tmp;
+	tmp = tokens;
+	while (tmp != NULL)
+	{
+		printf ("token = %s\n", tmp->value);
+		tmp = tmp->next;
+	}
 	printf ("check1\n");
 	return (tokens);
 }
@@ -94,7 +103,6 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 	if (line[0] != '\0' && ft_redirect_check(line) && ft_quotes_check(line))
 	{
 		tokens = ft_lexer(line);
-		printf ("check2\n");
 		ft_quotes_remove(&tokens, env);
 		if (ft_pipes_exist(&tokens) == TRUE)
 			ft_pipe_parse(&tokens, cmd_list);
@@ -109,8 +117,8 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 		printf("executer started\n");
 		ft_executer(cmd_list, *env);
 		printf("executer ended\n");
-		//if (input != NULL && input[0] != NULL)
-			//ft_free_line(input);
+		if (input != NULL && input[0] != NULL)
+			ft_free_line(input);
 		ft_tokens_free(tokens);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 00:41:41 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/14 23:56:31 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/10 00:22:58 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	ft_fd_list_check(t_token *tokens,
 	i = 0;
 	while (tmp != NULL)
 	{
+		printf ("check4-1: %s\n", tmp->value);
 		if ((int)tmp->type == type_a || (int)tmp->type == type_b)
 		{
 			if (tmp->type == HEREDOC)
