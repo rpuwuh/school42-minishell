@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/10 00:31:27 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/10 00:41:24 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
 	input = ft_tokens_convert_redirect(&tmp);
 	if (input != NULL && input[0] != NULL)
 		ft_add_cmd(cmd_list, input, fd_in, fd_out);
-	//ft_free_line(input);
+	ft_free_line(input);
 	free(fd_list[0]);
 	free(fd_list[1]);
 	free(fd_list);

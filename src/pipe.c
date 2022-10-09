@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 00:19:34 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/10 00:31:20 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/10 00:40:38 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_pipe_process(t_token **tokens_part, t_cmd_list *cmd_list)
 		pipe_part = NULL;
 		pipe_part = ft_tokens_convert(tokens_part);
 		ft_add_cmd(cmd_list, pipe_part, 0, 1);
-		//ft_free_line(pipe_part);
+		ft_free_line(pipe_part);
 	}
 }
 
@@ -51,5 +51,5 @@ void	ft_pipe_parse(t_token **tokens, t_cmd_list *cmd_list)
 		}
 		tmp = tmp->next;
 	}
-	//free(tokens_part);
+	free(tokens_part);
 }
