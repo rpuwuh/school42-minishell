@@ -19,7 +19,7 @@ int	builtin_env(t_env_v *env_list)
 	env_temp = env_list;
 	while (env_temp)
 	{
-		printf("%s=%s\n", env_temp->name, env_temp->value);
+		//printf("%s=%s\n", env_temp->name, env_temp->value);
 		env_temp = env_temp->next;
 	}
 	return (0);
