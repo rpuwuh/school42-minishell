@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/10 00:41:24 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/17 20:37:23 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 	t_token		*tokens;
 	char		**input;
 
+	tokens = NULL;
+	input = NULL;
 	if (line[0] != '\0' && ft_redirect_check(line) && ft_quotes_check(line))
 	{
 		tokens = ft_lexer(line);
