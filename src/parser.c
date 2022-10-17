@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/17 20:37:23 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/17 23:32:44 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	ft_pipes_exist(t_token **tokens)
 	tmp = *tokens;
 	while (tmp != NULL)
 	{
-		printf("type = %d\n", tmp->type); // delete this line before release
 		if (tmp->type == PIPE)
 			return (TRUE);
 		tmp = tmp->next;
@@ -56,9 +55,7 @@ void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
 		return ;
 	tmp = *tokens;
 	fd_in = ft_get_fd_in(fd_list[0]);
-	printf("parser_fd_in = %d\n", fd_in); // delete this line before release
 	fd_out = ft_get_fd_out(fd_list[1]);
-	printf("parser_fd_out = %d\n", fd_out); // delete this line before release
 	input = ft_tokens_convert_redirect(&tmp);
 	if (input != NULL && input[0] != NULL)
 		ft_add_cmd(cmd_list, input, fd_in, fd_out);
@@ -78,20 +75,7 @@ t_token	*ft_lexer(char *line)
 		return (NULL);
 	tokens = ft_tokens_init();
 	ft_tokens_get(tokens, line_split);
-	printf ("check1\n");
-	int i = 0;
-	while (line_split[i] != NULL)
-		printf ("the line = %s\n", line_split[i++]);
 	ft_free_line(line_split);
-	i = 0;
-	t_token *tmp;
-	tmp = tokens;
-	while (tmp != NULL)
-	{
-		printf ("token = %s\n", tmp->value);
-		tmp = tmp->next;
-	}
-	printf ("check1\n");
 	return (tokens);
 }
 

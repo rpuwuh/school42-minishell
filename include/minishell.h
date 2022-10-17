@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/09/27 21:18:48 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/10/17 23:30:55 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,5 @@ char			*ft_create_word(char *s, unsigned int i, int len);
 void			ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list);
 int				ft_create_word_sp_symb(char *s, char **words_new,
 					unsigned int i, unsigned int j);
-int				ft_create_pipe_symb(char *s, char **words_new, unsigned int i,
-					unsigned int j, unsigned int count);
 
 #endif
