@@ -6,11 +6,26 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 00:10:38 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/27 21:25:26 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/10/18 10:29:21 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+static int	count_cmds(t_cmd_list *cmd_list)
+{
+	int		i;
+	t_cmd	*cmd;
+
+	i = 0;
+	cmd = cmd_list->cmds;
+	while (cmd)
+	{
+		i++;
+		cmd = cmd->next;
+	}
+	return (i);
+}
 
 int	builtin_check(char **cmd)
 {
@@ -37,7 +52,8 @@ int	choosefunc(t_cmd *cmd, t_cmd_list *cmd_list)
 		return (builtin_env(cmd_list->env_list));
 	if (!ft_strncmp(cmd->cmd[0], "cd", ft_strlen("cd")))
 		return (builtin_cd(cmd->cmd[1], cmd_list->env_list));
-	if (!ft_strncmp(cmd->cmd[0], "exit", ft_strlen("exit")))
+	if (!ft_strncmp(cmd->cmd[0], "exit", ft_strlen("exit"))
+		&& count_cmds(cmd_list) == 1)
 		return (builtin_exit(cmd->cmd + 1));
 	if (!ft_strncmp(cmd->cmd[0], "unset", ft_strlen("unset")))
 		return (builtin_unset(cmd, cmd_list));
