@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/09 01:16:54 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/17 23:32:44 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	ft_pipes_exist(t_token **tokens)
 	tmp = *tokens;
 	while (tmp != NULL)
 	{
-		printf("type = %d\n", tmp->type); // delete this line before release
 		if (tmp->type == PIPE)
 			return (TRUE);
 		tmp = tmp->next;
@@ -51,13 +50,12 @@ void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
 
 	tmp = *tokens;
 	fd_list = ft_redirect_init(&tmp);
+	printf ("check4\n");
 	if (fd_list == NULL)
 		return ;
 	tmp = *tokens;
 	fd_in = ft_get_fd_in(fd_list[0]);
-	printf("parser_fd_in = %d\n", fd_in); // delete this line before release
 	fd_out = ft_get_fd_out(fd_list[1]);
-	printf("parser_fd_out = %d\n", fd_out); // delete this line before release
 	input = ft_tokens_convert_redirect(&tmp);
 	if (input != NULL && input[0] != NULL)
 		ft_add_cmd(cmd_list, input, fd_in, fd_out);
@@ -77,12 +75,7 @@ t_token	*ft_lexer(char *line)
 		return (NULL);
 	tokens = ft_tokens_init();
 	ft_tokens_get(tokens, line_split);
-	printf ("check1\n");
-	int i = 0;
-	while (line_split[i] != NULL)
-		printf ("the line = %s\n", line_split[i++]);
 	ft_free_line(line_split);
-	printf ("check1\n");
 	return (tokens);
 }
 
@@ -91,10 +84,11 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 	t_token		*tokens;
 	char		**input;
 
+	tokens = NULL;
+	input = NULL;
 	if (line[0] != '\0' && ft_redirect_check(line) && ft_quotes_check(line))
 	{
 		tokens = ft_lexer(line);
-		printf ("check2\n");
 		ft_quotes_remove(&tokens, env);
 		if (ft_pipes_exist(&tokens) == TRUE)
 			ft_pipe_parse(&tokens, cmd_list);
@@ -109,8 +103,8 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 		printf("executer started\n");
 		ft_executer(cmd_list, *env);
 		printf("executer ended\n");
-		//if (input != NULL && input[0] != NULL)
-			//ft_free_line(input);
+		if (input != NULL && input[0] != NULL)
+			ft_free_line(input);
 		ft_tokens_free(tokens);
 	}
 }

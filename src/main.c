@@ -64,6 +64,7 @@ void	ft_line_handler(t_env_v **env, char *line, t_cmd_list	*cmd_list)
 	printf("\tline = <%s>\n", line); // delete this line before release
 	ft_parser(line, env, ft_cmd_init(cmd_list, env));
 	ft_cmd_free(cmd_list);
+	printf("cmd_cleaned\n");
 	free(line);
 	line = 0;
 	free(prompt);

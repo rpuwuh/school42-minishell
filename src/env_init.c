@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 21:56:02 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/09 00:47:01 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/17 20:50:19 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,14 @@ void	ft_env_init(t_env_v **env, char **envp)
 	while (envp[i] != NULL)
 	{
 		split_str = ft_split(envp[i], '=');
-		(*env)->name = ft_strdup(split_str[0]);
-		(*env)->value = ft_strdup(split_str[1]);
+		if (split_str[0])
+			(*env)->name = ft_strdup(split_str[0]);
+		if (split_str[1])
+			(*env)->value = ft_strdup(split_str[1]);
 		(*env)->export = 1;
 		ft_free_line(split_str);
 		if (envp[i + 1] == NULL)
 			break ;
-		printf("%s=%s\n", (*env)->name, (*env)->value);
 		(*env)->next = ft_env_create();
 		(*env) = (*env)->next;
 		i++;

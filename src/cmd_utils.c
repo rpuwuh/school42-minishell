@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 00:57:23 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/27 03:05:44 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/17 20:46:23 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,20 @@ void	ft_add_cmd(t_cmd_list *cmd_list,
 {
 	t_cmd	*cmd_new;
 	t_cmd	*cmd_temp;
+	int		i;
 
 	cmd_new = (t_cmd *)malloc(sizeof(t_cmd));
-	cmd_new->cmd = pipe_part;
+	i = 0;
+	while (pipe_part[i] != NULL)
+		i++;
+	cmd_new->cmd = (char **)malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	while (pipe_part[i] != NULL)
+	{
+		cmd_new->cmd[i] = ft_strdup(pipe_part[i]);
+		i++;
+	}
+	cmd_new->cmd[i] = NULL;
 	cmd_new->fd_in = fd_in;
 	cmd_new->fd_out = fd_out;
 	cmd_new->pid = 0;
@@ -37,16 +48,18 @@ void	ft_cmd_free(t_cmd_list *cmd_list)
 	t_cmd	*tmp;
 	t_cmd	*tmp_prev;
 
+	tmp_prev = NULL;
 	tmp = cmd_list->cmds;
 	while (tmp != NULL)
 	{
 		i = 0;
-		while (tmp->cmd[i] != NULL)
+		while (tmp->cmd && tmp->cmd[i])
 			free(tmp->cmd[i++]);
-		free (tmp->cmd);
+		if (tmp && tmp->cmd)
+			free (tmp->cmd);
 		tmp_prev = tmp;
 		tmp = tmp->next;
-		free (tmp_prev);
+		if (tmp_prev)
+			free (tmp_prev);
 	}
-	cmd_list->cmds = 0;
 }

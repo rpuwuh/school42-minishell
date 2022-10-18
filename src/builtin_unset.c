@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 04:23:48 by bpoetess          #+#    #+#             */
-/*   Updated: 2022/09/27 21:54:12 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/10/17 20:51:29 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ int	builtin_env(t_env_v *env_list)
 
 	env_temp = env_list;
 	while (env_temp)
-	{
-		printf("%s=%s\n", env_temp->name, env_temp->value);
 		env_temp = env_temp->next;
-	}
 	return (0);
 }
 
