@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/05 07:37:27 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/10/09 12:47:06 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	main(int argc, char **argv, char **envp)
 
 	env = (t_env_v **)malloc(sizeof(t_env_v *));
 	cmd_list = (t_cmd_list *)malloc(sizeof(t_cmd_list));
+	cmd_list->cmds = 0;
 	line = (char *)malloc(sizeof(char));
 	if (argc > 1 && argv != NULL)
 		ft_exit_with_error("minishell", INCORRECT_INPUT);
