@@ -6,41 +6,43 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/19 18:03:27 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/10/19 19:48:44 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_redirections_exist(t_token **tokens)
+int	ft_redirections_exist(t_token *tokens)
 {
 	t_token	*tmp;
 
-	tmp = *tokens;
+	tmp = tokens;
 	while (tmp->next != NULL)
 	{
 		if (tmp->type != NONE && tmp->type != PIPE)
 			return (TRUE);
 		tmp = tmp->next;
 	}
+	printf("check_pass_redir\n");
 	return (FALSE);
 }
 
-int	ft_pipes_exist(t_token **tokens)
+int	ft_pipes_exist(t_token *tokens)
 {
 	t_token	*tmp;
 
-	tmp = *tokens;
+	tmp = tokens;
 	while (tmp != NULL)
 	{
 		if (tmp->type == PIPE)
 			return (TRUE);
 		tmp = tmp->next;
 	}
+	printf("check_pass_pipe\n");
 	return (FALSE);
 }
 
-void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
+void	ft_redirections_parse(t_token *tokens, t_cmd_list *cmd_list)
 {
 	int		fd_in;
 	int		fd_out;
@@ -48,12 +50,11 @@ void	ft_redirections_parse(t_token **tokens, t_cmd_list *cmd_list)
 	char	**input;
 	t_token	*tmp;
 
-	tmp = *tokens;
+	tmp = tokens;
 	fd_list = ft_redirect_init(&tmp);
-	printf ("check4\n");
 	if (fd_list == NULL)
 		return ;
-	tmp = *tokens;
+	tmp = tokens;
 	fd_in = ft_get_fd_in(fd_list[0]);
 	fd_out = ft_get_fd_out(fd_list[1]);
 	input = ft_tokens_convert_redirect(&tmp);
@@ -90,13 +91,16 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 	{
 		tokens = ft_lexer(line);
 		ft_quotes_remove(&tokens, env);
-		if (ft_pipes_exist(&tokens) == TRUE)
-			ft_pipe_parse(&tokens, cmd_list);
-		else if (ft_redirections_exist(&tokens) == TRUE)
-			ft_redirections_parse(ft_tokens_invert(&tokens), cmd_list);
+		if (ft_pipes_exist(tokens) == TRUE)
+			ft_pipe_parse(tokens, cmd_list);
+		else if (ft_redirections_exist(tokens) == TRUE)
+			ft_redirections_parse(ft_tokens_invert(tokens), cmd_list);
 		else
 		{
-			input = ft_tokens_convert(ft_tokens_invert(&tokens));
+			input = ft_tokens_convert(ft_tokens_invert(tokens));
+			int i = 0;
+			while (input[i])
+				printf("word_i = %s\n", input[i++]);
 			if (input != NULL && input[0] != NULL)
 				ft_add_cmd(cmd_list, input, 0, 1);
 		}
