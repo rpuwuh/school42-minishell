@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 22:36:05 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/08 23:35:40 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/19 19:37:42 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,14 @@ void	ft_tokens_free(t_token *tokens)
 	while (tmp != NULL)
 	{
 		tmp = tokens->next;
+		printf("token_value = %s\n", tokens->value);
 		if (tokens->value != NULL)
 			free(tokens->value);
 		if (tokens != NULL)
 			free(tokens);
 		tokens = tmp;
 	}
+	free(tmp);
 }
 
 void	ft_token_data_fill(t_token *tokens, char **line, int i)
@@ -84,22 +86,24 @@ void	ft_token_data_fill(t_token *tokens, char **line, int i)
 void	ft_tokens_get(t_token *tokens, char **line)
 {
 	t_token	*token_new;
+	t_token *tmp;
 	int		i;
 
 	i = 0;
+	tmp = tokens;
 	while (line[i + 1] != NULL)
 		i++;
 	while (i >= 0)
 	{
-		tokens->idx = i;
-		ft_token_data_fill(tokens, line, i);
-		if (tokens->type == NONE)
-			tokens->value = ft_strdup(line[i]);
+		tmp->idx = i;
+		ft_token_data_fill(tmp, line, i);
+		if (tmp->type == NONE)
+			tmp->value = ft_strdup(line[i]);
 		if (i > 0)
 		{
 			token_new = ft_tokens_init();
-			tokens->next = token_new;
-			tokens = tokens->next;
+			tmp->next = token_new;
+			tmp = tmp->next;
 		}
 		i--;
 	}
