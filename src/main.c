@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:12 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/19 18:58:12 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/19 22:37:29 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ int	ft_shell_init(t_env_v **env, char **envp)
 	env_value = ft_strjoin(env_value, "/minishell");
 	ft_env_replace(env, "SHELL", env_value, 1);
 	ft_env_add(env, ft_strdup("?"), ft_strdup("0"), FALSE);
-	printf("\nSHLVL_value = %s\n", ft_env_get_value(*env, "SHLVL"));
-	printf("SHELL_value = %s\n", ft_env_get_value(*env, "SHELL"));
 	return (0);
 }
 
@@ -61,10 +59,8 @@ void	ft_line_handler(t_env_v **env, char *line, t_cmd_list	*cmd_list)
 	ft_signals_run(1);
 	line = readline_minishell(prompt, env);
 	line = stringnormalizespaces(line);
-	printf("\tline = <%s>\n", line); // delete this line before release
 	ft_parser(line, env, ft_cmd_init(cmd_list, env));
 	ft_cmd_free(cmd_list);
-	printf("cmd_cleaned\n");
 	free(line);
 	line = 0;
 	free(prompt);

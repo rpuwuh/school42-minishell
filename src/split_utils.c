@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 02:27:54 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/17 23:32:08 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/19 22:40:43 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,9 @@ char	*ft_create_word(char *s, unsigned int i, int len)
 
 	if (s[i + len + 1] == '\0')
 		len++;
-	printf ("i = %u\n", i);
-	printf ("len = %d\n", len);
 	tmp = ft_substr(s, i, len);
 	str = ft_strdup(tmp);
 	free (tmp);
-	printf ("str = %s\n", str);
 	return (str);
 }
 
@@ -82,9 +79,7 @@ int	ft_create_word_sp_symb(char *s, char **words_new,
 	while (s[++i] != sp_c)
 		len++;
 	len++;
-	printf("len = %d\n", len);
 	tmp = ft_substr(s, start, len);
-	printf ("tmp = %s\n", tmp);
 	words_new[j] = ft_strdup(tmp);
 	free (tmp);
 	return (len);

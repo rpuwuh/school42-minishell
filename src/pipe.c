@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 00:19:34 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/19 21:44:39 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/10/19 22:37:35 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	ft_token_clear(t_token **tmp)
+{
+	t_token	*tmp_next;
+
+	tmp_next = *tmp;
+	tmp_next = tmp_next->next;
+	if ((*tmp)->type == PIPE)
+		free((*tmp)->value);
+	free(*tmp);
+	*tmp = tmp_next;
+}
 
 void	ft_pipe_process(t_token *tokens_part, t_cmd_list *cmd_list)
 {
@@ -20,12 +32,8 @@ void	ft_pipe_process(t_token *tokens_part, t_cmd_list *cmd_list)
 		ft_redirections_parse(tokens_part, cmd_list);
 	else
 	{
-		printf("pipe_check_pass\n");
 		pipe_part = NULL;
 		pipe_part = ft_tokens_convert(tokens_part);
-		int i = 0;
-		while (pipe_part[i])
-			printf("pipe_part_i = %s\n", pipe_part[i++]);
 		ft_add_cmd(cmd_list, pipe_part, 0, 1);
 		ft_free_line(pipe_part);
 	}
@@ -35,7 +43,6 @@ void	ft_pipe_parse(t_token *tokens, t_cmd_list *cmd_list)
 {
 	t_token	*tokens_part;
 	t_token	*tmp;
-	t_token	*tmp_prev;
 
 	tmp = tokens;
 	tokens_part = NULL;
@@ -53,11 +60,7 @@ void	ft_pipe_parse(t_token *tokens, t_cmd_list *cmd_list)
 			ft_pipe_process(tokens_part, cmd_list);
 			break ;
 		}
-		tmp_prev = tmp;
-		tmp = tmp->next;
-		printf("tmp_prev_val = %s\n", tmp_prev->value);
-		if (tmp_prev)
-			free(tmp_prev);
+		ft_token_clear(&tmp);
 	}
-	//ft_tokens_free(tmp2);
+	free(tmp);
 }

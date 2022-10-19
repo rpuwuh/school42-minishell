@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 00:57:23 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/19 20:35:38 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/10/19 22:35:13 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,9 @@ void	ft_add_cmd(t_cmd_list *cmd_list,
 	while (pipe_part[i] != NULL)
 		i++;
 	cmd_new->cmd = (char **)malloc(sizeof(char *) * (i + 1));
-	i = 0;
-	while (pipe_part[i] != NULL)
-	{
+	i = -1;
+	while (pipe_part[++i] != NULL)
 		cmd_new->cmd[i] = ft_strdup(pipe_part[i]);
-		printf("cmd_list_cmd_%d = %s\n", i, cmd_new->cmd[i]);
-		i++;
-	}
 	cmd_new->cmd[i] = NULL;
 	cmd_new->fd_in = fd_in;
 	cmd_new->fd_out = fd_out;
@@ -41,17 +37,6 @@ void	ft_add_cmd(t_cmd_list *cmd_list,
 	cmd_temp = cmd_list->cmds;
 	cmd_new->next = cmd_temp;
 	cmd_list->cmds = cmd_new;
-
-	t_cmd	*cmd_temp2 = cmd_list->cmds;
-	i = 0;
-	while (cmd_temp2)
-	{
-		while (cmd_temp2->cmd[i])
-			printf("cmd_list = %s\n", cmd_temp2->cmd[i++]);
-		printf("----\n");
-		cmd_temp2 = cmd_temp2->next;
-		i = 0;
-	}	
 }
 
 void	ft_cmd_free(t_cmd_list *cmd_list)

@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 23:53:24 by dmillan           #+#    #+#             */
-/*   Updated: 2022/09/14 23:40:03 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/19 22:37:39 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ char	*ft_check_for_env(t_token *tmp, t_env_v **env)
 		if (tmp->value[i] == '$')
 		{
 			tmp->value = ft_insert_env(tmp, env, i + 1);
-			printf("check_env = %s\n", tmp->value);
 			break ;
 		}
 		i++;

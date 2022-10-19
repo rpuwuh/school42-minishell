@@ -6,7 +6,7 @@
 /*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 00:59:32 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/17 23:36:09 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/19 22:38:43 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ static void	ft_divide_words(char *s, char **words_new, int count)
 		else if (s[i] != ' ')
 			count++;
 	}
+	words_new[j] = NULL;
 }
 
-char	**sp_split(char *str)
+char	**ft_sp_split(char *str)
 {
 	char	**words;
-	int		i;
 	int		count;
 
 	if (str == NULL)
@@ -68,9 +68,5 @@ char	**sp_split(char *str)
 		return (NULL);
 	count = 0;
 	ft_divide_words(str, words, count);
-	words[ft_sp_wordnum(str) - 1] = NULL;
-	i = -1;
-	while (words[++i])
-		printf ("word_%d = %s\n", i, words[i]);
 	return (words);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/19 21:21:47 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/10/19 22:36:34 by dmillan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	ft_redirections_exist(t_token *tokens)
 			return (TRUE);
 		tmp = tmp->next;
 	}
-	printf("check_pass_redir\n");
 	return (FALSE);
 }
 
@@ -38,7 +37,6 @@ int	ft_pipes_exist(t_token *tokens)
 			return (TRUE);
 		tmp = tmp->next;
 	}
-	printf("check_pass_pipe\n");
 	return (FALSE);
 }
 
@@ -71,7 +69,7 @@ t_token	*ft_lexer(char *line)
 	t_token	*tokens;
 	char	**line_split;
 
-	line_split = sp_split(line);
+	line_split = ft_sp_split(line);
 	if (line_split == NULL)
 		return (NULL);
 	tokens = ft_tokens_init();
@@ -98,9 +96,6 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 		else
 		{
 			input = ft_tokens_convert(ft_tokens_invert(tokens));
-			int i = 0;
-			while (input[i])
-				printf("word_i = %s\n", input[i++]);
 			if (input != NULL && input[0] != NULL)
 				ft_add_cmd(cmd_list, input, 0, 1);
 		}
@@ -109,6 +104,5 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 		printf("executer ended\n");
 		if (input != NULL && input[0] != NULL)
 			ft_free_line(input);
-		// ft_tokens_free(tokens);
 	}
 }
