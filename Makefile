@@ -17,7 +17,7 @@ MINISHELL_OBJS = $(addsuffix .o, $(addprefix $(OBJ_DIR), $(MINISHELL_PRE_SRCS)))
 MINISHELL_NAME := minishell
 
 CC := gcc
-CFLAGS := -Wall -Werror -Wextra
+CFLAGS := -Wall -Werror -Wextra -g3
 INC	:= -I./$(INC_DIR) -I $(HOME)/.brew/opt/readline/include/
 RM = rm -f
 
