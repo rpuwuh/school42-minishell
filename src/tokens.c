@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 22:36:05 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/19 19:37:42 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/19 21:06:34 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,21 @@ void	ft_token_add(t_token **tokens, t_token *token_to_add)
 void	ft_tokens_free(t_token *tokens)
 {
 	t_token	*tmp;
+	t_token	*tmp_next;
 
 	tmp = tokens;
+	if (tmp)
+		tmp_next = tmp->next;
 	while (tmp != NULL)
 	{
-		tmp = tokens->next;
-		printf("token_value = %s\n", tokens->value);
-		if (tokens->value != NULL)
-			free(tokens->value);
-		if (tokens != NULL)
-			free(tokens);
-		tokens = tmp;
+		if (tmp && tmp->value)
+			free(tmp->value);
+		if (tmp)
+			free (tmp);
+		tmp = tmp_next;
+		if (tmp)
+			tmp_next = tmp->next;
 	}
-	free(tmp);
 }
 
 void	ft_token_data_fill(t_token *tokens, char **line, int i)
@@ -86,7 +88,7 @@ void	ft_token_data_fill(t_token *tokens, char **line, int i)
 void	ft_tokens_get(t_token *tokens, char **line)
 {
 	t_token	*token_new;
-	t_token *tmp;
+	t_token	*tmp;
 	int		i;
 
 	i = 0;

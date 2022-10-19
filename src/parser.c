@@ -6,7 +6,7 @@
 /*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/19 19:48:44 by bpoetess         ###   ########.fr       */
+/*   Updated: 2022/10/19 21:21:47 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_redirections_parse(t_token *tokens, t_cmd_list *cmd_list)
 	tmp = tokens;
 	fd_in = ft_get_fd_in(fd_list[0]);
 	fd_out = ft_get_fd_out(fd_list[1]);
-	input = ft_tokens_convert_redirect(&tmp);
+	input = ft_tokens_convert_redirect(tmp);
 	if (input != NULL && input[0] != NULL)
 		ft_add_cmd(cmd_list, input, fd_in, fd_out);
 	ft_free_line(input);
@@ -109,6 +109,6 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 		printf("executer ended\n");
 		if (input != NULL && input[0] != NULL)
 			ft_free_line(input);
-		ft_tokens_free(tokens);
+		// ft_tokens_free(tokens);
 	}
 }

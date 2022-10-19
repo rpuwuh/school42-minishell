@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 00:19:34 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/19 19:20:24 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/19 21:44:39 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,29 @@ void	ft_pipe_parse(t_token *tokens, t_cmd_list *cmd_list)
 {
 	t_token	*tokens_part;
 	t_token	*tmp;
+	t_token	*tmp_prev;
 
 	tmp = tokens;
 	tokens_part = NULL;
 	while (tmp != NULL)
 	{
-		ft_token_add(&tokens_part, tmp);
+		if (tmp->type != PIPE)
+			ft_token_add(&tokens_part, tmp);
 		if (tmp->next && tmp->next->type == PIPE)
 		{
 			ft_pipe_process(tokens_part, cmd_list);
 			tokens_part = NULL;
-			tmp = tmp->next;
 		}
 		else if (!tmp->next)
 		{
 			ft_pipe_process(tokens_part, cmd_list);
 			break ;
 		}
+		tmp_prev = tmp;
 		tmp = tmp->next;
+		printf("tmp_prev_val = %s\n", tmp_prev->value);
+		if (tmp_prev)
+			free(tmp_prev);
 	}
-	ft_tokens_free(tokens);
+	//ft_tokens_free(tmp2);
 }

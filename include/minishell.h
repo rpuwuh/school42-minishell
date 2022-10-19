@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:11:23 by sfournio          #+#    #+#             */
-/*   Updated: 2022/10/19 18:53:28 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/19 21:21:40 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ t_cmd_list		*ft_cmd_init(t_cmd_list	*cmd_list, t_env_v	**env);
 char			**reassemble_env(t_cmd_list *cmd_list);
 void			ft_free_fd(int	**fd_list);
 char			**ft_sp_split(char **s, char c);
-char			**ft_tokens_convert_redirect(t_token **tokens);
+char			**ft_tokens_convert_redirect(t_token *tokens);
 void			ft_signals_run(int sig);
 void			ft_tty_mask(void);
 char			**sp_split(char *str);
