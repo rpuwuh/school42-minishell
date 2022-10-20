@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmillan <dmillan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoetess <bpoetess@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 22:40:13 by dmillan           #+#    #+#             */
-/*   Updated: 2022/10/19 22:36:34 by dmillan          ###   ########.fr       */
+/*   Updated: 2022/10/20 16:52:46 by bpoetess         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,7 @@ void	ft_parser(char *line, t_env_v **env, t_cmd_list *cmd_list)
 			if (input != NULL && input[0] != NULL)
 				ft_add_cmd(cmd_list, input, 0, 1);
 		}
-		printf("executer started\n");
 		ft_executer(cmd_list, *env);
-		printf("executer ended\n");
 		if (input != NULL && input[0] != NULL)
 			ft_free_line(input);
 	}
